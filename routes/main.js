@@ -41,7 +41,7 @@ router.get("/profile", isAuthenticated, async (req, res) => {
 });
 
 // Shop levels
-router.get("/Shop", isAuthenticated, async (req, res) => {
+router.get("/shop", isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
 
   // fetch all payments for history display
@@ -54,7 +54,7 @@ router.get("/Shop", isAuthenticated, async (req, res) => {
     validUntil: { $gt: new Date() }
   });
 
-  res.render("Shop", { 
+  res.render("shop", { 
     user, 
     payments, 
     activePayment // will be null if no active payment
