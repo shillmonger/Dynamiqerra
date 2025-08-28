@@ -1,0 +1,362 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #0d0d0d;
+  --primary-color-light: #111;
+  --primary-color-extra-light: #1b1b1b;
+  --secondary-color: #e5c765;
+  --secondary-color-dark: #c5a057;
+  --text-light: #cecece;
+  --white: #ffffff;
+  --max-width: 1300px;
+}
+
+/* Mobile-only styles */
+@media (max-width: 800px) {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--primary-color);
+    width: 100%;
+    overflow-x: hidden;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
+  .brand-text{
+    display: flex;
+  }
+
+ .brand-text{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .brand-text a{
+      text-decoration: none;
+    }
+
+.back-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(20px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+  box-shadow: 3px 3px var(--primary-color);
+    color: var(--primary-color);
+    font-size: 25px;
+}
+
+
+
+  /* Wallet container */
+  .wallet-container {
+    display: flex;
+    flex-direction: column;
+    /* margin: 1rem auto; */
+    gap: 20px;
+    padding: 10px 10px;
+    color: var(--text-light);
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  .wallet-funding,
+  .payment-history {
+    width: 100%;
+    height: auto;
+  }
+
+  .wallet {
+    color: var(--white);
+    margin-top: 1.5rem;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+
+  .wallet-text {
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+
+  /* Bank details */
+  .bank-detils {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style-type: none;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background: transparent;
+  }
+
+  ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/opay.jpeg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    z-index: -1;
+    opacity: 0.6;
+  }
+
+  ul li {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  ul li strong {
+    color: var(--primary-color);
+    font-size: 15px;
+  }
+
+  .copy-btn {
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.6rem;
+    background: #25d366;
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bolder;
+    transition: background 0.3s;
+  }
+
+
+  /* Forms */
+  form {
+    background: #1f1f1f;
+    padding: 0.8rem 0.8rem;
+    border-radius: 10px;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  form input[type="number"],
+  form input[type="text"],
+  form input[type="file"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 15px;
+    border: 1px solid var(--secondary-color-dark);
+    border-radius: 7px;
+    background: var(--primary-color);
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  form button {
+    background: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background 0.3s ease;
+    width: 100%;
+  }
+
+  form button:hover {
+    background: var(--secondary-color);
+  }
+
+  .chain {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .chain button {
+    background: var(--secondary-color-dark);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  /* Image overlay */
+  .image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .image-popup {
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: popupFadeIn 0.3s ease-in-out;
+  }
+
+  .image-popup img {
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  }
+
+  @keyframes popupFadeIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Payment history */
+  .history-btn {
+    margin-bottom: 1rem;
+  }
+
+  #filter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .history-btn button {
+    border: none;
+    padding: 9px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--white);
+    background: var(--primary-color-extra-light);
+    transition: all 0.3s;
+    width: 100%;
+  }
+
+  /* Filter button states */
+  .history-btn .all {
+    background: var(--secondary-color-dark);
+  }
+
+  .history-btn .pending {
+    background: rgb(39, 39, 243);
+  }
+
+  .history-btn .approved {
+    background: #25d366;
+  }
+
+  .history-btn .rejected {
+    background: rgb(247, 31, 74);
+  }
+
+  /* Payment entry borders based on status */
+  body.all .payment-entry {
+    border: 1px solid var(--secondary-color-dark);
+  }
+
+  body.pending .payment-entry {
+    border-right: 5px solid rgb(39, 39, 243);
+  }
+
+  body.approved .payment-entry {
+    border-right: 5px solid #25d366;
+  }
+
+  body.rejected .payment-entry {
+    border-right: 5px solid rgb(247, 31, 74);
+  }
+
+  /* Payment container */
+  .payment-contain {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .payment-entry {
+    cursor: pointer;
+    background: var(--primary-color-extra-light);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--secondary-color-dark);
+    color: var(--text-light);
+  }
+
+  .payment-entry p {
+    margin-bottom: 0.3rem;
+    font-size: 14px;
+  }
+
+  .payment-entry a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+  }
+
+  /* Custom scrollbar */
+  .payment-contain::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .payment-contain::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 10px;
+  }
+
+  /* Hide elements not needed for mobile */
+  .contain-hamburger {
+    display: none;
+  }
+}

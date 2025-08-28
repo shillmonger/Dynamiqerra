@@ -1,0 +1,80 @@
+<!-- NAV FOR SMALL SCREEN  -->
+<div class="small-screen-nav">
+    <div class="link-container">
+        <a href="/dashboard" class="nav-link">
+            <i class="ri-dashboard-line"></i>
+            <p>DASHBOARD</p>
+        </a>
+
+        <a href="/team" class="nav-link">
+            <i class="ri-team-line"></i>
+            <p>MY TEAM</p>
+        </a>
+        
+        <a href="/Shop" class="nav-link">
+            <i class="ri-shopping-cart-line"></i>
+            <p>STORE LEVELS</p>
+        </a>
+
+        <a href="/profile" class="nav-link">
+            <i class="ri-user-line"></i>
+            <p>MY PROFILE</p>
+        </a>
+
+        <!-- <a href="/dashboardD" class="nav-link">
+            <i class="ri-group-line"></i>
+            <p>MY TEAM</p>
+        </a> -->
+
+
+    </div>
+</div>
+
+
+
+<!-- Floating Telegram Button -->
+<a href="#" target="_blank" class="telegram-float">
+    <img src="https://storage.perfectcdn.com/98b10r/h7j64q32oquy7zt9.gif" alt="Telegram" />
+</a>
+
+
+
+
+
+
+
+<!-- // Get all the menu items ADDING ACTIVE FOR SMALL SCREEN  -->
+<script>
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function updateActiveLink() {
+        const currentPath = window.location.pathname;
+
+        navLinks.forEach(link => {
+            const linkURL = new URL(link.href);
+            const linkPath = linkURL.pathname;
+
+            // Only activate internal links (same origin)
+            if (linkURL.origin === window.location.origin && linkPath === currentPath) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    updateActiveLink();
+
+    // Optional: click effect for instant active feedback (before page load)
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const linkURL = new URL(link.href);
+
+            if (linkURL.origin === window.location.origin) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+            // Let normal navigation continue
+        });
+    });
+</script>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard</title>
+  <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/dashbord.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR  -->
+  <%- include ('partials/nav') %>
+
+
+
+
+    <!-- MAIN SECTION  -->
+    <section>
+      <!-- Header -->
+      <div class="header">
+        <div class="logo-container">
+          <!-- <div class="logo">JK</div> -->
+          <div class="brand-text">
+            <h1>Dashboard</h1>
+            <p>Lets make wealth together</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Video -->
+      <div class="video-container">
+        <div class="play-button"></div>
+        <div class="video-time">02:54</div>
+      </div>
+
+      <!-- Promotion Cards -->
+      <div class="promo-section">
+        <div class="promo-grid">
+          <div class="promo-card shop-revenue">
+            <h3>Shop revenue</h3>
+            <p class="subtitle">Upgrade your store to earn more</p>
+            <button class="promo-btn">Go now >></button>
+          </div>
+          <div class="promo-card job-promotion">
+            <h3>Job Promotion</h3>
+            <p class="subtitle">Invite more friends to earn more</p>
+            <button class="promo-btn">Go now >></button>
+          </div>
+          <div class="promo-card job-promotion">
+            <h3>Notification</h3>
+            <p class="subtitle">Receive notifications and stay locked</p>
+            <button class="promo-btn">Go now >></button>
+          </div>
+          <div class="promo-card shop-revenue">
+            <h3>Store Levels</h3>
+            <p class="subtitle">Upgrade your store to earn more</p>
+            <button class="promo-btn">Go now >></button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!-- Video List -->
+      <div class="video-list">
+        <div class="video-item">
+          <div class="play-button"></div>
+          <div class="video-time">00:46</div>
+        </div>
+      </div>
+
+      <!-- Announcements -->
+      <div class="announcements">
+        <div class="announcement-header">Announcement</div>
+
+        <div class="announcement-item">
+          <div class="announcement-text">
+            <h4>Temu shop Company Profile</h4>
+            <p>Temu is an e-commerce shopping platform from China...</p>
+          </div>
+          <div class="announcement-img"></div>
+        </div>
+
+        <div class="announcement-item">
+          <div class="announcement-text">
+            <h4>The value of Temu shop</h4>
+            <p>Empowerment Our company trusts everyone who joins...</p>
+          </div>
+          <div class="announcement-img"></div>
+        </div>
+
+        <div class="announcement-item">
+          <div class="announcement-text">
+            <h4>Advantages of joining Temu</h4>
+            <p>Temu is a shopping platform made up of manufacturer...</p>
+          </div>
+          <div class="announcement-img"></div>
+        </div>
+
+        <div class="announcement-item">
+          <div class="announcement-text">
+            <h4>Legal Notices</h4>
+            <p>Our company has a strict legal system to protect the...</p>
+          </div>
+          <div class="announcement-img"></div>
+        </div>
+      </div>
+
+
+  <!-- Hot Selling Items -->
+<div class="hot-items">
+  <div class="hot-header">
+    <h3>Hot Selling Items</h3>
+    <p>More item</p>
+  </div>
+  <div class="hot-content">
+    <div class="slider">
+      <div class="slides">
+        <!-- 9 Images -->
+        <img src="/images/ads1.jpeg" alt="Item 1">
+        <img src="/images/ads2.jpeg" alt="Item 2">
+        <img src="/images/ads3.jpeg" alt="Item 3">
+        <img src="/images/ads4.jpeg" alt="Item 4">
+        <img src="/images/ads5.jpeg" alt="Item 5">
+        <img src="/images/ads6.jpeg" alt="Item 6">
+        <img src="/images/ads7.jpeg" alt="Item 7">
+        <img src="/images/ads8.jpeg" alt="Item 8">
+        <img src="/images/ads9.jpeg" alt="Item 9">
+      </div>
+    </div>
+  </div>
+</div>
+
+    </section>
+
+
+
+
+    <script>
+// JavaScript slider
+let currentIndex = 0;
+const slides = document.querySelector(".slides");
+const images = document.querySelectorAll(".slides img");
+const totalImages = images.length;
+
+function showNextSlide() {
+  currentIndex++;
+  if (currentIndex >= totalImages) {
+    currentIndex = 0; // loop back to first
+  }
+  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+// Auto slide every 3 seconds
+setInterval(showNextSlide, 3000);
+</script>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

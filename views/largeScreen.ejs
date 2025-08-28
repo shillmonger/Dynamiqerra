@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Device Not Supported</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0d0d0d;
+            --primary-color-light: #111;
+            --primary-color-extra-light: #1a1a1a;
+            --secondary-color: #e5c765;
+            --secondary-color-dark: #c5a057;
+            --text-light: #cecece;
+            --white: #ffffff;
+            --max-width: 1300px;
+        }
+
+
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 10px;
+            background: var(--primary-color);
+            color: #eee;
+            font-family: system-ui, sans-serif;
+            text-align: center;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: var(--primary-color-extra-light);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #222;
+            max-width: 500px;
+        }
+
+        h2 {
+            font-size: 25px;
+            color: #c5a057;
+        }
+
+        p{
+            font-size: 18px
+        }
+
+
+        .row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px
+        }
+
+        a.btn {
+            width: 100%;
+            font-size: large;
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #c5a057;
+            color: #111;
+            text-decoration: none;
+            font-weight: 600
+        }
+
+        /* BLUR EFFECT */
+        .bg__blur {
+            position: absolute;
+            box-shadow: 0 0 1000px 50px var(--secondary-color);
+            z-index: -1;
+            top: 0;
+            left: 0;
+            position: fixed;
+        }
+
+        .footer__blur {
+            position: fixed;
+            position: absolute;
+            z-index: -1;
+            box-shadow: 0 0 1000px 50px var(--secondary-color);
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Unsupported Device</h2>
+        <p>
+            <%= message %>
+        </p>
+        <p>Please use a mobile phone or tablet.</p>
+
+        <div class="row">
+            <a class="btn" href="/logout">Logout</a>
+        </div>
+    </div>
+
+
+    <!-- BACKGROUND BLUR -->
+    <span class="bg__blur"></span>
+    <span class="footer__blur"></span>
+
+</body>
+
+</html>

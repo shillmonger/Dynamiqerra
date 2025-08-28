@@ -1,0 +1,280 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+    --primary-color: #0d0d0d;
+    --primary-color-light: #111;
+    --primary-color-extra-light: #1a1a1a;
+    --secondary-color: #e5c765;
+    --secondary-color-dark: #c5a057;
+    --text-light: #cecece;
+    --white: #ffffff;
+    --max-width: 1300px;
+}
+
+
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    background-image: none;
+    overflow-y: auto;
+    width: 100%;
+}
+
+
+.container {
+    background: var(--primary-color-light);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 450px;
+    animation: fadeIn 0.8s ease-in-out;
+    color: var(--white);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.container img {
+    width: 50%;
+    margin-bottom: 1rem;
+}
+
+p {
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-light);
+    /* margin-bottom: 15px; */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 16px;
+    font-weight: 500;
+    color: var(--white);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    padding: 13px 12px;
+    margin-top: 7px;
+    background-color: var(--primary-color-extra-light);
+    color: var(--white);
+    border: 1px solid var(--text-light);
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border 0.3s ease;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+input:focus {
+    border-color: var(--secondary-color-dark);
+    outline: none;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+.input-container input {
+    padding-right: 40px;
+    width: 100%;
+}
+
+input[type="password"] {
+    transition: border 0.2s ease;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--secondary-color-dark);
+}
+
+
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-container input {
+    margin-right: 10px;
+}
+
+.checkbox-container label {
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.checkbox-container a {
+    text-decoration: underline;
+    color: var(--secondary-color-dark);
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 13px;
+    background: var(--secondary-color-dark);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background: var(--secondary-color);
+    opacity: 0.9;
+    transform: scale(1.01);
+}
+
+a {
+    color: var(--secondary-color-dark);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--secondary-color-dark);
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 15px;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--secondary-color);
+}
+
+
+
+/* BLUR EFFECT */
+.bg__blur {
+    position: absolute;
+    box-shadow: 0 0 1000px 50px var(--secondary-color);
+    z-index: -1;
+    top: 0;
+    left: 0;
+    position: fixed;
+  }
+  
+  .footer__blur {
+    position: fixed;
+    position: absolute;
+    z-index: -1;
+    box-shadow: 0 0 1000px 50px var(--secondary-color);
+    bottom: 0;
+    right: 0;
+  }
+
+
+/* floating Telegram Button */
+.telegram-float {
+    position: fixed;
+    bottom: 20px;   /* distance from bottom */
+    left: 20px;     /* distance from left */
+    z-index: 9999;  /* always on top */
+    display: inline-block;
+}
+
+.telegram-float img {
+    width: 50px;       /* adjust size */
+    height: 50px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.telegram-float img:hover {
+    transform: scale(1.1);
+}
+
+
+
+
+
+@media (max-width: 800px) {
+    body {
+        padding: 30px 10px;
+    }
+
+    .container {
+        padding: 20px 15px;
+    }
+
+    .container img {
+        width: 60%;
+    }
+
+    .btn {
+        font-size: 15px;
+    }
+
+    .back-link {
+        font-size: 15px;
+    }
+
+      /* floating Telegram Button */
+.telegram-float {
+    bottom: 20px;   /* distance from bottom */
+    left: 10px;     /* distance from left */
+}
+
+.telegram-float img {
+    width: 45px;       
+    height: 45px;
+}
+}

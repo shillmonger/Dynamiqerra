@@ -1,0 +1,377 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+    --primary-color: #0d0d0d;
+    --primary-color-light: #111;
+    --primary-color-extra-light: #1b1b1b;
+    --secondary-color: #e5c765;
+    --secondary-color-dark: #c5a057;
+    --text-light: #cecece;
+    --white: #ffffff;
+    --max-width: 1300px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--primary-color-extra-light);
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 8rem;
+    overflow-x: hidden;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 768px) {
+
+    .container {
+        width: 100%;
+        margin: 0 auto;
+        z-index: 1;
+    }
+
+     .header::before {
+        height: 150%;
+    }
+
+    .brand-text{
+        display: flex;
+        justify-content: space-between;
+    }
+
+.settings-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(20px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 3px 3px var(--primary-color);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 25px;
+}
+
+.settings-icon:hover {
+    transform: rotate(90deg) scale(1.1);
+    background: rgba(255,255,255,0.3);
+}
+
+
+    /* Account Card */
+    .account-card {
+        background: var(--primary-color-light);
+        margin: 0px 10px;
+        padding: 15px;
+        border-radius: 15px;
+        color: var(--white);
+        overflow: hidden;
+        transform: translateY(50px);
+    }
+
+    .account-header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+    }
+
+    .account-num{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .account-number {
+        display: flex;
+        justify-content: end;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .ammount-display{
+        width: 100%;
+    }
+
+    .balance-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .balance-label {
+        font-size: 14px;
+        opacity: 0.9;
+        font-weight: 500;
+    }
+
+    .eye-icon {
+    width: 25px;
+    height: 25px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 7px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--white);
+    font-size: 16px;
+}
+
+.eye-icon:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+}
+
+    .balance-amount {
+        font-size: 36px;
+        font-weight: 800;
+        text-align: center;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        letter-spacing: -1px;
+        width: 100%;
+    }
+
+
+
+    
+    /* Stats Card */
+    .stats-card {
+        background: var(--primary-color-light);
+        backdrop-filter: blur(20px);
+        margin: 20px 10px;
+        padding: 10px;
+        border-radius: 15px;
+        animation: slideUp 0.8s ease-out 0.4s both;
+        transform: translateY(50px);
+    }
+
+    .withdrawal-section {
+        margin-bottom: 20px;
+        text-align: center;
+        padding: 10px;
+        background: var(--primary-color-extra-light);
+        border-radius: 10px;
+    }
+
+    .withdrawal-label {
+        color: var(--text-light);
+        font-size: 15px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .withdrawal-amount {
+        font-size: 25px;
+        font-weight: 800;
+        color: var(--white);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        letter-spacing: -0.5px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 15px;
+        background: var(--primary-color);
+        border-radius: 10px;
+        border: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .stat-label {
+        color: var(--text-light);
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    .stat-value {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--white);
+    }
+
+    .orders-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .order-item {
+        text-align: center;
+        padding: 20px 15px;
+        background: var(--primary-color);
+        border-radius: 10px;
+        border: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .order-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .order-label {
+        color: var(--text-light);
+        font-size: 11px;
+        line-height: 1.3;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    .order-value {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--white);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 0px;
+        margin: 30px 10px;
+        animation: slideUp 0.8s ease-out 0.6s both;
+        transform: translateY(50px);
+    }
+    
+    .action-buttons a{
+        text-decoration: none;
+    }
+
+    .action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .action-btn:hover {
+        transform: translateY(-8px);
+    }
+
+    .action-btn:active {
+        transform: translateY(-4px) scale(0.95);
+    }
+
+    .action-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-color-dark) 100%);
+        border-radius: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-size: 25px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .action-label {
+        font-size: 12px;
+        color: var(--text-light);
+        text-align: center;
+        line-height: 1.3;
+        max-width: 80px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .action-btn:hover .action-label {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+    /* Menu Section */
+    .menu-section {
+        background: var(--primary-color-light);
+        backdrop-filter: blur(20px);
+        margin: 30px 10px;
+        border-radius: 15px;
+        overflow: hidden;
+        border: none;
+        animation: slideUp 0.8s ease-out 0.8s both;
+        transform: translateY(50px);
+    }
+
+    .menu-section a{
+        text-decoration: none;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 20px 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        color: var(--white);
+    }
+
+    .menu-item:hover{
+        color: var(--secondary-color);
+    }
+
+    /* .menu-item:last-child {
+        border-bottom: none;
+    } */
+
+    .menu-icon {
+        width: 35px;
+        height: 25px;
+        margin-right: 5px;
+        font-size: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .menu-label {
+        flex: 1;
+        font-size: 16px;
+        font-weight: 400;
+        transition: all 0.3s ease;
+    }
+
+    .menu-arrow {
+        font-size: 20px;
+        transition: all 0.3s ease;
+    }
+
+}

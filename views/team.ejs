@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>team</title>
+  <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/dashbord.css">
+  <link rel="stylesheet" href="/css/shop.css">
+  <link rel="stylesheet" href="/css/team.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR  -->
+  <%- include ('partials/nav') %>
+
+
+
+    <!-- Header -->
+    <div class="header">
+      <div class="brand-text">
+        <h1>Team Report</h1>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <!-- FERERAL SECTION  -->
+      <div class="invitation-section">
+        <div class="invitation-header">Invitation Code</div>
+
+        <div class="invitation-code">
+          <% if (!activePayment) { %>
+            <span class="invitation-url">*****************************</span>
+            <span class="invitation-number">*****</span>
+            <% } else { %>
+              <span class="invitation-url">http://localhost:3000/</span>
+              <span class="invitation-number">
+                <%= user.referral %>
+              </span>
+              <% } %>
+        </div>
+
+        <!-- <button class="copy-btn" onclick="copyReferral('<%= user.referral %>', <%= !!activePayment %>)">
+  Copy Referral Code
+</button> -->
+        <button class="copy-btn" data-referral="<%= user.referral %>" data-active="<%= !!activePayment %>"
+          onclick="copyReferral(this.dataset.referral, this.dataset.active === 'true')">
+          Copy Referral Code
+        </button>
+
+      </div>
+
+
+   <div class="stats-grid">
+  <!-- Total referrals -->
+  <div class="stat-card">
+    <div class="stat-number"><%= totalReferralsCount %></div>
+    <div class="stat-label">Total Referrals</div>
+  </div>
+
+  <!-- Verified referrals -->
+  <div class="stat-card">
+    <div class="stat-number"><%= verifiedReferralsCount %></div>
+    <div class="stat-label">Verified Referrals</div>
+  </div>
+
+  <!-- Referral amount -->
+  <div class="stat-card">
+    <div class="stat-number">₦<%= referralAmount.toLocaleString() %></div>
+    <div class="stat-label">Referral Amount</div>
+  </div>
+
+  <!-- Weekly bonus -->
+  <div class="stat-card">
+    <div class="stat-number">₦<%= weeklyBonus.toLocaleString() %></div>
+    <div class="stat-label">Weekly Bonus</div>
+  </div>
+</div>
+
+<div class="level-tabs">
+  <button class="level-tab">TM Level 1</button>
+  <button class="level-tab">TM Level 2</button>
+  <button class="level-tab">TM Level 3</button>
+</div>
+
+
+      <div class="summary-section">
+        <div class="summary-text">
+          Team Level 1 Subordinates Total number of people: <br> <br>
+          <span class="summary-number">0</span>
+        </div>
+        <button class="details-btn">Details</button>
+      </div>
+    </div>
+
+
+
+
+    <!-- REFERAL CODE FUNCTION  -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+      function copyReferral(code, isActive) {
+        if (!isActive) {
+          Toastify({
+            text: "Buy a store to unlock ref link",
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#e74c3c",
+          }).showToast();
+          return;
+        }
+
+        const link = `http://localhost:3000/${code}`;
+        navigator.clipboard.writeText(link);
+
+        Toastify({
+          text: "Referral link copied: ",
+          duration: 3000,
+          gravity: "top",
+          position: "center",
+          backgroundColor: "#2ecc71",
+        }).showToast();
+      }
+    </script>
+
+</body>
+
+</html>

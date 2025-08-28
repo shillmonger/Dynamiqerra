@@ -1,0 +1,617 @@
+ @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+ * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+ }
+
+ :root {
+   --primary-color: #0d0d0d;
+   --primary-color-light: #1f2125;
+   --primary-color-extra-light: #35373b;
+   --secondary-color: #696fdd;
+   --secondary-color-dark: #a3a8f0;
+   --text-light: #ccc;
+   --white: #fff;
+   --background-gradient: linear-gradient(135deg, rgb(186, 190, 253) 0%, rgb(66, 71, 158) 100%);
+   --background1: linear-gradient(113.36deg, #000002 -12.22%, #9685de 179.61%);
+   --background2: linear-gradient(180deg, #d6d9fa, rgb(149, 154, 243));
+   --max-width: 1300px;
+ }
+
+
+
+ body {
+   width: 100%;
+   padding: 20px 30px;
+   font-family: 'Segoe UI', sans-serif;
+   background-color: var(--primary-color);
+ }
+
+ .small-screen-nav {
+   display: none;
+ }
+
+ /* ALL ABOUT THE BLUR IN THE BACKGROUND  */
+ .bg__blur {
+   position: absolute;
+   position: fixed;
+   box-shadow: 0 0 1000px 100px var(--secondary-color);
+   z-index: -1;
+   top: 0;
+   left: 0;
+ }
+
+ .footer__blur {
+   position: absolute;
+   position: fixed;
+   z-index: -1;
+   box-shadow: 0 0 1000px 100px var(--secondary-color);
+   bottom: 0;
+   right: 0;
+ }
+
+
+ .payments,
+ .service,
+ .profit {
+   padding: 20px;
+   width: 100%;
+ }
+
+ h1 {
+   font-family: 'Luckiest Guy', cursive;
+   margin-bottom: 10px;
+   color: var(--white);
+ }
+
+ /* Fallback message */
+ .fallback-message {
+   text-align: center;
+   font-style: italic;
+   color: #666;
+   font-size: 17px;
+ }
+
+
+
+
+ /* ALL ABOUT PAYMENTS */
+ .payment-contain {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   width: 100%;
+ }
+
+ .payment {
+   background: #fff;
+   border-left: 6px solid var(--secondary-color);
+   border-radius: 10px;
+   padding: 20px;
+   margin-bottom: 20px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+   width: 32%;
+ }
+
+ .payment p {
+   margin: 6px 0;
+   font-size: 16px;
+   color: #444;
+ }
+
+ .payment a {
+   color: #007bff;
+   text-decoration: underline;
+   font-weight: 500;
+ }
+
+ .payment a:hover {
+   color: #0056b3;
+ }
+
+ /* Buttons */
+ .payment form {
+   display: flex;
+   gap: 10px;
+ }
+
+ .payment form button {
+   margin-right: 10px;
+   margin-top: 10px;
+   padding: 10px 16px;
+   border: none;
+   font-size: 14px;
+   font-weight: 500;
+   border-radius: 6px;
+   width: 50%;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+ }
+
+ /* Approve */
+ .payment form button[name="action"][value="approve"] {
+   background-color: #28a745;
+   font-weight: 600;
+   font-size: 14px;
+   color: #fff;
+ }
+
+ .payment form button[name="action"][value="approve"]:hover {
+   background-color: #218838;
+ }
+
+ /* Reject */
+ .payment form button[name="action"][value="reject"] {
+   background-color: #dc3545;
+   font-weight: 600;
+   font-size: 14px;
+   color: #fff;
+ }
+
+ .payment form button[name="action"][value="reject"]:hover {
+   background-color: #c82333;
+ }
+
+
+
+
+
+ /* <!-- ALL ABOUT Manage Service Prices --> */
+ /* ALL ABOU Platform Buttons */
+ .platform-buttons {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+   gap: 10px;
+   margin-bottom: 1rem;
+ }
+
+ .platform-buttons button {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   width: 24.20%;
+   /* width: 15.50%; */
+   padding: 5px 12px;
+   background: #2c2c2c;
+   border: none;
+   color: #fff;
+   border: none;
+   font-size: 16px;
+   cursor: pointer;
+   border-radius: 10px;
+   background: #292938;
+   padding: 10px;
+   /* margin: 3px; */
+   transition: background 0.3s ease, color 0.3s ease;
+ }
+
+ button .btn-icon {
+   width: 30px;
+   height: 30px;
+   object-fit: contain;
+ }
+
+ .platform-buttons button:hover {
+   background: var(--background2);
+   color: #000;
+ }
+
+ .platform-buttons button.active {
+   background: var(--background-gradient);
+   color: white;
+ }
+
+ /* search  */
+ .form-group {
+   margin-bottom: 1rem;
+   width: 100%;
+ }
+
+ .form-group input {
+   font-size: 15px;
+   color: var(--white);
+   background: transparent;
+   border: 1px solid var(--secondary-color-dark);
+   margin: 1rem 0;
+   border-radius: 10px;
+   padding: 12px;
+   width: 100%;
+ }
+
+ #serviceSearch:focus {
+   border: 1px solid var(--secondary-color);
+   outline: none;
+ }
+
+ /* <!-- ALL ABOUT THE ENAGEMENTS  --> */
+ /* Table container */
+ table.order-card {
+   width: 100%;
+   border-collapse: collapse;
+   background-color: transparent;
+   border-radius: 30px;
+   overflow: hidden;
+   color: #fff;
+   font-weight: bold;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+ }
+
+ /* Table header */
+ table.order-card thead {
+   background: var(--secondary-color);
+ }
+
+ table.order-card th {
+   padding: 12px 10px;
+   text-align: left;
+   font-weight: 600;
+   font-size: 14px;
+   /* border-bottom: 1px solid #44415 */
+   text-transform: uppercase;
+ }
+
+ /* Table rows */
+ table.order-card td {
+   padding: 10px;
+   font-size: 14px;
+   border-bottom: 1px solid #333;
+ }
+ table.order-card td i{
+   color: rgb(232, 90, 90);
+   font-size: 15px;
+   cursor: pointer;
+ }
+
+ /* Alternate row background */
+ table.order-card tbody tr:nth-child(even) {
+   background: #d3d1d1;
+   border: 1px solid #ddd;
+   color: #000;
+ }
+
+ /* Input styling inside the table */
+ table.order-card input[type="number"] {
+   padding: 15px;
+   border: 1px solid #444;
+   background-color: #292938;
+   color: #fff;
+   border-radius: 6px;
+   width: 100px;
+ }
+
+ /* Save button styling */
+ table.order-card button {
+   background-color: #4caf50;
+   border: none;
+   color: white;
+   padding: 15px;
+   border-radius: 6px;
+   cursor: pointer;
+   font-weight: bold;
+   font-size: 13px;
+   transition: background 0.2s ease;
+   width: 100%;
+ }
+
+ table.order-card button:hover {
+   background-color: #45a049;
+ }
+
+
+
+
+
+ /* <!-- ALL ABOUT Profit Logs --> */
+ /* all about order  */
+ .orders-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   gap: 1rem;
+   margin-top: 1rem;
+ }
+
+ .profit .order-card {
+   background: #f9f9f9;
+   border: 1px solid #ddd;
+   border-radius: 20px;
+   padding: 1rem;
+   border-left: 6px solid var(--secondary-color);
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+ }
+
+ .profit .order-card p {
+   margin: 4px 0;
+   font-size: 16px;
+ }
+
+ .profit .order-card span {
+   font-weight: bold;
+ }
+
+ .delete-btn {
+   background-color: #ff4d4d;
+   color: white;
+   border: none;
+   padding: 10px 14px;
+   font-size: 15px;
+   border-radius: 6px;
+   cursor: pointer;
+   margin-top: 5px;
+   width: 100%;
+   transition: background-color 0.3s ease;
+ }
+
+ .delete-btn:hover {
+   background-color: #d83232;
+ }
+
+
+ /* FLOATING CONTACT  */
+ .whatsapp-float {
+   position: fixed;
+   font-family: 'Luckiest Guy', cursive;
+   bottom: 30px;
+   right: 20px;
+   background: #25d366;
+   color: white;
+   font-size: 26px;
+   padding: 5px 8px;
+   cursor: pointer;
+   border-radius: 50%;
+   z-index: 1000;
+   box-shadow: 4px 4px var(--primary-color-light);
+   transition: transform 0.3s ease;
+   text-decoration: none;
+ }
+
+ .whatsapp-float:hover {
+   transform: scale(1.1);
+ }
+
+
+
+
+
+
+
+
+
+ /* MY RESPONSIVNESS  */
+ @media (max-width: 768px) {
+
+   /* Small Screen Navigation */
+   .small-screen-nav {
+     font-family: 'Luckiest Guy', cursive;
+     display: block;
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     background: #121212;
+     border-top-left-radius: 15px;
+     border-top-right-radius: 15px;
+     padding: 6px 0;
+     box-shadow: 0 0 15px #000;
+     z-index: 1000;
+     backdrop-filter: blur(10px);
+   }
+
+   .link-container {
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+   }
+
+   .nav-link {
+     color: var(--text-light);
+     font-size: 15px;
+     text-decoration: none;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 8px;
+     transition: all 0.3s ease;
+     padding: 8px 12px;
+     border-radius: 12px;
+     position: relative;
+
+   }
+
+   .nav-link i {
+     color: #aaa;
+     font-size: 22px;
+     transition: 0.3s;
+   }
+
+   .nav-link p {
+     font-size: 10px;
+     font-weight: 500;
+     color: #aaa;
+     margin: 0;
+     letter-spacing: 0.5px;
+   }
+
+   .nav-link:hover {
+     background: rgba(255, 255, 255, 0.08);
+     transform: translateY(-2px);
+   }
+
+   .nav-link:hover i {
+     color: var(--secondary-color-dark);
+   }
+
+   .nav-link.active {
+     background: rgba(255, 255, 255, 0.05);
+     transform: none;
+   }
+
+   .nav-link.active i {
+     background: var(--background-gradient);
+     color: var(--white);
+     padding: 8px;
+     border-radius: 50%;
+     animation: bounceActive 0.4s ease forwards;
+   }
+
+   .nav-link.active p {
+     color: var(--white);
+   }
+
+   @keyframes bounceActive {
+     0% {
+       transform: scale(0.9);
+     }
+
+     50% {
+       transform: scale(1.25);
+     }
+
+     100% {
+       transform: scale(1.1);
+     }
+   }
+
+
+
+
+
+   /* ALL ABOUT Platform Buttons */
+   .platform-buttons button {
+     width: 48%;
+     font-size: 16px;
+     padding: 7px;
+   }
+
+  .platform-buttons button .btn-icon {
+     width: 30px;
+     height: 30px;
+   object-fit: contain;
+   }
+
+
+
+
+
+   /* ALL ABOUT PAYMENTS */
+   .payments,
+   .service,
+   .profit {
+     padding: 20px 10px;
+   }
+
+   .payment-contain,
+   .profit,
+   .service {
+     padding-bottom: 8rem;
+   }
+
+   .payment {
+     padding: 20px 10px;
+     margin-bottom: 0px;
+     width: 100%;
+
+   }
+
+
+
+
+/* ALL ABOUT MANAGING SERVICES  */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+  margin-bottom: 5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom Scrollbar */
+.table-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.table-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+}
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 📋 Table Style */
+.table-scroll .order-card {
+  width: 100%;
+  /* min-width: 800px; */
+  border-collapse: separate;    
+  border-spacing: 5px 10px;    
+}
+
+/* 🧠 Header */
+.order-card thead {
+  background: var(--secondary-color);
+}
+.order-card thead th {
+  padding: 10px 16px;
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+  color: white;
+}
+
+/* 🔘 Rounded Header Corners */
+.order-card thead th:first-child {
+  border-top-left-radius: 20px;
+}
+.order-card thead th:last-child {
+  border-top-right-radius: 20px;
+}
+
+/* 📦 Body Rows */
+.order-card td {
+  padding: 12px;
+  background-color: #fff;
+  border: none;
+  color: var(--primary-color-light);
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+ table.order-card td i{
+   color: rgb(232, 90, 90);
+   font-size: 20px;
+ }
+
+
+/* 🧾 Inputs inside table */
+.order-card input[type="number"] {
+  width: 100px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--secondary-color);
+}
+
+ /* Save button styling */
+ table.order-card button {
+   padding: 30px;
+   border-radius: 6px;
+   font-size: 14px;
+   width: 100%;
+ }
+
+
+
+
+
+
+
+   /* FLOATING CONTACT  */
+   .whatsapp-float {
+     bottom: 95px;
+   }
+
+ }

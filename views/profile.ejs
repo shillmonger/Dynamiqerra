@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>profile</title>
+    <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/dashbord.css">
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR  -->
+    <%- include ('partials/nav') %>
+
+
+
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="brand-text">
+                    <h1>Personal Center</h1>
+                    <div class="settings-icon">
+                        <i class="ri-settings-3-line"></i>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Account Card -->
+            <div class="account-card">
+                <div class="account-header">
+                    <div class="account-num">
+                        <div class="balance-label">Account:</div>
+                        <div class="account-number">
+                            <%= user.phone %>
+                        </div>
+                    </div>
+                    <div class="ammount-display">
+                        <div class="balance-section">
+                            <span class="balance-label">Account Balance</span>
+                            <div class="eye-icon">
+                                <i class="ri-eye-line"></i>
+                            </div>
+                        </div>
+                        <div class="balance-amount">
+                            ₦<%= user.balance.toLocaleString('en-NG', { minimumFractionDigits: 2 }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const eyeIcon = document.querySelector(".eye-icon i");
+                    const balanceAmount = document.querySelector(".balance-amount");
+
+                    let isHidden = false;
+                    let actualBalance = balanceAmount.textContent; // store real balance
+
+                    eyeIcon.addEventListener("click", () => {
+                        if (isHidden) {
+                            balanceAmount.textContent = actualBalance;
+                            eyeIcon.classList.remove("ri-eye-off-line");
+                            eyeIcon.classList.add("ri-eye-line");
+                        } else {
+                            balanceAmount.textContent = "*****";
+                            eyeIcon.classList.remove("ri-eye-line");
+                            eyeIcon.classList.add("ri-eye-off-line");
+                        }
+                        isHidden = !isHidden;
+                    });
+                });
+            </script>
+
+
+
+
+
+            <!-- Stats Card -->
+            <div class="stats-card">
+                <div class="withdrawal-section">
+                    <div class="withdrawal-label">Total withdrawal amount</div>
+                    <div class="withdrawal-amount">0.000</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">Yesterday's income</div>
+                        <div class="stat-value">0.00</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Today's income</div>
+                        <div class="stat-value">0.00</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Total income roundups</div>
+                        <div class="stat-value">0.00</div>
+                    </div>
+                </div>
+
+                <div class="orders-grid">
+                    <div class="order-item">
+                        <div class="order-label">Completed yesterday</div>
+                        <div class="order-value">0.00</div>
+                    </div>
+                    <div class="order-item">
+                        <div class="order-label">Completed orders today</div>
+                        <div class="order-value">0.00</div>
+                    </div>
+                    <div class="order-item">
+                        <div class="order-label">Can complete orders now</div>
+                        <div class="order-value">0.00</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="/shop" class="action-btn">
+                    <div class="action-icon"><i class="ri-wallet-3-line"></i></div>
+                    <div class="action-label">Make Payment</div>
+                </a>
+
+                <a href="#" class="action-btn">
+                    <div class="action-icon"><i class="ri-bar-chart-2-line"></i></div>
+                    <div class="action-label">Funding details</div>
+                </a>
+
+                <a href="#" class="action-btn">
+                    <div class="action-icon"><i class="ri-bank-line"></i></div>
+                    <div class="action-label">Process Withdrawal</div>
+                </a>
+
+                <a href="#" class="action-btn">
+                    <div class="action-icon"><i class="ri-user-settings-line"></i></div>
+                    <div class="action-label">Modify withdrawal</div>
+                </a>
+            </div>
+
+            <!-- Menu Section -->
+            <div class="menu-section">
+                <a href="#">
+                    <div class="menu-item">
+                        <div class="menu-icon"><i class="ri-download-cloud-2-line"></i></div>
+                        <div class="menu-label">Download</div>
+                        <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="menu-item">
+                        <div class="menu-icon"><i class="ri-customer-service-2-line"></i></div>
+                        <div class="menu-label">Customer Service</div>
+                        <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="menu-item">
+                        <div class="menu-icon"><i class="ri-download-2-line"></i></div>
+                        <div class="menu-label">Recharge Tutorial</div>
+                        <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="menu-item">
+                        <div class="menu-icon"><i class="ri-wallet-3-line"></i></div>
+                        <div class="menu-label">Withdrawal Tutorial</div>
+                        <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+                    </div>
+                </a>
+                <a href="/logout">
+                    <div class="menu-item">
+                        <div class="menu-icon"><i class="ri-logout-box-r-line"></i></div>
+                        <div class="menu-label">Logout my Account</div>
+                        <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+                    </div>
+                </a>
+            </div>
+
+
+
+
+
+</body>
+
+</html>

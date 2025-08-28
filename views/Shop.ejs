@@ -1,0 +1,528 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>store</title>
+    <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/dashbord.css">
+    <link rel="stylesheet" href="/css/shop.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR  -->
+    <%- include ('partials/nav') %>
+
+
+
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="brand-text">
+                    <h1>Selection Plaza</h1>
+                    <p>Product display hall</p>
+                </div>
+                <div class="notification-icon">
+                    <i class="ri-notification-2-line"></i>
+                </div>
+            </div>
+
+
+
+            <div class="shop-levels">
+                <!-- S1 -->
+                <% const s1Payment = payments.find(p => p.store === "S1" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-1">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S1</div>
+                        <img src="/images/shop 1.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦10,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦350</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">45</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦350</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦15,750</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
+                        </div>
+                        <% if (s1Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S1"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s1Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S1");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦10,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(10000, "S1");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(10000, 'S1')">Activate ₦10,000</button>
+                        <% } %>
+                    </div>
+                </div>
+
+                
+                
+                <!-- S2 -->
+                <% const s2Payment = payments.find(p => p.store === "S2" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-2">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S2</div>
+                        <img src="/images/shop 2.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦25,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦850</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">45</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦850</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦38,250</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
+                        </div>
+                        <% if (s2Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S2"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s2Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S2");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦25,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(25000, "S2");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(25000, 'S2')">Activate ₦25,000</button>
+                        <% } %>
+                    </div>
+                </div>
+
+
+
+
+                <!-- S3 -->
+                <% const s3Payment = payments.find(p => p.store === "S3" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-3">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S3</div>
+                        <img src="/images/shop 3.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦50,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦2,000</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">45</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦2,000</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦90,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
+                        </div>
+                        <% if (s3Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S3"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s3Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S3");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦50,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(50000, "S3");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(50000, 'S3')">Activate ₦50,000</button>
+                        <% } %>
+                    </div>
+                </div>
+
+
+
+                <!-- S4 -->
+                <% const s4Payment = payments.find(p => p.store === "S4" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-4">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S4</div>
+                        <img src="/images/shop 4.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦100,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦3,000</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">90</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦3,000</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦270,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">90 days</span></div>
+                        </div>
+                        <% if (s4Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S4"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s4Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S4");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦100,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(100000, "S4");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(100000, 'S4')">Activate ₦100,000</button>
+                        <% } %>
+                    </div>
+                </div>
+
+
+
+                <!-- S5 -->
+                <% const s5Payment = payments.find(p => p.store === "S5" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-5">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S5</div>
+                        <img src="/images/shop 5.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦150,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦4,000</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">90</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦4,000</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦360,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">90 days</span></div>
+                        </div>
+                        <% if (s5Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S5"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s5Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S5");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦150,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(150000, "S5");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(150000, 'S5')">Activate ₦150,000</button>
+                        <% } %>
+                    </div>
+                </div>
+
+
+
+                <!-- S6 -->
+                <% const s6Payment = payments.find(p => p.store === "S6" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-6">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S6</div>
+                        <img src="/images/shop 6.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦250,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦164</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦164</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦60,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
+                        </div>
+                        <% if (s6Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S6"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s6Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S6");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦250,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(250000, "S6");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(250000, 'S6')">Activate ₦250,000</button>
+                        <% } %>
+                    </div>
+                </div>
+
+
+
+                <!-- S7 -->
+                <% const s7Payment = payments.find(p => p.store === "S7" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-7">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S7</div>
+                        <img src="/images/shop 7.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦500,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦411</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦411</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦150,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
+                        </div>
+                        <% if (s7Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S7"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s7Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S7");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦500,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(500000, "S7");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(500000, 'S7')">Activate ₦500,000</button>
+                        <% } %>
+                    </div>
+                </div>
+
+
+
+                <!-- S8 -->
+                <% const s8Payment = payments.find(p => p.store === "S8" && new Date(p.validUntil) > new Date()); %>
+                <div class="product-card level-8">
+                    <div class="card-header">
+                        <div class="store-level">Investment Plan</div>
+                        <div class="level-number">S8</div>
+                        <img src="/images/shop 8.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦1,000,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦959</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦959</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦350,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
+                        </div>
+                        <% if (s8Payment) { %>
+                            <button class="activate-button" disabled>
+                                <span id="countdown-S8"></span>
+                            </button>
+                            <script>
+                                (() => {
+                                    const end = new Date("<%= s8Payment.validUntil %>").getTime();
+                                    const el = document.getElementById("countdown-S8");
+                                    const timer = setInterval(() => {
+                                        const now = Date.now();
+                                        const diff = end - now;
+                                        if (diff <= 0) {
+                                            clearInterval(timer);
+                                            el.innerText = "Activate ₦1,000,000";
+                                            el.parentElement.disabled = false;
+                                            el.parentElement.onclick = () => goToPayment(1000000, "S8");
+                                            return;
+                                        }
+                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        el.innerText = `${days}d ${hrs}h remaining`;
+                                    }, 1000);
+                                })();
+                            </script>
+                        <% } else { %>
+                            <button class="activate-button" onclick="goToPayment(1000000, 'S8')">Activate ₦1,000,000</button>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- <script>
+  function goToPayment(amount, store) {
+    const alreadyActive = <%- JSON.stringify(!!activePayment) %>;
+
+    if (alreadyActive) {
+      Toastify({
+        text: "Wait for current store to expire.",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "#e74c3c",
+      }).showToast();
+      return;
+    }
+
+    window.location.href = `/payment?amount=${amount}&store=${store}`;
+  }
+</script> -->
+<div id="payment-data" data-already-active="<%= !!activePayment %>"></div>
+<script>
+  function goToPayment(amount, store) {
+    const alreadyActive = document.getElementById("payment-data").dataset.alreadyActive === "true";
+
+    if (alreadyActive) {
+      Toastify({
+        text: "Wait for current store to expire.",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "#e74c3c",
+      }).showToast();
+      return;
+    }
+
+    window.location.href = `/payment?amount=${amount}&store=${store}`;
+  }
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  // Read query string param (like ?status=active_exists)
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get("status");
+
+  if (status === "active_exists") {
+    Toastify({
+      text: "❌ You already have an active store. Wait until it expires.",
+      duration: 3000,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#e74c3c",
+    }).showToast();
+  }
+
+  if (status === "success") {
+    Toastify({
+      text: "✅ Payment submitted successfully. Awaiting approval.",
+      duration: 3000,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#27ae60",
+    }).showToast();
+  }
+
+  if (status === "error") {
+    Toastify({
+      text: "⚠️ Something went wrong. Try again.",
+      duration: 3000,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#f39c12",
+    }).showToast();
+  }
+</script>
+
+
+</body>
+
+</html>

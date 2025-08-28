@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+    --primary-color: #0d0d0d;
+    --primary-color-light: #111;
+    --primary-color-extra-light: #1b1b1b;
+    --secondary-color: #e5c765;
+    --secondary-color-dark: #c5a057;
+    --text-light: #cecece;
+    --white: #ffffff;
+    --max-width: 1300px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--primary-color-extra-light);
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 6rem;
+    overflow-x: hidden;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 768px) {
+
+
+    .container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px;
+
+    }
+
+    .invitation-section {
+        background: var(--primary-color-light);
+        padding: 15px 10px;
+        border-radius: 15px;
+        margin: 15px 0;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .invitation-header {
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .invitation-code {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .invitation-url {
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .invitation-number {
+        color: #31d763;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin: 0 15px;
+        /* font-family: 'Luckiest Guy', cursive; */
+    }
+
+    .copy-btn {
+        background: var(--secondary-color-dark);
+        color: var(--white);
+        border: none;
+        padding: 10px;
+        border-radius: 7px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .copy-btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+    }
+
+
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        background: var(--primary-color-light);
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-number {
+        font-size: 1.50rem;
+        font-weight: bold;
+        color: var(--secondary-color-dark);
+        margin-bottom: 10px;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: var(--text-light);
+        font-weight: 500;
+    }
+
+    .level-tabs {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    }
+
+    .level-tab {
+        background: var(--secondary-color-dark);
+        border: none;
+        padding: 10px 13px;
+        border-radius: 5px;
+        font-size: 0.80rem;
+        font-weight: 600;
+        color: var(--primary-color-light);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .summary-section {
+        background: var(--primary-color-light);
+        padding: 20px 15px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .summary-text {
+        font-size: 1.1rem;
+        color: var(--text-light);
+    }
+
+    .summary-number {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: var(--secondary-color-dark);
+    }
+
+    .details-btn {
+        background: var(--secondary-color-dark);
+        border: none;
+        padding: 10px 10px;
+        border-radius: 8px;
+        font-size: 0.80rem;
+        font-weight: 600;
+        color: var(--primary-color-light);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+
+
+
+}

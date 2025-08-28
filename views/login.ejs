@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <meta name="theme-color" content="#c5a057">
+    <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+    <!-- BACKGROUND BLUR -->
+    <span class="bg__blur"></span>
+
+    <div class="container">
+
+        <img src="/images/logo.png" alt="">
+        <p>Log in now Account!</p>
+
+        <form action="/auth/login" method="POST">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="80XXXXXXXX" required>
+
+
+            <label for="password">Password</label>
+            <div class="input-container">
+                <input type="password" id="password" name="password" required placeholder="login password">
+                <i class="ri-eye-off-line toggle-password" onclick="togglePassword('password', this)"></i>
+            </div>
+
+            <button type="submit" class="btn">Log in</button>
+            <br>
+        </form>
+
+        <p>New on our platform? <a href="/register">Create an account</a></p>
+        <div class="links">
+            <a href="/" class="back-link"><i class="ri-arrow-left-line"></i> Back to Home</a>
+            <a href="#" class="back-link">Forgot password</a>
+        </div>
+
+    </div>
+    <!-- BACKGROUND BLUR -->
+    <span class="footer__blur"></span>
+
+
+
+
+
+    <!-- Floating Telegram Button -->
+    <a href="#" target="_blank" class="telegram-float">
+        <img src="https://storage.perfectcdn.com/98b10r/h7j64q32oquy7zt9.gif" alt="Telegram" />
+    </a>
+
+
+
+
+    <!-- Toastify Script -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <% if (typeof message !=='undefined' ) { %>
+        <script>
+            Toastify({
+                text: "<%= message %>",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "<%= messageType === 'error' ? 'red' : 'green' %>",
+                close: true
+            }).showToast();
+        </script>
+        <% } %>
+
+
+            <!-- FOR MY MANIFEST  -->
+            <script src="/js/auth.js"></script>
+</body>
+
+</html>

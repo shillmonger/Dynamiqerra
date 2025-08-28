@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Payments</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <!-- ALL ABOUT PAYMENTS -->
+  <div class="payments" id="admin-home">
+    <h1>All Payments</h1>
+
+    <div class="payment-contain">
+      <% if (payments && payments.length > 0) { %>
+        <% payments.forEach(payment => { %>
+          <div class="payment">
+            
+            <p><strong>User Phone:</strong> <%= payment.user ? payment.user.phone : "Unknown" %></p>
+            
+            <p><strong>Method:</strong> <%= payment.method %></p>
+
+            <p>
+              <strong>Amount:</strong> 
+              <%= payment.currency === "USD" 
+                  ? "$" + Number(payment.amount).toLocaleString() 
+                  : "₦" + Number(payment.amount).toLocaleString("en-NG") %>
+            </p>
+
+            <p><strong>Currency:</strong> <%= payment.currency %></p>
+            <p><strong>Txn ID:</strong> <%= payment.txid %></p>
+
+            <p><strong>Status:</strong> 
+              <span class="<%= payment.status %>"><%= payment.status %></span>
+            </p>
+
+            <% if (payment.screenshot) { %>
+              <p><strong>Screenshot:</strong> 
+                <a href="<%= payment.screenshot %>" target="_blank">View</a>
+              </p>
+            <% } else { %>
+              <p><em>No screenshot uploaded</em></p>
+            <% } %>
+
+            <!-- APPROVE/REJECT BUTTONS -->
+            <% if (payment.status === "pending") { %>
+              <form action="/admin/payments/<%= payment._id %>/approve" method="POST" style="display:inline;">
+                <button type="submit">Approve</button>
+              </form>
+
+              <form action="/admin/payments/<%= payment._id %>/reject" method="POST" style="display:inline;">
+                <button type="submit">Reject</button>
+              </form>
+            <% } %>
+
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p class="fallback-message">No payments found.</p>
+      <% } %>
+    </div>
+  </div>
+
+</body>
+</html>
