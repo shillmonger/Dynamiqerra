@@ -4,30 +4,81 @@
 <head>
   <meta charset="utf-8" />
   <title>team</title>
-  <meta name="theme-color" content="#c5a057">
+  <meta name="theme-color" content="#0d0d0d">
   <link rel="icon" href="/images/favicon.jpeg" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/profile.css">
   <link rel="stylesheet" href="/css/shop.css">
   <link rel="stylesheet" href="/css/team.css">
 </head>
 
 <body>
 
+  <!-- ALL ABOUT LARGE SCREENS -->
+    <%- include ('partials/big-screen') %>
+
+
+
+<div class="hold">
   <!-- NAVBAR  -->
   <%- include ('partials/nav') %>
-
-
 
     <!-- Header -->
     <div class="header">
       <div class="brand-text">
         <h1>Team Report</h1>
       </div>
+      <div class="settings-icon" id="settingsBtn">
+        <i class="ri-notification-2-line"></i>
+      </div>
     </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="noti-icon" id="closeBtn">
+        <i class="ri-close-line"></i>
+      </div>
+
+      <div class="notification-details">
+        <!-- HISTORY -->
+        <div class="section-title" style="margin-top: 18px;">
+          <h2>Claim History</h2>
+          <span class="badge">Audit trail • Money intact 🔒</span>
+        </div>
+
+        <div class="history-container">
+          <% if (withdrawals.length===0) { %>
+            <p class="empty">No claims yet.</p>
+            <% } else { %>
+              <ul class="history-list">
+                <% withdrawals.forEach(w=> { %>
+                  <li class="history-item <%= w.type %> <%= w.status %>">
+                    <div>
+                      <strong>
+                        <%= w.type.charAt(0).toUpperCase() + w.type.slice(1) %> withdrawal
+                      </strong><br>
+                      ₦<%= w.amount.toLocaleString() %>
+                    </div>
+                    <span class="status <%= w.status %>">
+                      <%= w.status.charAt(0).toUpperCase() + w.status.slice(1) %>
+                    </span>
+                  </li>
+                  <% }) %>
+              </ul>
+              <% } %>
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
 
 
     <div class="container">
@@ -36,77 +87,217 @@
       <div class="invitation-section">
         <div class="invitation-header">Invitation Code</div>
 
-        <div class="invitation-code">
-          <% if (!activePayment) { %>
-            <span class="invitation-url">*****************************</span>
-            <span class="invitation-number">*****</span>
-            <% } else { %>
-              <span class="invitation-url">http://localhost:3000/</span>
-              <span class="invitation-number">
-                <%= user.referral %>
-              </span>
-              <% } %>
+        <div class="referal-hold">
+          <div class="invitation-code">
+            <% if (!activePayment) { %>
+              <span class="invitation-url">************************</span>
+              <span class="invitation-number">*****</span>
+              <% } else { %>
+                <span class="invitation-url">http://localhost:3000/</span>
+                <span class="invitation-number">
+                  <%= user.referral %>
+                </span>
+                <% } %>
+          </div>
+
+          <button class="copy-btn" data-referral="<%= user.referral %>" data-active="<%= !!activePayment %>"
+            onclick="copyReferral(this.dataset.referral, this.dataset.active === 'true')">
+            Copy
+          </button>
+        </div>
+      </div>
+
+
+      <!-- Referal stats  -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">
+            <%= totalReferralsCount %>
+          </div>
+          <div class="stat-label">Total Referrals</div>
         </div>
 
-        <!-- <button class="copy-btn" onclick="copyReferral('<%= user.referral %>', <%= !!activePayment %>)">
-  Copy Referral Code
-</button> -->
-        <button class="copy-btn" data-referral="<%= user.referral %>" data-active="<%= !!activePayment %>"
-          onclick="copyReferral(this.dataset.referral, this.dataset.active === 'true')">
-          Copy Referral Code
-        </button>
+        <div class="stat-card">
+          <div class="stat-number">
+            <%= verifiedReferralsCount %>
+          </div>
+          <div class="stat-label">Verified Referrals</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number">₦<%= referralAmount.toLocaleString() %>
+          </div>
+          <div class="stat-label">Referral Amount</div>
+        </div>
+
+        <!-- <div class="stat-card">
+        <div class="stat-number" style="color: <%= bankSubmitted ? '#22c55e' : '#e74c3c' %>">
+          <%= bankSubmitted ? 'Submitted' : 'Awaiting' %>
+        </div>
+        <div class="stat-label">My bank details</div>
+      </div> -->
+
+        <div class="stat-card">
+          <div class="stat-number <%= bankSubmitted ? 'submitted' : 'awaiting' %>">
+            <%= bankSubmitted ? 'Submitted' : 'Awaiting' %>
+          </div>
+          <div class="stat-label">My bank details</div>
+        </div>
 
       </div>
 
 
-   <div class="stats-grid">
-  <!-- Total referrals -->
-  <div class="stat-card">
-    <div class="stat-number"><%= totalReferralsCount %></div>
-    <div class="stat-label">Total Referrals</div>
-  </div>
-
-  <!-- Verified referrals -->
-  <div class="stat-card">
-    <div class="stat-number"><%= verifiedReferralsCount %></div>
-    <div class="stat-label">Verified Referrals</div>
-  </div>
-
-  <!-- Referral amount -->
-  <div class="stat-card">
-    <div class="stat-number">₦<%= referralAmount.toLocaleString() %></div>
-    <div class="stat-label">Referral Amount</div>
-  </div>
-
-  <!-- Weekly bonus -->
-  <div class="stat-card">
-    <div class="stat-number">₦<%= weeklyBonus.toLocaleString() %></div>
-    <div class="stat-label">Weekly Bonus</div>
-  </div>
-</div>
-
-<div class="level-tabs">
-  <button class="level-tab">TM Level 1</button>
-  <button class="level-tab">TM Level 2</button>
-  <button class="level-tab">TM Level 3</button>
-</div>
 
 
-      <div class="summary-section">
-        <div class="summary-text">
-          Team Level 1 Subordinates Total number of people: <br> <br>
-          <span class="summary-number">0</span>
+      <!-- WEEKLY BONUS -->
+      <div class="section-title">
+        <h2>Weekly Bonus</h2>
+        <span class="badge">Sundays (morning to night)</span>
+      </div>
+
+      <div class="grid">
+        <div class="card col-6">
+          <h3>Your Weekly Eligibility</h3>
+          <div class="stat">
+            <%= user.bonusEligibleReferrals %>
+          </div>
+          <div class="sub">
+            Eligible Tier:
+            <strong>
+              <%= weekly.tier %>
+            </strong> →
+            <strong>₦<%= weekly.bonus.toLocaleString() %></strong>
+          </div>
+
+          <div class="btn-hold">
+            <button class="btn btn-success withdraw-btn" data-type="weekly">Withdraw</button>
+            <span class="note">Buttons become active every Sunday. Referrals Amount are deducted.</span>
+          </div>
         </div>
-        <button class="details-btn">Details</button>
+
+        <div class="card col-6">
+          <h3>Weekly Tiers</h3>
+          <table aria-label="Weekly Tiers">
+            <thead>
+              <tr>
+                <th>Verified Referrals</th>
+                <th>Bonus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>5 – 9</td>
+                <td>₦5,000</td>
+              </tr>
+              <tr>
+                <td>10 – 19</td>
+                <td>₦10,000</td>
+              </tr>
+              <tr>
+                <td>20 – 49</td>
+                <td>₦20,000</td>
+              </tr>
+              <tr>
+                <td>50 – 99</td>
+                <td>₦100,000</td>
+              </tr>
+              <tr>
+                <td>100+</td>
+                <td>₦250,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+      <!-- MONTHLY SALARY -->
+      <div class="section-title" style="margin-top: 18px;">
+        <h2>Monthly Team Salary</h2>
+        <span class="badge">Last Sunday of the month</span>
+      </div>
+
+      <div class="grid">
+        <div class="card col-6">
+          <h3>Your Monthly Eligibility</h3>
+          <p class="sub">Verified referrals counted this month (includes those used for weekly payouts)</p>
+          <div class="stat">
+            <%= monthlyReferralsCount %>
+          </div>
+          <div class="sub">
+            Eligible Tier:
+            <strong>
+              <%= monthly.tier %>
+            </strong> →
+            <strong>₦<%= monthly.salary.toLocaleString() %></strong>
+          </div>
+
+          <div class="btn-hold">
+            <button class="btn btn-accent withdraw-btn" data-type="monthly">Withdraw</button>
+            <span class="note">If you miss this month, referrals carry forward to unlock a bigger tier.</span>
+          </div>
+        </div>
+
+        <div class="card col-6">
+          <h3>Monthly Tiers</h3>
+          <table aria-label="Monthly Tiers">
+            <thead>
+              <tr>
+                <th>Verified Referrals</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>20 – 49</td>
+                <td>₦10,000</td>
+              </tr>
+              <tr>
+                <td>50 – 99</td>
+                <td>₦25,000</td>
+              </tr>
+              <tr>
+                <td>100 – 199</td>
+                <td>₦50,000</td>
+              </tr>
+              <tr>
+                <td>200 – 499</td>
+                <td>₦150,000</td>
+              </tr>
+              <tr>
+                <td>500+</td>
+                <td>₦300,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+      <div class="card col-12" style="margin-top: 8px;">
+        <p class="note" style="margin-top: 10px;">
+          Note: Weekly claims <em>consume</em> referrals amount after admin marks as Paid. Monthly salary counts all
+          verified referrals in the month, even those already used weekly claims.
+        </p>
       </div>
     </div>
 
 
+</div>
 
 
-    <!-- REFERAL CODE FUNCTION  -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Hidden data for script -->
+    <div id="team-data" data-verified-referrals="<%= verifiedReferralsCount %>"
+      data-bank-submitted="<%= bankSubmitted %>" hidden></div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
+      // Copy referral
       function copyReferral(code, isActive) {
         if (!isActive) {
           Toastify({
@@ -114,23 +305,155 @@
             duration: 3000,
             gravity: "top",
             position: "center",
-            backgroundColor: "#e74c3c",
+            backgroundColor: "#e74c3c"
           }).showToast();
           return;
         }
-
         const link = `http://localhost:3000/${code}`;
         navigator.clipboard.writeText(link);
-
         Toastify({
-          text: "Referral link copied: ",
+          text: "Referral link copied",
           duration: 3000,
           gravity: "top",
           position: "center",
-          backgroundColor: "#2ecc71",
+          backgroundColor: "#2ecc71"
         }).showToast();
       }
+
+      // Withdrawal buttons
+      const teamDataEl = document.getElementById('team-data');
+      const verifiedReferrals = Number(teamDataEl.dataset.verifiedReferrals || 0);
+      const bankSubmitted = teamDataEl.dataset.bankSubmitted === 'true';
+
+      document.querySelectorAll(".withdraw-btn").forEach(btn => {
+        btn.addEventListener("click", async function () {
+          const type = this.dataset.type;
+          let eligible = false;
+          const today = new Date();
+
+          // ✅ 1. Check bank details first
+          if (!bankSubmitted) {
+            Toastify({
+              text: "Bank details not submited",
+              duration: 3000,
+              gravity: "top",
+              position: "center",
+              backgroundColor: "#e74c3c"
+            }).showToast();
+            return;
+          }
+
+          // ✅ 2. Weekly withdrawal rules
+          if (type === "weekly") {
+            if (verifiedReferrals < 5) {
+              Toastify({
+                text: "Not enough verified referrals",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c"
+              }).showToast();
+              return;
+            }
+            if (today.getDay() !== 0) {
+              Toastify({
+                text: "Only allowed on Sundays.",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c"
+              }).showToast();
+              return;
+            }
+            eligible = true;
+          }
+
+          // ✅ 3. Monthly withdrawal rules
+          if (type === "monthly") {
+            if (verifiedReferrals < 20) {
+              Toastify({
+                text: "Not enough verified referrals",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c"
+              }).showToast();
+              return;
+            }
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            if (today.getDate() !== lastDay.getDate()) {
+              Toastify({
+                text: "Allowed on the last Sunday of the month.",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c"
+              }).showToast();
+              return;
+            }
+            eligible = true;
+          }
+
+          // ✅ If passed all checks → submit and show response from server
+          if (eligible) {
+            const res = await fetch("/team/withdraw", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                type
+              })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+              Toastify({
+                text: "Withdrawal submitted successfully",
+                duration: 4000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)"
+              }).showToast();
+
+              // refresh page so user sees updated stats/history
+              setTimeout(() => window.location.reload(), 1000);
+
+            } else {
+              Toastify({
+                text: data.message || "Withdrawal failed",
+                duration: 4000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c"
+              }).showToast();
+            }
+          }
+
+        });
+      });
     </script>
+
+
+
+
+
+    <%# FUCTION FOR SLIDE %>
+      <script>
+        const settingsBtn = document.getElementById('settingsBtn');
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('closeBtn');
+
+        settingsBtn.addEventListener('click', () => {
+          sidebar.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+          sidebar.classList.remove('active');
+        });
+      </script>
+
 
 </body>
 

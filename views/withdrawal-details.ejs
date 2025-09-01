@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>withdrawal details</title>
+    <meta name="theme-color" content="#0d0d0d">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/funding-details.css">
+</head>
+
+<body>
+
+  <!-- ALL ABOUT LARGE SCREENS -->
+    <%- include ('partials/big-screen') %>
+  
+  
+  
+  <div class="hold">
+
+    <main class="main-content">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="brand-text">
+                <a href="/profile">
+                    <div class="back-icon">
+                        <i class="ri-arrow-left-s-line"></i>
+                    </div>
+                </a>
+                <h1>Withdrawal Center</h1>
+            </div>
+        </div>
+
+        <!-- ALL ABOUT MAIN CONTECT  -->
+        <div class="container">
+            <div class="main">
+                <h1>Withdrawal Guide</h1>
+                <p>
+                    Withdraw your earnings after a store expires. A <strong>Claim</strong> button will appear on your
+                    <strong>Profile</strong> for each expired store. Make sure your <strong>bank details</strong> are saved
+                    (tap the <strong>settings icon</strong> at the top-right of your profile) before submitting a claim.
+                </p>
+            </div>
+
+            <div class="main-card">
+
+                <!-- Step 1 -->
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Let Your Store Complete</h3>
+                    <p class="step-description">
+                        After you purchase a store, it earns daily until its duration ends. When the store expires,
+                        it becomes eligible for withdrawal.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Find the Claim Button</h3>
+                    <p class="step-description">
+                        Go to your <strong>Profile</strong>. For each expired store, you'll see a
+                        <strong>Claim ₦(amount)</strong> button under your account balance. If you don’t see it yet,
+                        the store is still active.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Save Your Bank Details</h3>
+                    <p class="step-description">
+                        Tap the <strong>settings icon</strong> (top-right on the Profile page) and enter your
+                        <strong>Bank Name</strong>, <strong>Account Name</strong>, and <strong>Account Number</strong>.
+                        These details are required before you can submit a claim.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Submit Your Claim</h3>
+                    <p class="step-description">
+                        Click the <strong>Claim</strong> button. We submit the exact amount shown (store amount + all
+                        earnings for that store) to the admin for approval. Each store is claimed separately.
+                    </p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3 class="step-title">Admin Review</h3>
+                    <p class="step-description">
+                        Your claim moves to <strong>Pending</strong>. Admin reviews the request and bank details.
+                        You’ll be notified once it’s approved or declined.
+                    </p>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3 class="step-title">Payout & Reset</h3>
+                    <p class="step-description">
+                        When approved, the <strong>exact claimed amount</strong> is deducted from your account balance.
+                        The expired store is marked as <strong>claimed</strong>, the Claim button disappears, and the
+                        related stats (e.g., Total bonus earned / Today’s income / Daily shop income / Completed orders)
+                        are reset for that store.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- FOOTERE SECTION  -->
+            <div class="information">
+                <div class="info-box">
+                    <div class="info-title">Processing Time</div>
+                    <p>
+                        Most withdrawals are processed within <strong>24 hours</strong> after admin approval.
+                        Bank posting times may vary. If it takes longer, please contact Support.
+                    </p>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-title">Security Notice</div>
+                    <p>
+                        Only withdraw to your own bank account. Never share your login or OTP codes.
+                        Always confirm you’re on the official website before submitting a claim.
+                    </p>
+                </div>
+
+                <div class="contact-section">
+                    <div class="help">Need Help</div>
+                    <p>
+                        If you can’t see the Claim button, your store is likely still active. For any issues with
+                        bank details or claims, reach us via live chat, email, or telegram — we’re available 24/7.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+        </div>
+
+</body>
+
+</html>

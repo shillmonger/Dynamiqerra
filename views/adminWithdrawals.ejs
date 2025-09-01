@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Withdrawals</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background: #f4f4f4;
+      text-align: left;
+    }
+    td{
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Withdrawal Requests</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Bank Name</th>
+          <th>Account Name</th>
+          <th>Account Number</th>
+          <th>Status</th>
+          <th>Requested At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% withdrawals.forEach(w => { %>
+          <tr>
+            <td><%= w.user.phone %> (<%= w.user.referral %>)</td>
+            <td><%= w.type %></td>
+            <td>₦<%= w.amount.toLocaleString() %></td>
+
+            <!-- ✅ Show bank details -->
+            <td><%= w.bankDetails?.bankName || '-' %></td>
+            <td><%= w.bankDetails?.accountName || '-' %></td>
+            <td><%= w.bankDetails?.accountNumber || '-' %></td>
+
+            <td><%= w.status %></td>
+            <td><%= w.createdAt.toLocaleString() %></td>
+            <td>
+              <% if (w.status === 'pending') { %>
+                <form action="/admin/withdrawals/<%= w._id %>/approve" method="POST" style="display:inline">
+                  <button type="submit">Approve</button>
+                </form>
+                <form action="/admin/withdrawals/<%= w._id %>/decline" method="POST" style="display:inline">
+                  <button type="submit">Decline</button>
+                </form>
+              <% } else { %>
+                -
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

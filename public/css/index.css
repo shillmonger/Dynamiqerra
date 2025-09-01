@@ -1002,12 +1002,12 @@ nav {
 
   .header__content h1 {
     margin-bottom: 1rem;
-    font-size: 3rem;
+    font-size: 2.70rem;
     line-height: 3.50rem;
   }
 
   .header__content h1 span {
-    font-size: 3.50rem;
+    font-size: 2.70rem;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px var(--white);
   }
@@ -1019,19 +1019,21 @@ nav {
 
   .download-img {
     display: flex;
+    /* flex-direction: row-reverse; */
     gap: 1rem;
     margin-bottom: 1rem;
     flex-wrap: wrap;
   }
 
   .download-img img {
-    width: 50%;
-    height: 50%;
+    width: 40%;
+    height: 40%;
   }
 
   .download-img .web-app {
-    width: 35%;
-    height: 35%;
+    width: 27%;
+    height: 27%;
+    display: none;
   }
 
   .features {
@@ -1058,6 +1060,7 @@ nav {
     flex-direction: column;
     gap: 0rem;
   }
+
 
   .step {
     align-items: start;
@@ -1158,7 +1161,7 @@ nav {
   .followers .circle {
     font-size: 4.50rem;
     margin-top: 0rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-shadow: 7px 7px var(--secondary-color-dark);
   }
 
@@ -1204,7 +1207,7 @@ nav {
   }
 
   .step-image img {
-    width: 70%;
+    width: 55%;
     height: auto;
   }
 
@@ -1257,7 +1260,7 @@ nav {
   }
 
   .price__card {
-    padding: 1rem 2rem;
+    padding: 1rem 1.50rem;
     flex-direction: column;
     border-radius: 20px;
     transition: 0.3s;
@@ -1273,6 +1276,25 @@ nav {
   .price__card__content {
     margin-bottom: 0;
   }
+
+  .price__card__content .name {
+  margin: 0 auto;
+  font-size: 1.50rem;
+}
+
+  .price__card__content .store {
+  /* margin: 0 auto;
+  font-size: 2rem; */
+  font-family: 'Luckiest Guy', cursive;
+}
+
+  .price__card p {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-light);
+}
 
   .price__card p i {
     font-weight: 500;

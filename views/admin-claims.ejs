@@ -1,0 +1,39 @@
+<h1>Pending Shop Claims</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <tr>
+    <th>User</th>
+    <th>Bank Details</th>
+    <th>Shop</th>
+    <th>Amount</th>
+    <th>Actions</th>
+  </tr>
+  <% claims.forEach(claim => { %>
+    <tr>
+      <td>
+        User ID: <%= claim.user.phone %> 
+      </td>
+      <td>
+        <% if (claim.bank) { %>
+          Bank: <%= claim.bank.bankName %><br>
+          Account: <%= claim.bank.accountNumber %><br>
+          Name: <%= claim.bank.accountName %>
+        <% } else { %>
+          No bank details
+        <% } %>
+      </td>
+      <td><%= claim.payment.store %></td>
+      <td>
+        ₦<%= (claim.amount || 0).toLocaleString('en-NG') %>
+      </td>
+      <td>
+        <form action="/admin/claims/<%= claim._id %>/approve" method="POST" style="display:inline;">
+          <button type="submit">✅ Approve</button>
+        </form>
+        <form action="/admin/claims/<%= claim._id %>/decline" method="POST" style="display:inline;">
+          <button type="submit">❌ Decline</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</table>

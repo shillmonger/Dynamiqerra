@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>store</title>
-    <meta name="theme-color" content="#c5a057">
+    <meta name="theme-color" content="#0d0d0d">
     <link rel="icon" href="/images/favicon.jpeg" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
@@ -12,14 +12,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/shop.css">
-    <link rel="stylesheet" href="../public/css/store.css">
 </head>
 
 <body>
+  <!-- ALL ABOUT LARGE SCREENS -->
+    <%- include ('partials/big-screen') %>
 
+
+
+
+
+<div class="hold">
     <!-- NAVBAR  -->
     <%- include ('partials/nav') %>
-
 
 
         <div class="container">
@@ -29,11 +34,7 @@
                     <h1>Selection Plaza</h1>
                     <p>Product display hall</p>
                 </div>
-                <div class="notification-icon">
-                    <i class="ri-notification-2-line"></i>
-                </div>
             </div>
-
 
 
             <div class="shop-levels">
@@ -53,8 +54,8 @@
                         </div>
                         <div class="income-section">
                             <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦350</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦15,750</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦15,750</span></div>
                         </div>
                         <% if (s1Payment) { %>
                             <button class="activate-button" disabled>
@@ -104,8 +105,8 @@
                         </div>
                         <div class="income-section">
                             <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦850</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦38,250</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦38,250</span></div>
                         </div>
                         <% if (s2Payment) { %>
                             <button class="activate-button" disabled>
@@ -156,8 +157,8 @@
                         </div>
                         <div class="income-section">
                             <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦2,000</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦90,000</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦90,000</span></div>
                         </div>
                         <% if (s3Payment) { %>
                             <button class="activate-button" disabled>
@@ -207,8 +208,8 @@
                         </div>
                         <div class="income-section">
                             <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦3,000</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦270,000</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">90 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦270,000</span></div>
                         </div>
                         <% if (s4Payment) { %>
                             <button class="activate-button" disabled>
@@ -258,8 +259,8 @@
                         </div>
                         <div class="income-section">
                             <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦4,000</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦360,000</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">90 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦360,000</span></div>
                         </div>
                         <% if (s5Payment) { %>
                             <button class="activate-button" disabled>
@@ -304,13 +305,13 @@
                     <div class="card-content">
                         <div class="stats-grid">
                             <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦250,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦164</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦6,000</div></div>
                             <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
                         </div>
                         <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦164</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦60,000</span></div>
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦6,000</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦2,190,000</span></div>
                         </div>
                         <% if (s6Payment) { %>
                             <button class="activate-button" disabled>
@@ -355,13 +356,13 @@
                     <div class="card-content">
                         <div class="stats-grid">
                             <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦500,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦411</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦15,000</div></div>
                             <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
                         </div>
                         <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦411</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦150,000</span></div>
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦15,000</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦5,475,000</span></div>
                         </div>
                         <% if (s7Payment) { %>
                             <button class="activate-button" disabled>
@@ -406,13 +407,13 @@
                     <div class="card-content">
                         <div class="stats-grid">
                             <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦1,000,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦959</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦35,000</div></div>
                             <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
                         </div>
                         <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦959</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦350,000</span></div>
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦35,000</span></div>
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦12,775,000</span></div>
                         </div>
                         <% if (s8Payment) { %>
                             <button class="activate-button" disabled>
@@ -446,24 +447,10 @@
             </div>
         </div>
 
-<!-- <script>
-  function goToPayment(amount, store) {
-    const alreadyActive = <%- JSON.stringify(!!activePayment) %>;
+</div>
 
-    if (alreadyActive) {
-      Toastify({
-        text: "Wait for current store to expire.",
-        duration: 3000,
-        gravity: "top",
-        position: "center",
-        backgroundColor: "#e74c3c",
-      }).showToast();
-      return;
-    }
 
-    window.location.href = `/payment?amount=${amount}&store=${store}`;
-  }
-</script> -->
+        
 <div id="payment-data" data-already-active="<%= !!activePayment %>"></div>
 <script>
   function goToPayment(amount, store) {

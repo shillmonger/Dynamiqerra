@@ -55,7 +55,7 @@ router.post(
       const activePayment = await Payment.findOne({
         user: req.session.user._id,
         status: "approved",
-        validUntil: { $gt: new Date() }
+        validUntil: { $gt: new Date() },
       });
 
       if (activePayment) {
@@ -67,6 +67,7 @@ router.post(
         return res.redirect("/payment?status=error");
       }
 
+      // New pending payment (approval will activate shop)
       const payment = new Payment({
         user: req.session.user._id,
         method,
@@ -75,6 +76,10 @@ router.post(
         txid,
         store,
         screenshot,
+        status: "pending",   // default state
+        validUntil: null,    // set later by admin approval
+        dailyEarning: 0,     // set later by admin approval
+        lastPayout: null,    // set later when approved
       });
 
       await payment.save();
@@ -88,40 +93,8 @@ router.post(
         await user.save();
       }
 
-      // ✅ Reward referrer if exists
-      if (user.referredBy) {
-        const referrer = await User.findById(user.referredBy);
-        if (referrer) {
-          const bonus = parseInt(amount) * 0.1; // 10% referral bonus
-
-          // Update referrer’s direct earnings
-          referrer.referralEarnings += bonus;
-          referrer.balance += bonus;
-
-          // 🔥 Only update verifiedReferrals here
-          referrer.verifiedReferrals = (referrer.verifiedReferrals || 0) + 1;
-          referrer.referralAmount = (referrer.verifiedReferrals || 0) * 1000;
-
-          // Recalculate weekly bonus
-          let verifiedCount = referrer.verifiedReferrals;
-          let newWeeklyBonus = 0;
-          if (verifiedCount >= 100) newWeeklyBonus = 250000;
-          else if (verifiedCount >= 50) newWeeklyBonus = 100000;
-          else if (verifiedCount >= 20) newWeeklyBonus = 20000;
-          else if (verifiedCount >= 10) newWeeklyBonus = 10000;
-          else if (verifiedCount >= 5) newWeeklyBonus = 5000;
-
-          // ✅ Add only the difference in weekly bonus to balance
-          if (newWeeklyBonus > (referrer.weeklyBonus || 0)) {
-            const diff = newWeeklyBonus - (referrer.weeklyBonus || 0);
-            referrer.balance += diff;
-          }
-
-          referrer.weeklyBonus = newWeeklyBonus;
-
-          await referrer.save();
-        }
-      }
+      // 🚫 Referral / bonus logic removed from here
+      // ✅ This now happens only on admin approval (admin.js)
 
       res.redirect("/payment?status=success");
     } catch (error) {
@@ -130,5 +103,6 @@ router.post(
     }
   }
 );
+
 
 module.exports = router;

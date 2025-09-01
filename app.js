@@ -13,16 +13,7 @@ mongoose.connect(process.env.MONGO_URI, {})
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
 
-// Import routes
-const authRoutes = require("./routes/auth");
-const mainRoutes = require("./routes/main");
-const paymentRoutes = require("./routes/payment");
-const adminRoutes = require("./routes/admin");
-const teamRoutes = require("./routes/team");
-
 // ================== Middleware ==================
-
-// Sessions
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -31,27 +22,38 @@ app.use(
   })
 );
 
-// Set view engine to EJS
+// Flash message middleware
+app.use((req, res, next) => {
+  res.locals.message = req.session.message;
+  delete req.session.message;
+  next();
+});
+
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-// Serve static files (CSS, JS, images) BEFORE device check
 app.use(express.static(path.join(__dirname, "public")));
-
-// Parse form data / JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Device check (restrict big screens) AFTER static files are served
-const deviceCheck = require("./middleware/deviceCheck");
-app.use(deviceCheck);
+// const deviceCheck = require("./middleware/deviceCheck");
+// app.use(deviceCheck);
 
 // ================== Routes ==================
-app.use("/", authRoutes);
-app.use("/", mainRoutes);
-app.use("/", paymentRoutes);
-app.use("/", adminRoutes);
-app.use("/", teamRoutes);
+app.use("/", require("./routes/auth"));
+app.use("/", require("./routes/main"));
+app.use("/", require("./routes/payment"));
+app.use("/", require("./routes/admin"));
+app.use("/", require("./routes/team"));
+app.use("/", require("./routes/bank")); 
+app.use("/", require("./routes/withdrawals"));
+app.use("/", require("./routes/adminWithdrawals"));
+app.use("/claim", require("./routes/claim"));
+app.use("/admin/claims", require("./routes/adminClaims"));
+
+
+
+
 
 // ================== Start Server ==================
 app.listen(PORT, () => {

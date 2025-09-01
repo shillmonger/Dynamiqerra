@@ -29,6 +29,91 @@ body {
 /* RESPONSIVENESS */
 @media (max-width: 768px) {
 
+/* SETTING ICON AND SLIDES  */
+ /* Header */
+    .header {
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+   /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -500px; /* hidden by default */
+      width: 100%;
+      height: 100%;
+      background: var(--primary-color);
+      box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+      transition: right 0.3s ease;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .sidebar.active {
+      right: 0; /* show */
+      padding: 20px 10px;
+    }
+
+    .bank-details{
+        margin-top: 2rem;
+    }
+    .bank-details h2{
+        color: var(--white);
+        margin-bottom: 10px;
+        font-size: 17px;
+    }
+
+    .sidebar form {
+        border-radius: 20px;
+        padding: 15px 15px;
+        background-color: var(--primary-color-light);
+    }
+
+    .sidebar form div{
+      /* margin-top: 10px; */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar label {
+      font-weight: bold;
+      margin: 10px 0 5px;
+      color: var(--white);
+      font-size: 15px;
+    }
+
+    .sidebar input {
+      padding: 12px;
+      border: 1px solid var(--secondary-color-dark);
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 14px;
+      background: transparent;
+    }
+
+    .sidebar button {
+      margin-top: 15px;
+      padding: 12px;
+      background: var(--secondary-color-dark);
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .sidebar button:hover {
+      background: var(--secondary-color);
+    }
+
+    
+
+/* MAIN  */
     .container {
         width: 100%;
         margin: 0 auto;
@@ -47,7 +132,7 @@ body {
 .settings-icon {
     width: 40px;
     height: 40px;
-    background: rgba(255,255,255,0.2);
+    background: var(--secondary-color);
     backdrop-filter: blur(20px);
     border-radius: 50%;
     display: flex;
@@ -65,6 +150,26 @@ body {
     transform: rotate(90deg) scale(1.1);
     background: rgba(255,255,255,0.3);
 }
+
+
+/* claim button that appear  */
+.claim-btn {
+  background: rgb(61, 222, 61);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 15px;
+  width: 100%;
+}   
+
+.claim-btn:hover {
+  background: darkgreen;
+}
+
 
 
     /* Account Card */
@@ -254,7 +359,7 @@ body {
     }
 
     .order-value {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 800;
         color: var(--white);
     }

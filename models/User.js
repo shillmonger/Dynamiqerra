@@ -11,10 +11,12 @@ const userSchema = new mongoose.Schema({
   balance: { type: Number, default: 0 },
   referralAmount: { type: Number, default: 0 },  // total from referrals (₦1k per verified referral)
   weeklyBonus: { type: Number, default: 0 },     // tier bonus (5k, 10k, 20k, 100k, 250k)
+  bonusEligibleReferrals: { type: Number, default: 0 },
 
   // referral counts
   totalReferrals: { type: Number, default: 0 },
   verifiedReferrals: { type: Number, default: 0 },
+  monthlyReferrals: { type: Number, default: 0 },
 
   isAdmin: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
