@@ -19,20 +19,20 @@
 
 
 /* ALL ABOUT LARGE SCREENS */
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: var(--primary-color);
-        width: 100%;
-        margin: 0 auto;
-        padding-bottom: 5rem;
-        overflow-x: hidden;
-    }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--primary-color);
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 5rem;
+    overflow-x: hidden;
+}
 
-.hold{
+.hold {
     display: none;
 }
 
-.large-screen{
+.large-screen {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,13 +119,13 @@
         overflow-x: hidden;
     }
 
-    .large-screen{
-display: none;
-}
+    .large-screen {
+        display: none;
+    }
 
-.hold{
-    display: block;
-}
+    .hold {
+        display: block;
+    }
 
     /* Small Screen Navigation */
     .small-screen-nav {
@@ -245,10 +245,20 @@ display: none;
 
     .logo-container {
         display: flex;
-        align-items: center;
+        justify-content: space-between;
         gap: 10px;
         position: relative;
         z-index: 1;
+    }
+
+    .admin-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background: #27ae60;
+        color: #fff;
+        border-radius: 7px;
+        text-decoration: none;
     }
 
     .logo {
@@ -275,6 +285,8 @@ display: none;
         font-size: 14px;
         margin: 0;
     }
+
+
 
     /* Video Player */
     .video-container {
@@ -360,7 +372,7 @@ display: none;
 
     .image-list img {
         width: 100%;
-        border-radius: 20px;
+        border-radius: 10px;
         border: 1px solid var(--secondary-color-dark);
     }
 
@@ -494,30 +506,137 @@ display: none;
 
 
 
-    /* floating Telegram Button */
-    .telegram-float {
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
         position: fixed;
         bottom: 90px;
         /* distance from bottom */
         right: 10px;
-        /* distance from left */
+        /* distance from right */
         z-index: 9999;
         /* always on top */
-        display: inline-block;
-    }
-
-    .telegram-float img {
-        width: 45px;
-        /* adjust size */
-        height: 45px;
+        background-color: #1ebe5a;
+        color: white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 3px 3px var(--primary-color);
         transition: transform 0.3s ease;
-        /* border-radius: 50%; */
-        /* border: 2px solid var(--secondary-color-dark); */
-        cursor: pointer;
     }
 
-    .telegram-float img:hover {
+    .whatsapp-float:hover {
         transform: scale(1.1);
+        background-color: #25D366;
     }
+
+
+
+
+
+    /* Claim Section Styles */
+    .claim-section {
+        padding: 10px;
+    }
+
+    .claim-header {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .claim-header h3 {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .claim-header p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    .claim-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .claim-card {
+        background: var(--primary-color-light);
+        border-radius: 15px;
+        padding: 1rem;
+        /* border: 1px solid var(--secondary-color-dark); */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .claim-card:hover {
+        transform: translateY(-2px);
+        /* box-shadow: 0 8px 25px rgba(229, 199, 101, 0.1); */
+    }
+
+    .claim-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .claim-card-header h4 {
+        color: var(--secondary-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .daily-amount {
+        color: var(--white);
+        font-size: 14px;
+        font-weight: 600;
+        background: #27ae60;
+        color: var(--primary-color);
+        padding: 0.3rem;
+        border-radius: 5px;
+    }
+
+    .claim-card-content p {
+        color: var(--text-light);
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .claim-btn {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+    }
+
+    .claim-btn:hover:not(:disabled) {
+        background: var(--secondary-color-dark);
+        transform: translateY(-1px);
+    }
+
+    .claim-btn:disabled {
+        background: #666;
+        color: #999;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .claim-btn.claimed {
+        background: #27ae60;
+        color: white;
+    }
+
 
 }

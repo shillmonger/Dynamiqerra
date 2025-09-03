@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <title>team</title>
   <meta name="theme-color" content="#0d0d0d">
-  <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -93,7 +93,8 @@
               <span class="invitation-url">************************</span>
               <span class="invitation-number">*****</span>
               <% } else { %>
-                <span class="invitation-url">http://localhost:3000/</span>
+                <!-- <span class="invitation-url">http://localhost:3000/</span> -->
+                <span class="invitation-url">https://dynamiqerra.com/</span>
                 <span class="invitation-number">
                   <%= user.referral %>
                 </span>
@@ -129,13 +130,6 @@
           </div>
           <div class="stat-label">Referral Amount</div>
         </div>
-
-        <!-- <div class="stat-card">
-        <div class="stat-number" style="color: <%= bankSubmitted ? '#22c55e' : '#e74c3c' %>">
-          <%= bankSubmitted ? 'Submitted' : 'Awaiting' %>
-        </div>
-        <div class="stat-label">My bank details</div>
-      </div> -->
 
         <div class="stat-card">
           <div class="stat-number <%= bankSubmitted ? 'submitted' : 'awaiting' %>">
@@ -309,7 +303,8 @@
           }).showToast();
           return;
         }
-        const link = `http://localhost:3000/${code}`;
+        // const link = `http://localhost:3000/${code}`;
+        const link = `https://dynamiqerra.com/${code}`;
         navigator.clipboard.writeText(link);
         Toastify({
           text: "Referral link copied",

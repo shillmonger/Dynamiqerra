@@ -52,15 +52,7 @@ router.post(
       const screenshot = req.file ? `/uploads/${req.file.filename}` : null;
 
       // ✅ Check if user already has an active approved shop
-      const activePayment = await Payment.findOne({
-        user: req.session.user._id,
-        status: "approved",
-        validUntil: { $gt: new Date() },
-      });
-
-      if (activePayment) {
-        return res.redirect("/payment?status=active_exists");
-      }
+  // REMOVED: Restriction for only one active shop. Users can now buy multiple shops.
 
       // Enforce minimum amount
       if (!amount || parseInt(amount) < 10000) {

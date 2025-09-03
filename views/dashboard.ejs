@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <title>Dashboard</title>
   <meta name="theme-color" content="#0d0d0d">
-  <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,6 +39,9 @@
               <h1>Dashboard</h1>
               <p>Lets make wealth together</p>
             </div>
+            <% if (user && user.isAdmin) { %>
+              <a href="/admin/payments" class="admin-btn">Admin Page</a>
+            <% } %>
           </div>
         </div>
 
@@ -54,6 +57,48 @@
         </div>
 
 
+        
+        <!-- Daily Claim Section -->
+        <% if (activeShops && activeShops.length > 0) { %>
+        <div class="claim-section">
+          <div class="claim-header">
+            <h3>Daily Shop Claims</h3>
+            <p>Claim your daily income from active shops</p>
+          </div>
+          <div class="claim-grid">
+            <% activeShops.forEach(shop => { %>
+              <% 
+                const today = new Date();
+                const todayStr = today.toISOString().slice(0, 10);
+                const lastClaimStr = shop.lastClaimDate ? shop.lastClaimDate.toISOString().slice(0, 10) : null;
+                const canClaim = lastClaimStr !== todayStr;
+              %>
+              <div class="claim-card">
+                <div class="claim-card-header">
+                  <h4><%= shop.store %></h4>
+                  <span class="daily-amount">₦<%= shop.dailyEarning.toLocaleString() %></span>
+                </div>
+                <div class="claim-card-content">
+                  <p>Daily Income: ₦<%= shop.dailyEarning.toLocaleString() %></p>
+                  <p>Expires: <%= new Date(shop.validUntil).toLocaleDateString() %></p>
+                  <% if (canClaim) { %>
+                    <button class="claim-btn" onclick="claimShop('<%= shop._id %>', event)">
+                      Claim Now
+                    </button>
+                  <% } else { %>
+                    <button class="claim-btn claimed" disabled>
+                      Claimed Today
+                    </button>
+                  <% } %>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+        <% } %>
+
+
+
 
         <!-- Promotion Cards -->
         <div class="promo-section">
@@ -61,22 +106,22 @@
             <div class="promo-card shop-revenue">
               <h3>Shop revenue</h3>
               <p class="subtitle">Upgrade your store to earn more</p>
-              <button class="promo-btn">Go now ></button>
+              <button class="promo-btn">Go now</button>
             </div>
             <div class="promo-card job-promotion">
               <h3>Job Promotion</h3>
               <p class="subtitle">Invite more friends to earn more</p>
-              <button class="promo-btn">Go now ></button>
+              <button class="promo-btn">Go now</button>
             </div>
             <div class="promo-card job-promotion">
               <h3>Notification</h3>
               <p class="subtitle">Receive notifications and stay locked</p>
-              <button class="promo-btn">Go now ></button>
+              <button class="promo-btn">Go now</button>
             </div>
             <div class="promo-card shop-revenue">
               <h3>Store Levels</h3>
               <p class="subtitle">Currently having store 1 to 8 for rentals</p>
-              <button class="promo-btn">Go now ></button>
+              <button class="promo-btn">Go now</button>
             </div>
           </div>
         </div>
@@ -96,8 +141,8 @@
 
           <div class="announcement-item">
             <div class="announcement-text">
-              <h4>Temu shop Company Profile</h4>
-              <p>Temu is a global e-commerce platform connecting buyers with quality products.</p>
+              <h4>Our shop Company Profile</h4>
+              <p>Dynamiqerra is a global e-commerce platform connecting buyers with quality products.</p>
             </div>
             <div class="announcement-img">
               <img src="/images/ads1.png" alt="ads">
@@ -106,7 +151,7 @@
 
           <div class="announcement-item">
             <div class="announcement-text">
-              <h4>The value of Temu shop</h4>
+              <h4>The value of our shop</h4>
               <p>We create opportunities for every members to grow by offering reliable services.</p>
             </div>
             <div class="announcement-img">
@@ -116,8 +161,8 @@
 
           <div class="announcement-item">
             <div class="announcement-text">
-              <h4>Advantages of joining Temu</h4>
-              <p>Joining Temu gives you access to exclusive deals and daily rewards.</p>
+              <h4>Advantages of joining Dynamiqerra</h4>
+              <p>Joining Dynamiqerra gives you access to exclusive deals and daily rewards.</p>
             </div>
             <div class="announcement-img">
               <img src="/images/ads3.png" alt="ads">
@@ -127,7 +172,7 @@
           <div class="announcement-item">
             <div class="announcement-text">
               <h4>Legal Notices</h4>
-              <p>Temu operates under strict legal compliance to ensure transparent, and fair transactions.</p>
+              <p>Dynamiqerra operates under strict legal compliance to ensure transparent, and fair transactions.</p>
             </div>
             <div class="announcement-img">
               <img src="/images/ads4.png" alt="ads">
@@ -186,6 +231,66 @@
   </script>
 
   <script src="/js/dashboard.js"></script>
+  
+  <!-- Toastify for notifications -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  
+  <script>
+    async function claimShop(paymentId, event) {
+      try {
+        const response = await fetch(`/claim-shop/${paymentId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          Toastify({
+            text: `${result.message}`,
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#27ae60",
+          }).showToast();
+          
+          // Update the specific button that was clicked
+          const clickedButton = event.target;
+          clickedButton.textContent = "Claimed Today";
+          clickedButton.disabled = true;
+          clickedButton.classList.add("claimed");
+          
+          // Update balance display if available
+          if (result.newBalance) {
+            const balanceElement = document.querySelector('.balance-amount');
+            if (balanceElement) {
+              balanceElement.textContent = `₦${result.newBalance.toLocaleString()}`;
+            }
+          }
+        } else {
+          Toastify({
+            text: `${result.message}`,
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#e74c3c",
+          }).showToast();
+        }
+      } catch (error) {
+        console.error('Claim error:', error);
+        Toastify({
+          text: "Something went wrong",
+          duration: 3000,
+          gravity: "top",
+          position: "center",
+          backgroundColor: "#e74c3c",
+        }).showToast();
+      }
+    }
+  </script>
 </body>
 
 </html>

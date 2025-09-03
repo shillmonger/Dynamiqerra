@@ -8,18 +8,14 @@
 
  :root {
    --primary-color: #0d0d0d;
-   --primary-color-light: #1f2125;
-   --primary-color-extra-light: #35373b;
-   --secondary-color: #696fdd;
-   --secondary-color-dark: #a3a8f0;
-   --text-light: #ccc;
-   --white: #fff;
-   --background-gradient: linear-gradient(135deg, rgb(186, 190, 253) 0%, rgb(66, 71, 158) 100%);
-   --background1: linear-gradient(113.36deg, #000002 -12.22%, #9685de 179.61%);
-   --background2: linear-gradient(180deg, #d6d9fa, rgb(149, 154, 243));
+   --primary-color-light: #111;
+   --primary-color-extra-light: #1b1b1b;
+   --secondary-color: #e5c765;
+   --secondary-color-dark: #c5a057;
+   --text-light: #cecece;
+   --white: #ffffff;
    --max-width: 1300px;
  }
-
 
 
  body {
@@ -78,6 +74,23 @@
 
 
  /* ALL ABOUT PAYMENTS */
+ .payment-id {
+   font-weight: bold;
+   color: #007bff;
+   font-size: 16px;
+ }
+
+ /* status  */
+ .payment-status {
+   font-weight: bold;
+   padding: 7px 5px;
+   border-radius: 7px;
+   background: #c5a057;
+   color: #000;
+   font-size: 14px;
+ }
+
+
  .payment-contain {
    display: flex;
    flex-wrap: wrap;
@@ -86,9 +99,9 @@
  }
 
  .payment {
-   background: #fff;
-   border-left: 6px solid var(--secondary-color);
-   border-radius: 10px;
+   background: var(--white);
+   border-left: 7px solid var(--secondary-color);
+   border-radius: 20px;
    padding: 20px;
    margin-bottom: 20px;
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -112,22 +125,30 @@
  }
 
  /* Buttons */
- .payment form {
+ .payment-actions {
    display: flex;
+   justify-content: space-around;
    gap: 10px;
+   width: 100%;
+   margin-top: 10px;
+ }
+
+ .payment form {
+   width: 100%;
+
  }
 
  .payment form button {
    margin-right: 10px;
-   margin-top: 10px;
    padding: 10px 16px;
    border: none;
    font-size: 14px;
    font-weight: 500;
    border-radius: 6px;
-   width: 50%;
+   width: 100%;
    cursor: pointer;
    transition: background-color 0.3s ease;
+
  }
 
  /* Approve */
@@ -165,28 +186,13 @@
    flex-wrap: wrap;
    justify-content: center;
    align-items: center;
-   gap: 10px;
+   gap: 20px;
+   color: var(--white);
    margin-bottom: 1rem;
  }
 
- .platform-buttons button {
-   display: flex;
-   align-items: center;
-   gap: 10px;
-   width: 24.20%;
-   /* width: 15.50%; */
-   padding: 5px 12px;
-   background: #2c2c2c;
-   border: none;
-   color: #fff;
-   border: none;
-   font-size: 16px;
-   cursor: pointer;
-   border-radius: 10px;
-   background: #292938;
-   padding: 10px;
-   /* margin: 3px; */
-   transition: background 0.3s ease, color 0.3s ease;
+ .platform-buttons a {
+ color: var(--white);
  }
 
  button .btn-icon {
@@ -260,7 +266,8 @@
    font-size: 14px;
    border-bottom: 1px solid #333;
  }
- table.order-card td i{
+
+ table.order-card td i {
    color: rgb(232, 90, 90);
    font-size: 15px;
    cursor: pointer;
@@ -383,6 +390,14 @@
  /* MY RESPONSIVNESS  */
  @media (max-width: 768px) {
 
+  body {
+    width: 100%;
+    padding: 20px 10px;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--primary-color);
+}
+
+
    /* Small Screen Navigation */
    .small-screen-nav {
      font-family: 'Luckiest Guy', cursive;
@@ -450,7 +465,7 @@
    }
 
    .nav-link.active i {
-     background: var(--background-gradient);
+     background: var(--secondary-color-dark);
      color: var(--white);
      padding: 8px;
      border-radius: 50%;
@@ -479,6 +494,18 @@
 
 
 
+.platform-buttons{
+  display: none;
+}
+
+
+
+   .payment-id {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 14px;
+}
+
    /* ALL ABOUT Platform Buttons */
    .platform-buttons button {
      width: 48%;
@@ -486,10 +513,10 @@
      padding: 7px;
    }
 
-  .platform-buttons button .btn-icon {
+   .platform-buttons button .btn-icon {
      width: 30px;
      height: 30px;
-   object-fit: contain;
+     object-fit: contain;
    }
 
 
@@ -500,13 +527,13 @@
    .payments,
    .service,
    .profit {
-     padding: 20px 10px;
+     padding: 20px 0px;
    }
 
    .payment-contain,
    .profit,
    .service {
-     padding-bottom: 8rem;
+     padding-bottom: 5rem;
    }
 
    .payment {
@@ -519,89 +546,93 @@
 
 
 
-/* ALL ABOUT MANAGING SERVICES  */
-.table-scroll {
-  width: 100%;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 1rem;
-  margin-bottom: 5rem;
-  -webkit-overflow-scrolling: touch;
-}
+   /* ALL ABOUT MANAGING SERVICES  */
+   .table-scroll {
+     width: 100%;
+     overflow-x: auto;
+     scroll-behavior: smooth;
+     padding-bottom: 1rem;
+     margin-bottom: 5rem;
+     -webkit-overflow-scrolling: touch;
+   }
 
-/* Custom Scrollbar */
-.table-scroll::-webkit-scrollbar {
-  height: 4px;
-}
-.table-scroll::-webkit-scrollbar-thumb {
-  background-color: var(--secondary-color);
-  border-radius: 10px;
-}
-.table-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
+   /* Custom Scrollbar */
+   .table-scroll::-webkit-scrollbar {
+     height: 4px;
+   }
 
-/* 📋 Table Style */
-.table-scroll .order-card {
-  width: 100%;
-  /* min-width: 800px; */
-  border-collapse: separate;    
-  border-spacing: 5px 10px;    
-}
+   .table-scroll::-webkit-scrollbar-thumb {
+     background-color: var(--secondary-color);
+     border-radius: 10px;
+   }
 
-/* 🧠 Header */
-.order-card thead {
-  background: var(--secondary-color);
-}
-.order-card thead th {
-  padding: 10px 16px;
-  font-size: 14px;
-  text-align: left;
-  white-space: nowrap;
-  color: white;
-}
+   .table-scroll::-webkit-scrollbar-track {
+     background: transparent;
+   }
 
-/* 🔘 Rounded Header Corners */
-.order-card thead th:first-child {
-  border-top-left-radius: 20px;
-}
-.order-card thead th:last-child {
-  border-top-right-radius: 20px;
-}
+   /* 📋 Table Style */
+   .table-scroll .order-card {
+     width: 100%;
+     /* min-width: 800px; */
+     border-collapse: separate;
+     border-spacing: 5px 10px;
+   }
 
-/* 📦 Body Rows */
-.order-card td {
-  padding: 12px;
-  background-color: #fff;
-  border: none;
-  color: var(--primary-color-light);
-  border-radius: 6px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+   /* 🧠 Header */
+   .order-card thead {
+     background: var(--secondary-color);
+   }
 
- table.order-card td i{
-   color: rgb(232, 90, 90);
-   font-size: 20px;
- }
+   .order-card thead th {
+     padding: 10px 16px;
+     font-size: 14px;
+     text-align: left;
+     white-space: nowrap;
+     color: white;
+   }
+
+   /* 🔘 Rounded Header Corners */
+   .order-card thead th:first-child {
+     border-top-left-radius: 20px;
+   }
+
+   .order-card thead th:last-child {
+     border-top-right-radius: 20px;
+   }
+
+   /* 📦 Body Rows */
+   .order-card td {
+     padding: 12px;
+     background-color: #fff;
+     border: none;
+     color: var(--primary-color-light);
+     border-radius: 6px;
+     font-size: 15px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+   }
+
+   table.order-card td i {
+     color: rgb(232, 90, 90);
+     font-size: 20px;
+   }
 
 
-/* 🧾 Inputs inside table */
-.order-card input[type="number"] {
-  width: 100px;
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid var(--secondary-color);
-}
+   /* 🧾 Inputs inside table */
+   .order-card input[type="number"] {
+     width: 100px;
+     padding: 6px;
+     border-radius: 6px;
+     border: 1px solid var(--secondary-color);
+   }
 
- /* Save button styling */
- table.order-card button {
-   padding: 30px;
-   border-radius: 6px;
-   font-size: 14px;
-   width: 100%;
- }
+   /* Save button styling */
+   table.order-card button {
+     padding: 30px;
+     border-radius: 6px;
+     font-size: 14px;
+     width: 100%;
+   }
 
 
 

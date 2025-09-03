@@ -28,6 +28,7 @@ const PaymentSchema = new mongoose.Schema({
 
   // 🔹 claim tracking
   claimed: { type: Boolean, default: false }, // ✅ mark true once admin approves claim
+  lastClaimDate: { type: Date, default: null }, // ✅ track when shop was last claimed for daily income
 
 }, { timestamps: true }); // this will also auto-add createdAt & updatedAt
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>store</title>
     <meta name="theme-color" content="#0d0d0d">
-    <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -38,6 +38,74 @@
 
 
             <div class="shop-levels">
+                <!-- FREE SHOP -->
+                <% 
+                  const freeShopPayment = payments.find(p => p.store === "FREE" && new Date(p.validUntil) > new Date());
+                  const freeShopExpired = payments.find(p => p.store === "FREE" && new Date(p.validUntil) <= new Date());
+                  const canShowFreeShop = !freeShopPayment && !freeShopExpired;
+                %>
+                
+                <% if (canShowFreeShop) { %>
+                <div class="product-card level-free">
+                    <div class="card-header">
+                        <div class="store-level">Free Trial Shop</div>
+                        <div class="level-number">FREE</div>
+                        <img src="/images/shop 1.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦0</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦300</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">3</div></div>
+                        </div>
+                        <div class="income-section">
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦300</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">3 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦900</span></div>
+                        </div>
+                        <button class="activate-button" onclick="activateFreeShop()">Activate Free Shop</button>
+                    </div>
+                </div>
+                <% } %>
+                
+                <% if (freeShopPayment) { %>
+                <div class="product-card level-free">
+                    <div class="card-header">
+                        <div class="store-level">Free Trial Shop (Active)</div>
+                        <div class="level-number">FREE</div>
+                        <img src="/images/shop 6.png" alt="shop" class="gem-icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat"><div class="stat-label">Status</div><div class="stat-value">Active</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦300</div></div>
+                            <div class="stat"><div class="stat-label">Remaining</div><div class="stat-value"><span id="countdown-FREE"></span></div></div>
+                        </div>
+                        <div class="income-section">
+                            <p style="text-align: center; color: #27ae60; font-weight: bold;">Free shop is running! Claim daily income from dashboard.</p>
+                        </div>
+                        <script>
+                            (() => {
+                                const end = new Date("<%= freeShopPayment.validUntil %>").getTime();
+                                const el = document.getElementById("countdown-FREE");
+                                const timer = setInterval(() => {
+                                    const now = Date.now();
+                                    const diff = end - now;
+                                    if (diff <= 0) {
+                                        clearInterval(timer);
+                                        el.innerText = "Expired";
+                                        return;
+                                    }
+                                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                    const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    el.innerText = `${days}d ${hrs}h`;
+                                }, 1000);
+                            })();
+                        </script>
+                    </div>
+                </div>
+                <% } %>
+
                 <!-- S1 -->
                 <% const s1Payment = payments.find(p => p.store === "S1" && new Date(p.validUntil) > new Date()); %>
                 <div class="product-card level-1">
@@ -57,33 +125,7 @@
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
                             <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦15,750</span></div>
                         </div>
-                        <% if (s1Payment) { %>
-                            <button class="activate-button" disabled>
-                                <span id="countdown-S1"></span>
-                            </button>
-                            <script>
-                                (() => {
-                                    const end = new Date("<%= s1Payment.validUntil %>").getTime();
-                                    const el = document.getElementById("countdown-S1");
-                                    const timer = setInterval(() => {
-                                        const now = Date.now();
-                                        const diff = end - now;
-                                        if (diff <= 0) {
-                                            clearInterval(timer);
-                                            el.innerText = "Activate ₦10,000";
-                                            el.parentElement.disabled = false;
-                                            el.parentElement.onclick = () => goToPayment(10000, "S1");
-                                            return;
-                                        }
-                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                        el.innerText = `${days}d ${hrs}h remaining`;
-                                    }, 1000);
-                                })();
-                            </script>
-                        <% } else { %>
-                            <button class="activate-button" onclick="goToPayment(10000, 'S1')">Activate ₦10,000</button>
-                        <% } %>
+                        <button class="activate-button" onclick="goToPayment(10000, 'S1')">Activate ₦10,000</button>
                     </div>
                 </div>
 
@@ -108,33 +150,7 @@
                             <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
                             <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦38,250</span></div>
                         </div>
-                        <% if (s2Payment) { %>
-                            <button class="activate-button" disabled>
-                                <span id="countdown-S2"></span>
-                            </button>
-                            <script>
-                                (() => {
-                                    const end = new Date("<%= s2Payment.validUntil %>").getTime();
-                                    const el = document.getElementById("countdown-S2");
-                                    const timer = setInterval(() => {
-                                        const now = Date.now();
-                                        const diff = end - now;
-                                        if (diff <= 0) {
-                                            clearInterval(timer);
-                                            el.innerText = "Activate ₦25,000";
-                                            el.parentElement.disabled = false;
-                                            el.parentElement.onclick = () => goToPayment(25000, "S2");
-                                            return;
-                                        }
-                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                        el.innerText = `${days}d ${hrs}h remaining`;
-                                    }, 1000);
-                                })();
-                            </script>
-                        <% } else { %>
-                            <button class="activate-button" onclick="goToPayment(25000, 'S2')">Activate ₦25,000</button>
-                        <% } %>
+                        <button class="activate-button" onclick="goToPayment(25000, 'S2')">Activate ₦25,000</button>
                     </div>
                 </div>
 
@@ -453,22 +469,54 @@
         
 <div id="payment-data" data-already-active="<%= !!activePayment %>"></div>
 <script>
-  function goToPayment(amount, store) {
-    const alreadyActive = document.getElementById("payment-data").dataset.alreadyActive === "true";
-
-    if (alreadyActive) {
-      Toastify({
-        text: "Wait for current store to expire.",
-        duration: 3000,
-        gravity: "top",
-        position: "center",
-        backgroundColor: "#e74c3c",
-      }).showToast();
-      return;
+    function goToPayment(amount, store) {
+        window.location.href = `/payment?amount=${amount}&store=${store}`;
     }
 
-    window.location.href = `/payment?amount=${amount}&store=${store}`;
-  }
+    async function activateFreeShop() {
+        try {
+            const response = await fetch('/activate-free-shop', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                Toastify({
+                    text: "Free shop activated successfully!",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#27ae60",
+                }).showToast();
+                
+                // Reload page to show countdown
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            } else {
+                Toastify({
+                    text: `❌ ${result.message}`,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#e74c3c",
+                }).showToast();
+            }
+        } catch (error) {
+            console.error('Activation error:', error);
+            Toastify({
+                text: "❌ Something went wrong",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c",
+            }).showToast();
+        }
+    }
 </script>
 
 

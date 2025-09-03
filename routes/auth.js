@@ -52,6 +52,10 @@ router.post("/auth/register", async (req, res) => {
     });
     await newUser.save();
 
+    // ✅ Add welcome bonus to new user
+    newUser.balance = 500; // ₦500 welcome bonus
+    await newUser.save();
+
     // ✅ Increment total referrals immediately at signup
     if (newUser.referredBy) {
       const referrer = await User.findById(newUser.referredBy);

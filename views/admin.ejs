@@ -1,67 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="theme-color" content="#0d0d0d">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <title>Admin - Payments</title>
   <link rel="stylesheet" href="/css/admin.css">
 </head>
+
 <body>
 
-  <!-- ALL ABOUT PAYMENTS -->
+
+
+  <!-- small creen nav  -->
+    <%- include ('partials/admin-nav') %>
+
+
+
   <div class="payments" id="admin-home">
     <h1>All Payments</h1>
+    <div class="platform-buttons">
+      <a href="/admin/payments" class="platform-btn">Pending Payments</a>
+      <a href="/admin/claims" class="platform-btn">Shop Payouts</a>
+      <a href="/admin/withdrawals" class="platform-btn">Referal Payouts</a>
+    </div>
 
     <div class="payment-contain">
-      <% if (payments && payments.length > 0) { %>
-        <% payments.forEach(payment => { %>
+      <% if (payments && payments.length> 0) { %>
+        <% payments.forEach(payment=> { %>
           <div class="payment">
-            
-            <p><strong>User Phone:</strong> <%= payment.user ? payment.user.phone : "Unknown" %></p>
-            
-            <p><strong>Method:</strong> <%= payment.method %></p>
-
-            <p>
-              <strong>Amount:</strong> 
-              <%= payment.currency === "USD" 
-                  ? "$" + Number(payment.amount).toLocaleString() 
-                  : "₦" + Number(payment.amount).toLocaleString("en-NG") %>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="payment-id">Payment <br> #<%= payment._id %></span>
+              <span class="payment-status">
+                <%= payment.status.charAt(0).toUpperCase() + payment.status.slice(1) %>
+              </span>
+            </div>
+            <hr style="margin: 10px 0;">
+            <p><strong>User Phone:</strong>
+              <%= payment.user ? payment.user.phone : "Unknown" %>
             </p>
-
-            <p><strong>Currency:</strong> <%= payment.currency %></p>
-            <p><strong>Txn ID:</strong> <%= payment.txid %></p>
-
-            <p><strong>Status:</strong> 
-              <span class="<%= payment.status %>"><%= payment.status %></span>
+            <p><strong>Method:</strong>
+              <%= payment.method %>
             </p>
-
+            <p><strong>Amount:</strong>
+              <%= payment.currency==="USD" ? "$" + Number(payment.amount).toLocaleString() : "\u20a6" +
+                Number(payment.amount).toLocaleString("en-NG") %>
+            </p>
+            <p><strong>Currency:</strong>
+              <%= payment.currency %>
+            </p>
+            <p><strong>Txn ID:</strong>
+              <%= payment.txid %>
+            </p>
             <% if (payment.screenshot) { %>
-              <p><strong>Screenshot:</strong> 
-                <a href="<%= payment.screenshot %>" target="_blank">View</a>
-              </p>
-            <% } else { %>
-              <p><em>No screenshot uploaded</em></p>
-            <% } %>
-
-            <!-- APPROVE/REJECT BUTTONS -->
-            <% if (payment.status === "pending") { %>
-              <form action="/admin/payments/<%= payment._id %>/approve" method="POST" style="display:inline;">
-                <button type="submit">Approve</button>
-              </form>
-
-              <form action="/admin/payments/<%= payment._id %>/reject" method="POST" style="display:inline;">
-                <button type="submit">Reject</button>
-              </form>
-            <% } %>
-
+              <p><strong>Screenshot:</strong> <a href="<%= payment.screenshot %>" target="_blank">View</a></p>
+              <% } else { %>
+                <p class="fallback-message"><em>No screenshot uploaded</em></p>
+                <% } %>
+                  <div class="payment-actions">
+                    <% if (payment.status==='pending' ) { %>
+                      <form action="/admin/payments/<%= payment._id %>/approve" method="POST" style="display:inline;">
+                        <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
+                      </form>
+                      <form action="/admin/payments/<%= payment._id %>/reject" method="POST" style="display:inline;">
+                        <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                      </form>
+                      <% } %>
+                  </div>
           </div>
-        <% }); %>
-      <% } else { %>
-        <p class="fallback-message">No payments found.</p>
-      <% } %>
+          <% }); %>
+            <% } else { %>
+              <p class="fallback-message">No payments found.</p>
+              <% } %>
     </div>
   </div>
 
 </body>
+
 </html>

@@ -93,6 +93,7 @@ margin-top: 2rem;
         .card-header {
             padding: 10px 15px;
             color: white;
+            /* background: var(--secondary-color); */
             position: relative;
             overflow: hidden;
         }
@@ -107,6 +108,7 @@ margin-top: 2rem;
             font-size: 24px;
             font-weight: bold;
         font-family: 'Luckiest Guy', cursive;
+        color: var(--primary-color-extra-light);
         }
 
         .card-content {
@@ -166,6 +168,7 @@ margin-top: 2rem;
             font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
+            background: var(--secondary-color-dark);
         }
 
         .activate-button:hover {
@@ -174,60 +177,83 @@ margin-top: 2rem;
         }
 
         /* Level-specific colors (unique, vibrant, modern) */
+/* LEVEL 1 */
 .level-1 .card-header,
 .level-1 .activate-button {
-  background: linear-gradient(135deg, #00c6ff, #0072ff); /* bright ocean blue */
+  background: linear-gradient(135deg, #B8860B, #996515); /* Dark Gold */
+  color: #fff;
 }
 
+/* LEVEL 2 */
 .level-2 .card-header,
 .level-2 .activate-button {
-  background: linear-gradient(135deg, #ff9a8b, #ff6a00); /* coral → orange fire */
+  background: linear-gradient(135deg, #C5A028, #8B7500); /* Muted Metallic Gold */
+  color: #fff;
 }
 
+/* LEVEL 3 */
 .level-3 .card-header,
 .level-3 .activate-button {
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* purple → blue neon */
+  background: linear-gradient(135deg, #A97142, #8B6508); /* Bronze Gold */
+  color: #fff;
 }
 
+/* LEVEL 4 */
 .level-4 .card-header,
 .level-4 .activate-button {
-  background: linear-gradient(135deg, #56ab2f, #a8e063); /* jungle green → lime */
+  background: linear-gradient(135deg, #B08D57, #996515); /* Aged Dark Gold */
+  color: #fff;
 }
 
+/* LEVEL 5 */
 .level-5 .card-header,
 .level-5 .activate-button {
-  background: linear-gradient(135deg, #f7971e, #ffd200); /* golden sunset */
+  background: linear-gradient(135deg, #8B7500, #B8860B); /* Deep Antique Gold */
+  color: #fff;
 }
 
+/* LEVEL 6 */
 .level-6 .card-header,
 .level-6 .activate-button {
-  background: linear-gradient(135deg, #ff0844, #ffb199); /* red → peach */
+  background: linear-gradient(135deg, #A67B5B, #7B5800); /* Copper Gold Blend */
+  color: #fff;
 }
 
+/* LEVEL 7 */
 .level-7 .card-header,
 .level-7 .activate-button {
-  background: linear-gradient(135deg, #4facfe, #00f2fe); /* sky blue → cyan glow */
+  background: linear-gradient(135deg, #9C7A38, #735200); /* Burnished Gold */
+  color: #fff;
 }
 
+/* LEVEL 8 */
 .level-8 .card-header,
 .level-8 .activate-button {
-  background: linear-gradient(135deg, #f857a6, #ff5858); /* pink → red magenta */
+  background: linear-gradient(135deg, #8B7500, #6E4B0C); /* Deep Old Gold */
+  color: #fff;
 }
 
+/* LEVEL 9 */
 .level-9 .card-header,
 .level-9 .activate-button {
-  background: linear-gradient(135deg, #ffe259, #ffa751); /* yellow → orange sunrise */
+  background: linear-gradient(135deg, #C5B358, #8B6508); /* Antique Dark Gold */
+  color: #fff;
 }
 
+/* LEVEL 10 */
 .level-10 .card-header,
 .level-10 .activate-button {
-  background: linear-gradient(135deg, #43cea2, #185a9d); /* teal → deep navy */
+  background: linear-gradient(135deg, #A68B2D, #7B5800); /* Tarnished Gold */
+  color: #fff;
 }
 
+/* LEVEL 11 */
 .level-11 .card-header,
 .level-11 .activate-button {
-  background: linear-gradient(135deg, #be60ed, #f33a46); /* violet → hot pink */
+  background: linear-gradient(135deg, #8B7500, #B8860B); /* Royal Dark Gold */
+  color: #fff;
 }
+
 
 
         .crown-icon {
@@ -240,8 +266,29 @@ margin-top: 2rem;
         .gem-icon {
             position: absolute;
             right: 0px;
-            top: 10px;
+            top: 5px;
             width: 20%;
+        }
+
+        /* Free Shop Styling */
+        .level-free .card-header,
+        .level-free .activate-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .level-free .store-level {
+            font-size: 0.9rem;
+        }
+
+        .level-free .level-number {
+            /* color: var(--white); */
+            font-weight: bold;
+        }
+
+        .level-free .activate-button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-2px);
         }
 
 }

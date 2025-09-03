@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <title>profile</title>
   <meta name="theme-color" content="#0d0d0d">
-  <link rel="icon" href="/images/favicon.jpeg" type="image/png">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -16,287 +16,397 @@
 
 <body>
   <!-- ALL ABOUT LARGE SCREENS -->
-    <%- include ('partials/big-screen') %>
-
-
-  <!-- NAVBAR  -->
-  <%- include ('partials/nav') %>
+  <%- include ('partials/big-screen') %>
 
 
 
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <div class="brand-text">
-        <h1>Personal Center</h1>
-      </div>
-      <div class="settings-icon" id="settingsBtn">
-        <i class="ri-settings-3-line"></i>
-      </div>
-    </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <div class="settings-icon" id="closeBtn">
-        <i class="ri-close-line"></i>
-      </div>
+    <!-- NAVBAR  -->
+  <div class="hold">
 
-      <div class="bank-details">
-        <h2>Bank Setup</h2>
-        <form action="/bank" method="POST">
-          <div>
-            <label>Bank Name</label>
-            <input type="text" name="bankName" placeholder="Opay" required />
+    <%- include ('partials/nav') %>
+
+
+
+      <div class="container">
+        <!-- Header -->
+        <div class="header">
+          <div class="brand-text">
+            <h1>Personal Center</h1>
           </div>
-          <div>
-            <label>Account Name</label>
-            <input type="text" name="accountName" placeholder="Kingsley" required />
-          </div>
-          <div>
-            <label>Account Number</label>
-            <input type="text" name="accountNumber" placeholder="80********" required />
-          </div>
-          <button type="submit">Save Bank Details</button>
-        </form>
-      </div>
-
-    </div>
-
-
-
-    <!-- Account Card -->
-    <div class="account-card">
-      <div class="account-header">
-        <div class="account-num">
-          <div class="balance-label">Account:</div>
-          <div class="account-number">
-            <%= user.phone %>
+          <div class="settings-icon" id="settingsBtn">
+            <i class="ri-settings-3-line"></i>
           </div>
         </div>
-        <div class="ammount-display">
-          <div class="balance-section">
-            <span class="balance-label">Account Balance</span>
-            <div class="eye-icon">
-              <i class="ri-eye-line"></i>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+          <div class="settings-icon" id="closeBtn">
+            <i class="ri-close-line"></i>
+          </div>
+
+          <div class="bank-details">
+            <h2>Bank Setup</h2>
+
+            <form action="/bank" method="POST">
+              <div>
+                <label>Bank Name</label>
+                <input type="text" name="bankName" placeholder="Opay" required />
+              </div>
+              <div>
+                <label>Account Name</label>
+                <input type="text" name="accountName" placeholder="Kingsley" required />
+              </div>
+              <div>
+                <label>Account Number</label>
+                <input type="text" name="accountNumber" placeholder="80********" required />
+              </div>
+              <button type="submit">Save Bank Details</button>
+            </form>
+
+            <div class="submited">
+              <% if (bank) { %>
+                <p><strong>Bank Name:</strong>
+                  <%= bank.bankName %>
+                </p>
+                <p><strong>Account Name:</strong>
+                  <%= bank.accountName %>
+                </p>
+                <p><strong>Account Number:</strong>
+                  <%= bank.accountNumber %>
+                </p>
+                <% } else { %>
+                  <p>No bank details saved yet.</p>
+                  <% } %>
+
+                    <p>
+                      If you submitted incorrect bank details, please resubmit the correct information before requesting
+                      any withdrawals.
+                    </p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+
+
+
+        <!-- Account Card -->
+        <div class="account-card">
+          <div class="account-header">
+            <div class="account-num">
+              <div class="balance-label">Account:</div>
+              <div class="account-number">
+                <%= user.phone %>
+              </div>
+            </div>
+            <div class="ammount-display">
+              <div class="balance-section">
+                <span class="balance-label">Account Balance</span>
+                <div class="eye-icon">
+                  <i class="ri-eye-line"></i>
+                </div>
+              </div>
+              <div class="balance-amount">
+                ₦<%= accountBalance.toLocaleString('en-NG') %>
+              </div>
+
+              <% if (expiredPayments && expiredPayments.length > 0) { %>
+                <div class="expired-shops-section">
+                  <h4>Expired Shops - Final Claims</h4>
+                  <% expiredPayments.forEach(payment => { %>
+                    <div class="expired-shop-item">
+                      <div class="expired-shop-header">
+                        <span class="expired-shop-name"><%= payment.store %></span>
+                        <span class="expired-shop-date">Expired: <%= new Date(payment.validUntil).toLocaleDateString() %></span>
+                      </div>
+                                             <div class="expired-shop-details">
+                         <% if (payment.store === "FREE") { %>
+                          <p class="expired-total-claim" style="color: #e5c765; font-weight: bold;">Total Claim: ₦<%= payment.totalClaimAmount.toLocaleString('en-NG') %></p>
+                          <p class="expired-total-claim">
+                            Welcome Bonus: ₦500 
+                            <% if (user.welcomeBonusClaimed) { %>
+                              <span style="color: #27ae60; font-weight: bold;">(Already Claimed)</span>
+                            <% } %>
+                          </p>
+                          <p class="expired-total-claim">Free Shop Earnings: ₦<%= (payment.totalEarned || 0).toLocaleString('en-NG') %></p>
+                         <% } else { %>
+                           <p class="expired-total-claim">Total Earned: ₦<%= (payment.totalEarned || 0).toLocaleString('en-NG') %></p>
+                           <p class="expired-total-claim">Total Claim: ₦<%= payment.totalClaimAmount.toLocaleString('en-NG') %></p>
+                           <p class="expired-total-claim">Shop Amount: ₦<%= (payment.amount || 0).toLocaleString('en-NG') %></p>
+                         <% } %>
+                       </div>
+                       <form action="/claim/<%= payment._id %>" method="POST" onsubmit="return checkBankDetails(event)">
+                         <input type="hidden" name="claimAmount" value="<%= payment.totalClaimAmount %>">
+                         <button type="submit" class="claim-btn final-claim-btn">
+                           <% if (payment.store === "FREE") { %>
+                             <% if (user.welcomeBonusClaimed) { %>
+                               Claim Free Shop Earnings Only
+                             <% } else { %>
+                               Withdraw Free Shop + Welcome Bonus to Bank
+                             <% } %>
+                           <% } else { %>
+                             Withdraw to Bank
+                           <% } %>
+                         </button>
+                       </form>
+                    </div>
+                  <% }); %>
+                </div>
+              <% } %>
+              
+                
+                  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+                  <script>
+                    // Show success message if claim was successful
+                    const urlParams = new URLSearchParams(window.location.search);
+                    if (urlParams.get('claimed') === 'true') {
+                      Toastify({
+                        text: "submitted successfully!",
+                        duration: 4000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#27ae60"
+                      }).showToast();
+                    }
+
+                    function checkBankDetails(e) {
+                      var bankExists = "<%= bank ? 'true' : 'false' %>" === "true";
+                      if (!bankExists) {
+                        Toastify({
+                          text: "Submit your bank details first",
+                          duration: 4000,
+                          gravity: "top",
+                          position: "right",
+                          close: true,
+                          backgroundColor: "red"
+                        }).showToast();
+                        e.preventDefault();
+                        return false;
+                      } else {
+                        Toastify({
+                          text: "Success! Claim submitted.",
+                          duration: 4000,
+                          gravity: "top",
+                          position: "right",
+                          close: true,
+                          backgroundColor: "green"
+                        }).showToast();
+                        // Allow form to submit
+                        return true;
+                      }
+                    }
+                  </script>
+
+            </div>
+
+
+
+          </div>
+        </div>
+      
+
+
+
+
+
+        <!-- Stats Card -->
+        <div class="stats-card">
+          <div class="withdrawal-section">
+            <div class="withdrawal-label">Total Approved Claims</div>
+            <div class="withdrawal-amount">₦<%= totalClaimsAmount.toLocaleString('en-NG') %></div>
+          </div>
+
+          <div class="stats-grid">
+            <!-- Total bonus earned -->
+            <div class="stat-item">
+              <div class="stat-label">Total bonus earned</div>
+              <div class="stat-value">
+                ₦<%= (stats.totalIncome || 0).toLocaleString('en-NG') %>
+              </div>
+            </div>
+
+
+
+            <!-- Today's income -->
+            <div class="stat-item">
+              <div class="stat-label">Today's income</div>
+              <div class="stat-value">
+                ₦<%= (stats.todayIncome || 0).toLocaleString() %>
+              </div>
+            </div>
+
+            <!-- Verified referrals -->
+            <div class="stat-item">
+              <div class="stat-label">Verified Referrals</div>
+              <div class="stat-value">
+                <%= verifiedReferralsCount %>
+              </div>
             </div>
           </div>
-          <div class="balance-amount">
-            ₦<%= accountBalance.toLocaleString('en-NG') %>
+
+
+          <div class="orders-grid">
+                         <!-- Welcome Bonus -->
+             <div class="order-item">
+               <div class="order-label">Welcome Bonus (free)</div>
+               <div class="order-value">
+                 <% if (user.welcomeBonusClaimed) { %>
+                   <span style="color: #27ae60; font-weight: bold;">Claimed</span>
+                 <% } else { %>
+                   ₦500
+                 <% } %>
+               </div>
+             </div>
+
+            <!-- Completed orders so far -->
+            <div class="order-item">
+              <div class="order-label">Completed Task so far</div>
+              <div class="order-value">
+                <%= stats.totalOrders || 0 %>
+              </div>
+            </div>
+
+
+            <!-- Referral amount -->
+            <div class="order-item">
+              <div class="order-label">Referral Amount</div>
+              <div class="order-value">
+                ₦<%= referralAmount.toLocaleString() %>
+              </div>
+            </div>
           </div>
 
-          <% if (expiredPayments && expiredPayments.length > 0) { %>
-  <% expiredPayments.forEach(payment => { %>
-    <form action="/claim/<%= payment._id %>" method="POST" style="margin-top:10px;">
-      <!-- hidden field sends the exact claim amount -->
-      <input 
-        type="hidden" 
-        name="claimAmount" 
-        value="<%= (payment.amount || 0) + (payment.totalEarned || 0) %>">
-      
-      <button type="submit" class="claim-btn">
-        Claim ₦<%= ((payment.amount || 0) + (payment.totalEarned || 0)).toLocaleString('en-NG') %>
-      </button>
-    </form>
-  <% }) %>
-<% } %>
-
         </div>
 
 
 
-      </div>
-    </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const eyeIcon = document.querySelector(".eye-icon i");
-        const balanceAmount = document.querySelector(".balance-amount");
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <a href="/shop" class="action-btn">
+            <div class="action-icon"><i class="ri-wallet-3-line"></i></div>
+            <div class="action-label">Make Payment</div>
+          </a>
 
-        let isHidden = false;
-        let actualBalance = balanceAmount.textContent; // store real balance
-
-        eyeIcon.addEventListener("click", () => {
-          if (isHidden) {
-            balanceAmount.textContent = actualBalance;
-            eyeIcon.classList.remove("ri-eye-off-line");
-            eyeIcon.classList.add("ri-eye-line");
-          } else {
-            balanceAmount.textContent = "*****";
-            eyeIcon.classList.remove("ri-eye-line");
-            eyeIcon.classList.add("ri-eye-off-line");
-          }
-          isHidden = !isHidden;
-        });
-      });
-    </script>
+          <a href="/funding-details" class="action-btn">
+            <div class="action-icon"><i class="ri-bar-chart-2-line"></i></div>
+            <div class="action-label">Funding details</div>
+          </a>
 
 
+          <a href="/withdrawal-details" class="action-btn">
+            <div class="action-icon"><i class="ri-bank-line"></i></div>
+            <div class="action-label">Process Withdrawal</div>
+          </a>
 
+          <a href="#" class="action-btn">
+            <div class="action-icon"><i class="ri-user-settings-line"></i></div>
+            <div class="action-label">Modify withdrawal</div>
+          </a>
+        </div>
 
-
-    <!-- Stats Card -->
-    <div class="stats-card">
-      <div class="withdrawal-section">
-        <div class="withdrawal-label">Total withdrawal amount</div>
-        <div class="withdrawal-amount">0.000</div>
-      </div>
-
-      <div class="stats-grid">
-        <!-- Total bonus earned -->
-        <div class="stat-item">
-          <div class="stat-label">Total bonus earned</div>
-          <div class="stat-value">
-            ₦<%= (stats.totalIncome || 0).toLocaleString('en-NG') %>
-          </div>
+        <!-- Menu Section -->
+        <div class="menu-section">
+          <a href="#">
+            <div class="menu-item">
+              <div class="menu-icon"><i class="ri-download-cloud-2-line"></i></div>
+              <div class="menu-label">Download</div>
+              <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="menu-item">
+              <div class="menu-icon"><i class="ri-customer-service-2-line"></i></div>
+              <div class="menu-label">Customer Service</div>
+              <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+            </div>
+          </a>
+          <a href="/funding-details">
+            <div class="menu-item">
+              <div class="menu-icon"><i class="ri-wallet-3-line"></i></div>
+              <div class="menu-label">Payment Tutorial</div>
+              <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+            </div>
+          </a>
+          <a href="/withdrawal-details">
+            <div class="menu-item">
+              <div class="menu-icon"><i class="ri-bank-line"></i></div>
+              <div class="menu-label">Withdrawal Tutorial</div>
+              <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+            </div>
+          </a>
+          <a href="/logout">
+            <div class="menu-item">
+              <div class="menu-icon"><i class="ri-logout-box-r-line"></i></div>
+              <div class="menu-label">Logout my Account</div>
+              <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
+            </div>
+          </a>
         </div>
 
 
-
-        <!-- Today's income -->
-        <div class="stat-item">
-          <div class="stat-label">Today's income</div>
-          <div class="stat-value">
-            ₦<%= (stats.todayIncome || 0).toLocaleString() %>
-          </div>
-        </div>
-
-        <!-- Verified referrals -->
-        <div class="stat-item">
-          <div class="stat-label">Verified Referrals</div>
-          <div class="stat-value">
-            <%= verifiedReferralsCount %>
-          </div>
-        </div>
-      </div>
+  </div>
 
 
-      <div class="orders-grid">
-        <!-- Daily shop income earnings -->
-        <div class="order-item">
-          <div class="order-label">Daily income from shop</div>
-          <div class="order-value">
-            ₦<%= (stats.todayIncome || 0).toLocaleString() %>
-          </div>
-        </div>
+        <%# FUCTION FOR SLIDE %>
+          <script>
+            const settingsBtn = document.getElementById('settingsBtn');
+            const sidebar = document.getElementById('sidebar');
+            const closeBtn = document.getElementById('closeBtn');
 
-        <!-- Completed orders so far -->
-        <div class="order-item">
-          <div class="order-label">Completed orders so far</div>
-          <div class="order-value">
-            <%= stats.totalOrders || 0 %>
-          </div>
-        </div>
+            settingsBtn.addEventListener('click', () => {
+              sidebar.classList.add('active');
+            });
+
+            closeBtn.addEventListener('click', () => {
+              sidebar.classList.remove('active');
+            });
+          </script>
 
 
-        <!-- Referral amount -->
-        <div class="order-item">
-          <div class="order-label">Referral Amount</div>
-          <div class="order-value">
-            ₦<%= referralAmount.toLocaleString() %>
-          </div>
-        </div>
-      </div>
-
-    </div>
+          <!--bank form submition  -->
+          <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+          <% if (message) { %>
+            <script>
+              Toastify({
+                text: "<%= message.text %>",
+                duration: 4000,
+                gravity: "top",
+                position: "right",
+                close: true,
+                backgroundColor: "<%= message.type === 'success' ? 'green' : 'red' %>"
+              }).showToast();
+            </script>
+            <% } %>
 
 
 
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-      <a href="/shop" class="action-btn">
-        <div class="action-icon"><i class="ri-wallet-3-line"></i></div>
-        <div class="action-label">Make Payment</div>
-      </a>
-
-      <a href="/funding-details" class="action-btn">
-        <div class="action-icon"><i class="ri-bar-chart-2-line"></i></div>
-        <div class="action-label">Funding details</div>
-      </a>
-
-
-      <a href="/withdrawal-details" class="action-btn">
-        <div class="action-icon"><i class="ri-bank-line"></i></div>
-        <div class="action-label">Process Withdrawal</div>
-      </a>
-
-      <a href="#" class="action-btn">
-        <div class="action-icon"><i class="ri-user-settings-line"></i></div>
-        <div class="action-label">Modify withdrawal</div>
-      </a>
-    </div>
-
-    <!-- Menu Section -->
-    <div class="menu-section">
-      <a href="#">
-        <div class="menu-item">
-          <div class="menu-icon"><i class="ri-download-cloud-2-line"></i></div>
-          <div class="menu-label">Download</div>
-          <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
-        </div>
-      </a>
-      <a href="#">
-        <div class="menu-item">
-          <div class="menu-icon"><i class="ri-customer-service-2-line"></i></div>
-          <div class="menu-label">Customer Service</div>
-          <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
-        </div>
-      </a>
-      <a href="/funding-details">
-        <div class="menu-item">
-          <div class="menu-icon"><i class="ri-wallet-3-line"></i></div>
-          <div class="menu-label">Payment Tutorial</div>
-          <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
-        </div>
-      </a>
-      <a href="/withdrawal-details">
-        <div class="menu-item">
-          <div class="menu-icon"><i class="ri-bank-line"></i></div>
-          <div class="menu-label">Withdrawal Tutorial</div>
-          <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
-        </div>
-      </a>
-      <a href="/logout">
-        <div class="menu-item">
-          <div class="menu-icon"><i class="ri-logout-box-r-line"></i></div>
-          <div class="menu-label">Logout my Account</div>
-          <div class="menu-arrow"><i class="ri-arrow-right-s-line"></i></div>
-        </div>
-      </a>
-    </div>
-
-
-
-
-    <%# FUCTION FOR SLIDE %>
-    <script>
-      const settingsBtn = document.getElementById('settingsBtn');
-      const sidebar = document.getElementById('sidebar');
-      const closeBtn = document.getElementById('closeBtn');
-
-      settingsBtn.addEventListener('click', () => {
-        sidebar.classList.add('active');
-      });
-
-      closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-      });
-    </script>
-
-
-    <!--bank form submition  -->
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <% if (message) { %>
-    <script>
-      Toastify({
-        text: "<%= message.text %>",
-        duration: 4000,
-        gravity: "top",
-        position: "right",
-        close: true,
-        backgroundColor: "<%= message.type === 'success' ? 'green' : 'red' %>"
-      }).showToast();
-    </script>
-    <% } %>
+            <!-- Fucion to show and hise ammount  -->
+            <script>
+              document.addEventListener("DOMContentLoaded", function () {
+                const eyeIcon = document.querySelector(".eye-icon i");
+                const balanceAmount = document.querySelector(".balance-amount");
     
+                let isHidden = false;
+                let actualBalance = balanceAmount.textContent; // store real balance
+    
+                eyeIcon.addEventListener("click", () => {
+                  if (isHidden) {
+                    balanceAmount.textContent = actualBalance;
+                    eyeIcon.classList.remove("ri-eye-off-line");
+                    eyeIcon.classList.add("ri-eye-line");
+                  } else {
+                    balanceAmount.textContent = "*****";
+                    eyeIcon.classList.remove("ri-eye-line");
+                    eyeIcon.classList.add("ri-eye-off-line");
+                  }
+                  isHidden = !isHidden;
+                });
+              });
+            </script>
 
 </body>
 

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Claim = require("../models/Claim");
 const Payment = require("../models/Payment");
+const User = require("../models/User");
 
 // User submits claim
 router.post("/:paymentId", async (req, res) => {
@@ -42,11 +43,17 @@ const claimAmount = parseInt(req.body.claimAmount, 10) || 0;
     });
     await claim.save();
 
+    // ✅ For free shop, welcome bonus will be marked as claimed when admin approves the claim
+    // Don't mark it here - let admin handle it
+
     // ✅ mark payment as claimed so button won't show again
     payment.claimed = true;
     await payment.save();
 
-    res.redirect("/profile"); // or res.json({ success: true, claimAmount });
+    // ✅ DO NOT add claim amount to user balance - send to admin for approval
+    // The claim will be processed by admin and then added to user balance
+
+    res.redirect("/profile?claimed=true"); // Redirect with success message
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");

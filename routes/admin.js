@@ -16,6 +16,21 @@ router.get("/admin/payments", isAdmin, async (req, res) => {
   res.render("admin", { payments });
 });
 
+// Admin claims dashboard: see all pending claims
+router.get("/admin/claims", isAdmin, async (req, res) => {
+  try {
+    const Claim = require("../models/Claim");
+    const claims = await Claim.find()
+      .populate("user")
+      .populate("payment")
+      .sort({ createdAt: -1 });
+    res.render("adminClaims", { claims });
+  } catch (error) {
+    console.error("Error fetching claims:", error);
+    res.render("adminClaims", { claims: [] });
+  }
+});
+
 
 // Approve payment
 router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
@@ -52,18 +67,34 @@ router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
 
   // ✅ set expiry + shop info
   if (days > 0) {
+    // production 
     payment.validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    // For testing: uncomment the line below and comment the line above
+    // payment.validUntil = new Date(Date.now() + 1 * 60 * 1000);
 
     payment.durationDays = days;
     payment.dailyEarning = dailyEarning;   // ✅ FIXED typo
     payment.lastPayout = new Date();       // start tracking payouts
-    payment.totalEarned = payment.amount;  // ✅ include shop amount immediately
+    payment.totalEarned = 0;  // ✅ Start at 0, will accumulate from daily claims
   }
 
   await payment.save();
 
-  // ✅ credit user with shop purchase amount
+  // ✅ Credit user with shop purchase amount when admin approves
   payment.user.balance += payment.amount;
+  
+  // ✅ For free shops, just set the shop details (don't deduct anything yet)
+  if (payment.store === "FREE") {
+    // Set duration and daily earning for free shop
+    payment.durationDays = 3;
+    payment.dailyEarning = 300;
+    payment.validUntil = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days
+    payment.totalEarned = 0;
+    payment.lastPayout = new Date();
+    
+    console.log(`Free shop approved: Set up for 3 days with ₦300 daily earnings`);
+  }
+  
   await payment.user.save();
 
   // ✅ Referral logic runs only on approval
@@ -112,6 +143,58 @@ router.post("/admin/payments/:id/reject", isAdmin, async (req, res) => {
   await payment.save();
 
   res.redirect("/admin/payments");
+});
+
+// Approve claim (for expired shops)
+router.post("/admin/claims/:id/approve", isAdmin, async (req, res) => {
+  try {
+    const Claim = require("../models/Claim");
+    const claim = await Claim.findById(req.params.id).populate("user payment");
+    
+    if (!claim) return res.redirect("/admin/claims");
+    
+    claim.status = "approved";
+    claim.approvedAt = new Date();
+    await claim.save();
+    
+    // For ALL expired shops (free and regular), DEDUCT the amount from user balance
+    // This prevents double-counting since user already has the money from daily claims
+    claim.user.balance -= claim.amount;
+    
+    if (claim.payment && claim.payment.store === "FREE") {
+      // Mark welcome bonus as claimed permanently for free shops
+      claim.user.welcomeBonusClaimed = true;
+      console.log(`Free shop claim approved: DEDUCTED ₦${claim.amount} from user balance and marked welcome bonus as claimed for user ${claim.user._id}`);
+    } else {
+      console.log(`Regular shop claim approved: DEDUCTED ₦${claim.amount} from user balance for user ${claim.user._id}`);
+    }
+    
+    await claim.user.save();
+    
+    res.redirect("/admin/claims");
+  } catch (error) {
+    console.error("Claim approval error:", error);
+    res.redirect("/admin/claims");
+  }
+});
+
+// Reject claim
+router.post("/admin/claims/:id/reject", isAdmin, async (req, res) => {
+  try {
+    const Claim = require("../models/Claim");
+    const claim = await Claim.findById(req.params.id);
+    
+    if (!claim) return res.redirect("/admin/claims");
+    
+    claim.status = "rejected";
+    claim.rejectedAt = new Date();
+    await claim.save();
+    
+    res.redirect("/admin/claims");
+  } catch (error) {
+    console.error("Claim rejection error:", error);
+    res.redirect("/admin/claims");
+  }
 });
 
 module.exports = router;
