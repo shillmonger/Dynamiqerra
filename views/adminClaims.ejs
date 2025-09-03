@@ -22,7 +22,7 @@
 
 
   <div class="payments" id="admin-claims">
-    <h1>All Claims</h1>
+    <h1>SHOP PAYOUT</h1>
     <div class="platform-buttons">
       <a href="/admin/payments" class="platform-btn">Pending Payments</a>
       <a href="/admin/claims" class="platform-btn">Shop Payouts</a>
@@ -32,7 +32,7 @@
 
     <div class="payment-contain">
       <% if (claims && claims.length> 0) { %>
-        <% claims.forEach(claim=> { %>
+        <% claims.filter(c => c.status === 'pending').forEach(claim => { %>
           <div class="payment">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span class="payment-id">Claim <br> #<%= claim._id %></span>
@@ -46,9 +46,6 @@
             </p>
             <p><strong>Amount:</strong> ₦<%= claim.amount.toLocaleString() %>
             </p>
-            <p><strong>Submitted:</strong>
-              <%= new Date(claim.createdAt).toLocaleString() %>
-            </p>
             <% if (claim.payment) { %>
               <p><strong>Shop:</strong>
                 <%= claim.payment.store %>
@@ -57,19 +54,25 @@
               </p>
               <p><strong>Total Earned:</strong> ₦<%= (claim.payment.totalEarned || 0).toLocaleString() %>
               </p>
+              <p><strong>Submitted:</strong>
+                <%= new Date(claim.createdAt).toLocaleString() %>
+              </p>
               <% } %>
                 <div style="margin-top: 12px; display: flex; gap: 10px;">
                   <% if (claim.status==='pending' ) { %>
                     <form action="/admin/claims/<%= claim._id %>/approve" method="POST" style="display:inline;">
                       <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
                     </form>
-                    <form action="/admin/claims/<%= claim._id %>/reject" method="POST" style="display:inline;">
+                    <!-- <form action="/admin/claims/<%= claim._id %>/reject" method="POST" style="display:inline;">
                       <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
-                    </form>
+                    </form> -->
                     <% } %>
                 </div>
           </div>
-          <% }); %>
+        <% }); %>
+        <% if (claims.filter(c => c.status === 'pending').length === 0) { %>
+          <p class="fallback-message">No pending claims found.</p>
+        <% } %>
             <% } else { %>
               <p class="fallback-message">No claims found.</p>
               <% } %>

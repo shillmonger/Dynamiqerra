@@ -22,7 +22,7 @@
 
 
   <div class="payments" id="admin-home">
-    <h1>All Payments</h1>
+    <h1>Pending Payments</h1>
     <div class="platform-buttons">
       <a href="/admin/payments" class="platform-btn">Pending Payments</a>
       <a href="/admin/claims" class="platform-btn">Shop Payouts</a>
@@ -30,8 +30,8 @@
     </div>
 
     <div class="payment-contain">
-      <% if (payments && payments.length> 0) { %>
-        <% payments.forEach(payment=> { %>
+      <% if (payments && payments.length > 0) { %>
+        <% payments.filter(p => p.status === 'pending').forEach(payment => { %>
           <div class="payment">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span class="payment-id">Payment <br> #<%= payment._id %></span>
@@ -47,8 +47,7 @@
               <%= payment.method %>
             </p>
             <p><strong>Amount:</strong>
-              <%= payment.currency==="USD" ? "$" + Number(payment.amount).toLocaleString() : "\u20a6" +
-                Number(payment.amount).toLocaleString("en-NG") %>
+              <%= payment.currency==="USD" ? "$" + Number(payment.amount).toLocaleString() : "\u20a6" + Number(payment.amount).toLocaleString("en-NG") %>
             </p>
             <p><strong>Currency:</strong>
               <%= payment.currency %>
@@ -58,24 +57,27 @@
             </p>
             <% if (payment.screenshot) { %>
               <p><strong>Screenshot:</strong> <a href="<%= payment.screenshot %>" target="_blank">View</a></p>
-              <% } else { %>
-                <p class="fallback-message"><em>No screenshot uploaded</em></p>
-                <% } %>
-                  <div class="payment-actions">
-                    <% if (payment.status==='pending' ) { %>
-                      <form action="/admin/payments/<%= payment._id %>/approve" method="POST" style="display:inline;">
-                        <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
-                      </form>
-                      <form action="/admin/payments/<%= payment._id %>/reject" method="POST" style="display:inline;">
-                        <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
-                      </form>
-                      <% } %>
-                  </div>
-          </div>
-          <% }); %>
             <% } else { %>
-              <p class="fallback-message">No payments found.</p>
+              <p class="fallback-message"><em>No screenshot uploaded</em></p>
+            <% } %>
+            <div class="payment-actions">
+              <% if (payment.status === 'pending') { %>
+                <form action="/admin/payments/<%= payment._id %>/approve" method="POST" style="display:inline;">
+                  <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
+                </form>
+                <form action="/admin/payments/<%= payment._id %>/reject" method="POST" style="display:inline;">
+                  <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                </form>
               <% } %>
+            </div>
+          </div>
+        <% }); %>
+        <% if (payments.filter(p => p.status === 'pending').length === 0) { %>
+          <p class="fallback-message">No pending payments found.</p>
+        <% } %>
+      <% } else { %>
+        <p class="fallback-message">No payments found.</p>
+      <% } %>
     </div>
   </div>
 

@@ -21,7 +21,7 @@
 
 
   <div class="payments" id="admin-home">
-    <h1>Withdrawal Requests</h1>
+    <h1>REFERAL PAYOUTS</h1>
 
     <div style="margin-bottom: 20px;">
       <div class="platform-buttons">
@@ -32,8 +32,8 @@
 
 
       <div class="payment-contain">
-        <% if (withdrawals && withdrawals.length> 0) { %>
-          <% withdrawals.forEach(w=> { %>
+        <% if (withdrawals && withdrawals.length > 0) { %>
+          <% withdrawals.filter(w => w.status === 'pending').forEach(w => { %>
             <div class="payment">
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span class="payment-id">Withdrawal <br> #<%= w._id %></span>
@@ -63,20 +63,23 @@
                 <%= w.createdAt.toLocaleString() %>
               </p>
               <div style="margin-top: 12px; display: flex; gap: 10px;">
-                <% if (w.status==='pending' ) { %>
+                <% if (w.status === 'pending') { %>
                   <form action="/admin/withdrawals/<%= w._id %>/approve" method="POST" style="display:inline;">
                     <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
                   </form>
-                  <form action="/admin/withdrawals/<%= w._id %>/reject" method="POST" style="display:inline;">
+                  <!-- <form action="/admin/withdrawals/<%= w._id %>/reject" method="POST" style="display:inline;">
                     <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
-                  </form>
-                  <% } %>
+                  </form> -->
+                <% } %>
               </div>
             </div>
-            <% }); %>
-              <% } else { %>
-                <p class="fallback-message">No withdrawals found.</p>
-                <% } %>
+          <% }); %>
+          <% if (withdrawals.filter(w => w.status === 'pending').length === 0) { %>
+            <p class="fallback-message">No pending withdrawals found.</p>
+          <% } %>
+        <% } else { %>
+          <p class="fallback-message">No withdrawals found.</p>
+        <% } %>
       </div>
     </div>
 

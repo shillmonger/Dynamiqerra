@@ -498,6 +498,11 @@
   display: none;
 }
 
+ /* status  */
+ .payment-status {
+   padding: 5px 5px;
+ }
+
 
 
    .payment-id {
@@ -527,7 +532,7 @@
    .payments,
    .service,
    .profit {
-     padding: 20px 0px;
+     padding: 0px 0px;
    }
 
    .payment-contain,
