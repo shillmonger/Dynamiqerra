@@ -14,63 +14,10 @@
 </head>
 
 <body>
+    <!-- ALL ABOUT HEADER SCREENS -->
+    <%- include ('partials/header') %>
 
 
-    <!-- ALL ABOUT NAV AND HAMBURGER  -->
-
-    <!-- FOR BIG SCREEN  -->
-    <nav class="hide">
-        <div class="nav__logo">
-            <a href="/"><img src="images/logo.png" alt="logo" /></a>
-        </div>
-
-        <div class="nav-hold">
-            <ul class="nav__links">
-                <li class="link"><a href="#work">How it Woks</a></li>
-                <li class="link"><a href="#reason-section">Why join us</a></li>
-                <li class="link"><a href="#Testimonials">Testimonials</a></li>
-            </ul>
-
-            <a href="/login"><button class="btn join__now">Login</button></a>
-            <a href="/register"><button class="btn join__now">Register</button></a>
-            <!-- <button class="installBtn btn join__now install" style="display: none;">Install App</button> -->
-        </div>
-    </nav>
-
-
-
-
-    <!-- FOR SMALL SCREEN  -->
-    <nav class="mobile-nav hide1">
-        <div class="nav__logo">
-            <a href="/"><img src="images/logo.png" alt="logo"></a>
-        </div>
-
-        <!-- Hamburger Icon -->
-        <div class="hamburger" id="menu-toggle" aria-label="Open menu">
-            <i class="ri-menu-3-line"></i>
-        </div>
-
-        <!-- Sliding Menu -->
-        <div class="hold3" id="mobile-menu">
-            <div class="hamburger" id="menu-close" aria-label="Close menu">
-                <i class="ri-close-line"></i>
-            </div>
-
-            <ul class="nav__links">
-                <li class="link"><a href="#work">How it Woks</a></li>
-                <li class="link"><a href="#reason-section">Why join us</a></li>
-                <li class="link"><a href="#Testimonials">Testimonials</a></li>
-            </ul>
-
-            <div class="btn-hold">
-                <a href="/login"><button class="btn join__now">Login</button></a>
-                <a href="/register"><button class="btn join__now">Register</button></a>
-                <!-- <button class="installBtn btn join__now small-screen" style="display: none;">Install Our App</button> -->
-                <!-- <a href="/forgot-password"><button class="btn join__now">Forgoten password</button></a> -->
-            </div>
-        </div>
-    </nav>
 
 
 
@@ -81,7 +28,8 @@
         <span class="bg__blur"></span>
 
         <h4>Welcome to DYNAMIQERRA!</h4>
-        <h1>Earn Every Day, Grow Every Way <span>DYNAMIQERRA</span> </h1>
+        <!-- <h1>Earn Every Day, Grow Every Way <span>DYNAMIQERRA</span> </h1> -->
+        <!-- <h1><span>DYNAMIQERRA</span> </h1> -->
         <p>
             Discover a friendly platform where you can earn daily by completing simple tasks, activating earning packages, and inviting friends. Withdraw securely and enjoy long-term rewards with our referral and team system. Your journey to financial growth starts here!
         </p>
@@ -453,69 +401,9 @@
 
 
 
+  <!-- ALL ABOUT FOOTER SCREENS -->
+    <%- include ('partials/footer') %>
 
-<!-- Floating Telegram Button -->
-<a href="#" target="_blank" class="telegram-float">
-    <img src="https://storage.perfectcdn.com/98b10r/h7j64q32oquy7zt9.gif" alt="Telegram" />
-</a>
-
-
-
-    <!-- Scroll to Top Button -->
-    <button id="scrollToTopBtn" class="scroll-to-top-btn">
-        <i class="ri-arrow-up-line"></i>
-    </button>
-
-
-
-
- <!-- ALL ABOUT FOOTER SECTION  -->
-<footer class="section__container footer__container">
-    <span class="footer__blur"></span>
-
-    <div class="footer__col">
-        <div class="footer__logo"><a href="/"><img src="images/logo.png" alt="logo" /></a></div>
-        <p>
-            Welcome to DYNAMIQERRA — your friendly, professional platform for daily earnings! We offer simple earning packages, easy tasks, and powerful referral rewards to help you build a secure financial future. Join thousands of users already earning with us today!
-        </p>
-        <div class="footer__socials">
-            <a href="#"><i class="ri-facebook-fill"></i></a>
-            <a href="#"><i class="ri-instagram-line"></i></a>
-            <a href="#"><i class="ri-twitter-fill"></i></a>
-            <a href="#"><i class="ri-youtube-line"></i></a>
-            <a href="#"><i class="ri-tiktok-fill"></i></a>
-        </div>
-    </div>
-
-    <div class="footer__col cool">
-        <h4>Sections</h4>
-        <a href="/login">How It Works</a>
-        <a href="/login">Packages</a>
-        <a href="/login">Referral System</a>
-        <a href="/login">Withdrawals</a>
-    </div>
-
-    <div class="footer__col cool">
-        <h4>Support</h4>
-        <a href="/login">T & C</a>
-        <a href="/login">Privacy Policy</a>
-        <a href="/login">Contact Us</a>
-        <a href="/login">Help Center</a>
-    </div>
-
-   <div class="footer__col cool">
-    <h4>Company</h4>
-    <a href="/login">About Us</a>
-    <a href="/login">Our Team</a>
-    <a href="/login">Trust & Security</a>
-    <a href="/login">News & Updates</a>
-</div>
-
-</footer>
-
-<div class="footer__bar">
-    <p>Copyright © 2025 DYNAMIQERRA. All rights reserved.</p>
-</div>
 
 
 

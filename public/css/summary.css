@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+
+:root {
+  --primary-color: #0d0d0d;
+  --primary-color-light: #111;
+  --primary-color-extra-light: #1a1a1a;
+  --secondary-color: #e5c765;
+  --secondary-color-dark: #c5a057;
+  --text-light: #cecece;
+  --white: #ffffff;
+  --max-width: 1300px;
+}
+
+
+.t-c {
+  width: 100%;
+  margin: 0 auto;
+  background: transparent;
+  padding: 20px 30px;
+  border-radius: 50px;
+  border: 1px solid var(--secondary-color-dark);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.t-c-head {
+  color: #FFF;
+  font-size: 25px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.t-c-title {
+  color: #a8a8b3;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.t-c h3 {
+  color: #fff;
+  font-size: 17px;
+  margin-top: 25px;
+}
+
+.t-c-title a{
+    color: var(--secondary-color);
+}
+
+
+
+
+
+
+
+/* MY RESPONSIVNESS  */
+@media (max-width: 768px) {
+
+  .t-c {
+  border-radius: 30px;
+}
+
+    .t-c-head {
+  font-size: 20px;
+}
+
+.t-c {
+  padding: 20px 10px;
+}
+
+
+
+
+
+
+}

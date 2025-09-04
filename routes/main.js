@@ -94,6 +94,11 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
+// Summary Page
+router.get("/summary", (req, res) => {
+  res.render("summary");
+});
+
 // Login Page
 router.get("/login", (req, res) => {
   res.render("login");

@@ -1033,7 +1033,7 @@ nav {
   .download-img .web-app {
     width: 27%;
     height: 27%;
-    display: none;
+    /* display: none; */
   }
 
   .features {
