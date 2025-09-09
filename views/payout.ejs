@@ -98,15 +98,8 @@
                           0).toLocaleString('en-NG') %>
                       </p>
                       <% } else { %>
-                        <p class="expired-total-claim">Total Task: ₦<%= (payment.totalEarned ||
-                            0).toLocaleString('en-NG') %>
-                        </p>
-                        <p class="expired-total-claim">Shop Amount: ₦<%= (payment.amount || 0).toLocaleString('en-NG')
-                          %>
-                        </p>
-                        <p class="expired-total-claim">Total Amount to Claim: ₦<%=
-                            payment.totalClaimAmount.toLocaleString('en-NG') %>
-                        </p>
+                        <p class="expired-total-claim">Total Task Earnings: ₦<%= (payment.totalEarned || 0).toLocaleString('en-NG') %></p>
+                        <p class="expired-total-claim">Total Amount to Claim: ₦<%= (payment.totalEarned || 0).toLocaleString('en-NG') %></p>
                         <% } %>
                   </div>
                   <form action="/claim/<%= payment._id %>" method="POST" onsubmit="return checkBankDetails(event)">

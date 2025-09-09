@@ -44,16 +44,20 @@
               <p><strong>User:</strong>
                 <%= claim.user ? claim.user.phone : 'Unknown' %>
               </p>
-              <p><strong>Amount:</strong> ₦<%= (claim.amount - (claim.amount * 0.03)).toLocaleString() %>
-              </p>
+
+              <% if (claim.payment && claim.payment.store !== 'FREE') { %>
+                <p><strong>Amount to Pay:</strong> ₦<%= ((claim.payment.totalEarned || 0) - ((claim.payment.totalEarned || 0) * 0.03)).toLocaleString() %></p>
+              <% } else { %>
+                <p><strong>Amount to Pay:</strong> ₦<%= (claim.amount - (claim.amount * 0.03)).toLocaleString() %></p>
+              <% } %>
 
               <% if (claim.payment) { %>
                 <p><strong>Shop:</strong>
                   <%= claim.payment.store %>
                 </p>
-                <p><strong>Shop Amount:</strong> ₦<%= (claim.payment.amount || 0).toLocaleString() %>
-                </p>
                 <p><strong>Total Earned:</strong> ₦<%= (claim.payment.totalEarned || 0).toLocaleString() %>
+                </p>
+                <p><strong>Shop Amount:</strong> ₦<%= (claim.payment.amount || 0).toLocaleString() %>
                 </p>
                 <% } %>
 

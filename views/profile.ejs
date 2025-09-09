@@ -114,49 +114,6 @@
                 ₦<%= accountBalance.toLocaleString('en-NG') %>
               </div>
 
-              <!-- <% if (expiredPayments && expiredPayments.length > 0) { %>
-                <div class="expired-shops-section">
-                  <h4>Expired Shops - Final Claims</h4>
-                  <% expiredPayments.forEach(payment => { %>
-                    <div class="expired-shop-item">
-                      <div class="expired-shop-header">
-                        <span class="expired-shop-name"><%= payment.store %></span>
-                        <span class="expired-shop-date">Expired: <%= new Date(payment.validUntil).toLocaleDateString() %></span>
-                      </div>
-                                             <div class="expired-shop-details">
-                         <% if (payment.store === "FREE") { %>
-                          <p class="expired-total-claim" style="color: #e5c765; font-weight: bold;">Total Claim: ₦<%= payment.totalClaimAmount.toLocaleString('en-NG') %></p>
-                          <p class="expired-total-claim">
-                            Welcome Bonus: ₦500 
-                            <% if (user.welcomeBonusClaimed) { %>
-                              <span style="color: #27ae60; font-weight: bold;">(Already Claimed)</span>
-                            <% } %>
-                          </p>
-                          <p class="expired-total-claim">Free Shop Earnings: ₦<%= (payment.totalEarned || 0).toLocaleString('en-NG') %></p>
-                         <% } else { %>
-                           <p class="expired-total-claim">Total Earned: ₦<%= (payment.totalEarned || 0).toLocaleString('en-NG') %></p>
-                           <p class="expired-total-claim">Total Claim: ₦<%= payment.totalClaimAmount.toLocaleString('en-NG') %></p>
-                           <p class="expired-total-claim">Shop Amount: ₦<%= (payment.amount || 0).toLocaleString('en-NG') %></p>
-                         <% } %>
-                       </div>
-                       <form action="/claim/<%= payment._id %>" method="POST" onsubmit="return checkBankDetails(event)">
-                         <input type="hidden" name="claimAmount" value="<%= payment.totalClaimAmount %>">
-                         <button type="submit" class="claim-btn final-claim-btn">
-                           <% if (payment.store === "FREE") { %>
-                             <% if (user.welcomeBonusClaimed) { %>
-                               Claim Free Shop Earnings Only
-                             <% } else { %>
-                               Withdraw Free Shop + Welcome Bonus to Bank
-                             <% } %>
-                           <% } else { %>
-                             Withdraw to Bank
-                           <% } %>
-                         </button>
-                       </form>
-                    </div>
-                  <% }); %>
-                </div>
-              <% } %> -->
               
                   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
                   <script>

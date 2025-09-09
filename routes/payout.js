@@ -103,9 +103,10 @@ router.get("/payout", isAuthenticated, async (req, res) => {
           };
         }
       } else {
+        // For regular shops, only claim earned income (not purchase amount)
         return {
           ...payment.toObject(),
-          totalClaimAmount: (payment.amount || 0) + (payment.totalEarned || 0),
+          totalClaimAmount: (payment.totalEarned || 0),
           includesWelcomeBonus: false
         };
       }
