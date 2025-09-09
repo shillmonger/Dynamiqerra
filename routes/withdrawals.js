@@ -16,23 +16,15 @@ router.post("/team/withdraw", isAuthenticated, async (req, res) => {
 
     const today = new Date();
 
-    // ⬇ Check if today is Sunday
+    // ⬇ Restrict withdrawals on Sundays
     const isSunday = today.getDay() === 0;
-
-    // ⬇ Check if today is last Sunday of the month
-    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    const lastSunday = new Date(lastDayOfMonth);
-    lastSunday.setDate(lastDayOfMonth.getDate() - lastDayOfMonth.getDay());
-    const isLastSunday = today.toDateString() === lastSunday.toDateString();
+    if (isSunday) {
+      return res.json({ success: false, message: "Withdrawals are not allowed on Sundays." });
+    }
 
     // ✅ Weekly bonus check
     if (type === "weekly") {
-      if (!isSunday) {
-        return res.json({ success: false, message: "Only allowed on Sundays." });
-      }
-
       const referralAmount = user.referralAmount || 0;
-
       if (referralAmount >= 5000 && referralAmount <= 9999) amount = 5000;
       else if (referralAmount >= 10000 && referralAmount <= 19999) amount = 10000;
       else if (referralAmount >= 20000 && referralAmount <= 49999) amount = 20000;
@@ -41,12 +33,7 @@ router.post("/team/withdraw", isAuthenticated, async (req, res) => {
     } 
     // ✅ Monthly bonus check
     else if (type === "monthly") {
-      if (!isLastSunday) {
-        return res.json({ success: false, message: "Allowed on the last Sunday of the month." });
-      }
-
       const monthlyReferrals = user.monthlyReferrals || 0;
-
       if (monthlyReferrals >= 20 && monthlyReferrals <= 49) amount = 10000;
       else if (monthlyReferrals >= 50 && monthlyReferrals <= 99) amount = 25000;
       else if (monthlyReferrals >= 100 && monthlyReferrals <= 199) amount = 50000;
