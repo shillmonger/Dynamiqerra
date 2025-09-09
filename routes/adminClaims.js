@@ -1,8 +1,9 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const Claim = require("../models/Claim");
 const User = require("../models/User");
-const Bank = require("../models/Bank");
+const Bank = require("../models/Bank"); // still imported, but not used now
 const Payment = require("../models/Payment");
 
 // Inline admin check
@@ -18,20 +19,15 @@ router.get("/", isAdmin, async (req, res) => {
       .populate("user")
       .populate("payment");
 
-    // Also load bank info for each user
-    const claimsWithBank = await Promise.all(
-      claims.map(async (claim) => {
-        const bank = await Bank.findOne({ userId: claim.user._id });
-        return { ...claim.toObject(), bank };
-      })
-    );
-
-    res.render("admin-claims", { claims: claimsWithBank });
+    // ✅ No need to fetch Bank separately anymore,
+    // because bankDetails is stored inside the claim
+    res.render("adminClaims", { claims: claims || [] });
   } catch (err) {
-    console.error(err);
+    console.error("Error in GET /admin/claims:", err);
     res.status(500).send("Server error");
   }
 });
+
 
 // Approve claim
 router.post("/:id/approve", isAdmin, async (req, res) => {
@@ -42,25 +38,14 @@ router.post("/:id/approve", isAdmin, async (req, res) => {
 
     if (!claim) return res.status(404).send("Claim not found");
 
-    const user = claim.user;
     const payment = claim.payment;
 
     if (!payment) {
       return res.status(400).send("No payment linked to claim");
     }
 
-    // ✅ Calculate what to deduct: principal + earnings
-    const principal = payment.amount || 0;
-    const earned = payment.totalEarned || 0;
-    const toDeduct = principal + earned;
-
-    // ✅ Deduct from user balance
-    user.balance = (user.balance || 0) - toDeduct;
-    if (user.balance < 0) user.balance = 0;
-    await user.save();
-
-    // ✅ Mark the related payment as claimed
-    payment.claimed = true;
+    // ✅ Deduct only from dailyEarning
+    payment.dailyEarning = Math.max((payment.dailyEarning || 0) - claim.amount, 0);
     await payment.save();
 
     // ✅ Mark claim as approved
@@ -73,7 +58,6 @@ router.post("/:id/approve", isAdmin, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
 
 // Decline claim
 router.post("/:id/decline", isAdmin, async (req, res) => {

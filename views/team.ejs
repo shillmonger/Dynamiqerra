@@ -89,22 +89,21 @@
 
         <div class="referal-hold">
           <div class="invitation-code">
-            <% if (!activePayment) { %>
+            <% if (!referralUnlocked) { %>
               <span class="invitation-url">************************</span>
               <span class="invitation-number">*****</span>
-              <% } else { %>
-                <!-- <span class="invitation-url">http://localhost:3000/</span> -->
-                <span class="invitation-url">https://dynamiqerra.com/</span>
-                <span class="invitation-number">
-                  <%= user.referral %>
-                </span>
-                <% } %>
+            <% } else { %>
+              <span class="invitation-url">https://dynamiqerra.com/</span>
+              <span class="invitation-number">
+                <%= user.referral %>
+              </span>
+            <% } %>
           </div>
 
-          <button class="copy-btn" data-referral="<%= user.referral %>" data-active="<%= !!activePayment %>"
-            onclick="copyReferral(this.dataset.referral, this.dataset.active === 'true')">
-            Copy
-          </button>
+          <button class="copy-btn" data-referral="<%= user.referral %>" data-active="<%= !!referralUnlocked %>"
+  onclick="copyReferral(this.dataset.referral, this.dataset.active === 'true')">
+  Copy
+</button>
         </div>
       </div>
 

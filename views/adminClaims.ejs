@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/images/favicon.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <title>Admin Claims</title>
   <link rel="stylesheet" href="/css/admin.css">
 </head>
@@ -17,67 +17,116 @@
 
 
   <!-- small creen nav  -->
-    <%- include ('partials/admin-nav') %>
+  <%- include ('partials/admin-nav') %>
 
 
 
-  <div class="payments" id="admin-claims">
-    <h1>SHOP PAYOUT</h1>
-    <div class="platform-buttons">
-      <a href="/admin/payments" class="platform-btn">Pending Payments</a>
-      <a href="/admin/claims" class="platform-btn">Shop Payouts</a>
-      <a href="/admin/withdrawals" class="platform-btn">Referal Payouts</a>
-    </div>
+    <div class="payments" id="admin-claims">
+      <h1>SHOP PAYOUT</h1>
+      <div class="platform-buttons">
+        <a href="/admin/payments" class="platform-btn">Pending Payments</a>
+        <a href="/admin/claims" class="platform-btn">Shop Payouts</a>
+        <a href="/admin/withdrawals" class="platform-btn">Referal Payouts</a>
+      </div>
 
 
-    <div class="payment-contain">
-      <% if (claims && claims.length> 0) { %>
-        <% claims.filter(c => c.status === 'pending').forEach(claim => { %>
-          <div class="payment">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span class="payment-id">Claim <br> #<%= claim._id %></span>
-              <span class="payment-status">
-                <%= claim.status.charAt(0).toUpperCase() + claim.status.slice(1) %>
-              </span>
+      <div class="payment-contain">
+        <% if (claims && claims.length> 0) { %>
+          <% claims.filter(c=> c.status === 'pending').forEach(claim => { %>
+            <div class="payment">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="payment-id">Claim <br> #<%= claim._id %></span>
+                <span class="payment-status">
+                  <%= claim.status.charAt(0).toUpperCase() + claim.status.slice(1) %>
+                </span>
+              </div>
+              <hr style="margin: 10px 0;">
+              <p><strong>User:</strong>
+                <%= claim.user ? claim.user.phone : 'Unknown' %>
+              </p>
+              <p><strong>Amount:</strong> ₦<%= (claim.amount - (claim.amount * 0.03)).toLocaleString() %>
+              </p>
+
+              <% if (claim.payment) { %>
+                <p><strong>Shop:</strong>
+                  <%= claim.payment.store %>
+                </p>
+                <p><strong>Shop Amount:</strong> ₦<%= (claim.payment.amount || 0).toLocaleString() %>
+                </p>
+                <p><strong>Total Earned:</strong> ₦<%= (claim.payment.totalEarned || 0).toLocaleString() %>
+                </p>
+                <% } %>
+
+
+
+                 <% if (claim.bankDetails) { %>
+  <hr style="margin: 10px 0;">
+  <p><strong>Bank Name:</strong>
+    <%= claim.bankDetails.bankName %>
+  </p>
+  <p><strong>Account Name:</strong>
+    <%= claim.bankDetails.accountName %>
+  </p>
+ <p>
+  <strong>Account Number:</strong>
+  <span id="account-<%= claim._id %>"><%= claim.bankDetails.accountNumber %></span>
+  <button class="copy-btn" data-target="account-<%= claim._id %>">Copy</button>
+</p>
+
+<% } else { %>
+  <p style="color:red;"><strong>No bank details found for this user.</strong></p>
+<% } %>
+
+                        <!-- Only one submitted date below -->
+                        <p><strong>Submitted at:</strong>
+                          <%= new Date(claim.createdAt).toLocaleString() %>
+                        </p>
+
+
+                        <div style="margin-top: 12px; display: flex; gap: 10px;">
+                          <% if (claim.status==='pending' ) { %>
+                            <form action="/admin/claims/<%= claim._id %>/approve" method="POST" style="display:inline;">
+                              <button type="submit" name="action" value="approve" class="approve-btn">Approve Payout</button>
+                            </form>
+                            <% } %>
+                        </div>
             </div>
-            <hr style="margin: 10px 0;">
-            <p><strong>User:</strong>
-              <%= claim.user ? claim.user.phone : 'Unknown' %>
-            </p>
-            <p><strong>Amount:</strong> ₦<%= claim.amount.toLocaleString() %>
-            </p>
-            <% if (claim.payment) { %>
-              <p><strong>Shop:</strong>
-                <%= claim.payment.store %>
-              </p>
-              <p><strong>Shop Amount:</strong> ₦<%= (claim.payment.amount || 0).toLocaleString() %>
-              </p>
-              <p><strong>Total Earned:</strong> ₦<%= (claim.payment.totalEarned || 0).toLocaleString() %>
-              </p>
-              <p><strong>Submitted:</strong>
-                <%= new Date(claim.createdAt).toLocaleString() %>
-              </p>
-              <% } %>
-                <div style="margin-top: 12px; display: flex; gap: 10px;">
-                  <% if (claim.status==='pending' ) { %>
-                    <form action="/admin/claims/<%= claim._id %>/approve" method="POST" style="display:inline;">
-                      <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
-                    </form>
-                    <!-- <form action="/admin/claims/<%= claim._id %>/reject" method="POST" style="display:inline;">
-                      <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
-                    </form> -->
+            <% }); %>
+              <% if (claims.filter(c=> c.status === 'pending').length === 0) { %>
+                <p class="fallback-message">No pending claims found.</p>
+                <% } %>
+                  <% } else { %>
+                    <p class="fallback-message">No claims found.</p>
                     <% } %>
-                </div>
-          </div>
-        <% }); %>
-        <% if (claims.filter(c => c.status === 'pending').length === 0) { %>
-          <p class="fallback-message">No pending claims found.</p>
-        <% } %>
-            <% } else { %>
-              <p class="fallback-message">No claims found.</p>
-              <% } %>
+      </div>
     </div>
-  </div>
+
+
+
+    <!-- copy btn for account num  -->
+<script>
+  document.querySelectorAll(".copy-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      const targetId = button.getAttribute("data-target");
+      const text = document.getElementById(targetId).innerText;
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          // Change button text to "Copied" temporarily
+          const originalText = button.innerText;
+          button.innerText = "Copied";
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 1500); // 1.5 seconds
+        })
+        .catch(err => {
+          console.error("Failed to copy!", err);
+        });
+    });
+  });
+</script>
+
+
 </body>
 
 </html>

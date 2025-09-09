@@ -83,11 +83,11 @@
  /* status  */
  .payment-status {
    font-weight: bold;
-   padding: 7px 5px;
+   padding: 7px;
    border-radius: 7px;
    background: #c5a057;
    color: #000;
-   font-size: 14px;
+   font-size: 13px;
  }
 
 
@@ -309,6 +309,26 @@
  }
 
 
+ .copy-btn {
+  background-color: #3498db;      /* Blue button */
+  color: #fff;                    /* White text */
+  border: none;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copy-btn:hover {
+  background-color: #2980b9;      /* Darker blue on hover */
+}
+
+.copy-btn:active {
+  background-color: #1c5980;      /* Even darker when clicked */
+}
+
+
 
 
 
@@ -355,6 +375,9 @@
  .delete-btn:hover {
    background-color: #d83232;
  }
+
+
+
 
 
  /* FLOATING CONTACT  */
@@ -500,7 +523,8 @@
 
  /* status  */
  .payment-status {
-   padding: 5px 5px;
+   padding: 5px 10px;
+   font-size: 12  px;
  }
 
 

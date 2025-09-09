@@ -255,7 +255,7 @@ router.get("/:referralCode", (req, res, next) => {
   const referralCode = req.params.referralCode;
 
   const skipRoutes = [
-    "shop","team","payment","login","register",
+    "shop","team","payment","login","register","payout",
     "logout","funding-details","dashboard","profile","bank", "withdrawal-details"
   ];
   if (skipRoutes.includes(referralCode)) {

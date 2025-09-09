@@ -46,6 +46,7 @@ app.use("/", require("./routes/payment"));
 app.use("/", require("./routes/admin"));
 app.use("/", require("./routes/team"));
 app.use("/", require("./routes/bank")); 
+app.use("/", require("./routes/payout")); 
 app.use("/", require("./routes/withdrawals"));
 app.use("/", require("./routes/adminWithdrawals"));
 app.use("/claim", require("./routes/claim"));

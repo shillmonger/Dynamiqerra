@@ -114,7 +114,7 @@
                 ₦<%= accountBalance.toLocaleString('en-NG') %>
               </div>
 
-              <% if (expiredPayments && expiredPayments.length > 0) { %>
+              <!-- <% if (expiredPayments && expiredPayments.length > 0) { %>
                 <div class="expired-shops-section">
                   <h4>Expired Shops - Final Claims</h4>
                   <% expiredPayments.forEach(payment => { %>
@@ -156,9 +156,8 @@
                     </div>
                   <% }); %>
                 </div>
-              <% } %>
+              <% } %> -->
               
-                
                   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
                   <script>
                     // Show success message if claim was successful
@@ -384,7 +383,7 @@
 
 
 
-            <!-- Fucion to show and hise ammount  -->
+            <!-- Fucion to show and hide ammount  -->
             <script>
               document.addEventListener("DOMContentLoaded", function () {
                 const eyeIcon = document.querySelector(".eye-icon i");

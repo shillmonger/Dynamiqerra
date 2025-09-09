@@ -1,0 +1,277 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+    --primary-color: #0d0d0d;
+    --primary-color-light: #111;
+    --primary-color-extra-light: #1b1b1b;
+    --secondary-color: #e5c765;
+    --secondary-color-dark: #c5a057;
+    --text-light: #cecece;
+    --white: #ffffff;
+    --max-width: 1300px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/* ALL ABOUT LARGE SCREENS */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--primary-color);
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 5rem;
+    overflow-x: hidden;
+}
+
+
+
+
+
+/* RESPONSIVENESS */
+@media (max-width: 1024px) {
+body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--primary-color-extra-light);
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 6rem;
+        overflow-x: hidden;
+    }
+    
+
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--secondary-color);
+    backdrop-filter: blur(20px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 3px 3px var(--primary-color);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 25px;
+  }
+  a{
+  text-decoration: none;
+}
+
+
+    .account-header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+        z-index: 1;
+        padding: 15px;
+        border-radius: 20px;
+        columns: var(--white);
+        width: 100%;
+         background: var(--primary-color-light);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .balance-label, .account-number, .balance-label, .balance-amount{
+      color: var(--text-light);
+    }
+
+    .container {
+        width: 100%;
+        width: 100%;
+        display: grid;
+        gap: 20px;
+        padding: 10px;
+        margin-top: 1rem;
+    }
+
+
+
+
+
+/* CLAIM FOR SHOPS  */
+/* Expired Shops Section */
+.expired-shops-section {
+   margin-bottom: 15px;
+  }
+  
+  .expired-shops-section h4 {
+    color: var(--white);
+    margin: 1rem 0;
+    text-align: center;
+  }
+
+  /* Each expired shop card */
+  .expired-shop-item {
+    background: var(--primary-color-light);
+    padding: 1rem;
+    border-radius: 15px;  
+    margin-bottom: 10px;
+    /* border: 1px solid var(--secondary-color-dark); */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  }
+  
+  .expired-shop-item:last-child{
+    margin-bottom: 0px;
+  }
+
+  /* Header row */
+  .expired-shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .expired-shop-name {
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+  
+  .expired-shop-date {
+    color: var(--text-light);
+font-size: 12px;
+font-weight: bold;
+  }
+  
+  /* Shop details */
+  .expired-shop-details p {
+    color: var(--text-light);
+    margin: 0.2rem 0;
+  }
+  
+  .expired-total-claim {
+    color: var(--white);
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+  
+  /* Claim button */
+  .final-claim-btn {
+    width: 100%;
+    padding: 0.7rem;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .final-claim-btn:hover {
+    background: var(--secondary-color-dark);
+  }
+  
+
+
+
+
+
+
+
+
+
+    .card {
+      background: var(--primary-color-light);
+      border-radius: 12px;
+      padding:  20px 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .card p{
+        color: var(--text-light);
+        margin-top: 1rem;
+    }
+
+    .card h2 {
+      color: var(--secondary-color);
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .balance {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+
+    #availableEarnings {
+      color: rgb(9, 141, 9);
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--white);
+    }
+
+ #withdraw-type {
+  width: 100%;
+  border-radius: 8px;
+  font-family: inherit;
+  appearance: none; /* removes default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+
+  /* Custom arrow */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+
+  color: var(--text-light);
+}
+
+#withdraw-type:focus,
+input:focus {
+  outline: none;
+  border-color: var(--secondary-color-dark);
+}
+
+
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: var(--primary-color-light);
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: var(--secondary-color-dark);
+    }
+
+}

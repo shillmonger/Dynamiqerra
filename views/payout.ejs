@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>payout</title>
+  <meta name="theme-color" content="#0d0d0d">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/profile.css">
+  <link rel="stylesheet" href="/css/payout.css">
+</head>
+
+<body>
+
+
+  <!-- ALL ABOUT LARGE SCREENS -->
+  <%- include ('partials/big-screen') %>
+
+
+
+
+
+
+    <!-- NAVBAR  -->
+    <div class="hold">
+      <%- include ('partials/nav') %>
+
+        <!-- Header -->
+        <div class="header">
+          <div class="brand-text">
+            <h1>Withdraw Center</h1>
+          </div>
+          <a href="withdrawal-details"><div class="info-icon">
+            <i class="ri-information-line"></i>
+          </div></a>
+        </div>
+
+
+
+
+
+
+
+        <div class="container">
+
+<div class="account-header">
+            <div class="account-num">
+              <div class="balance-label">Account:</div>
+              <div class="account-number">
+                <%= user.phone %>
+              </div>
+            </div>
+            <div class="ammount-display">
+              <div class="balance-section">
+                <span class="balance-label">Account Balance</span>
+                <div class="eye-icon">
+                  <i class="ri-eye-line"></i>
+                </div>
+              </div>
+              <div class="balance-amount">
+                ₦<%= accountBalance.toLocaleString('en-NG') %>
+              </div>
+              </div>
+              </div>
+
+
+
+          <!-- EXPIRED SHOPS FINAL CLAIMS -->
+          <% if (expiredPayments && expiredPayments.length> 0) { %>
+            <div class="expired-shops-section">
+              <h4>Expired Shops - Final Claims</h4>
+              <% expiredPayments.forEach(payment=> { %>
+                <div class="expired-shop-item">
+                  <div class="expired-shop-header">
+                    <span class="expired-shop-name">
+                      <%= payment.store %>
+                    </span>
+                    <span class="expired-shop-date">Expired: <%= new Date(payment.validUntil).toLocaleDateString() %>
+                        </span>
+                  </div>
+                  <div class="expired-shop-details">
+                    <% if (payment.store==="FREE" ) { %>
+                      <p class="expired-total-claim" style="color: #e5c765; font-weight: bold;">Total Claim: ₦<%=
+                          payment.totalClaimAmount.toLocaleString('en-NG') %>
+                      </p>
+                      <p class="expired-total-claim">
+                        Welcome Bonus: ₦500
+                        <% if (user.welcomeBonusClaimed) { %>
+                          <span style="color: #27ae60; font-weight: bold;">(Already Claimed)</span>
+                          <% } %>
+                      </p>
+                      <p class="expired-total-claim">Free Shop Earnings: ₦<%= (payment.totalEarned ||
+                          0).toLocaleString('en-NG') %>
+                      </p>
+                      <% } else { %>
+                        <p class="expired-total-claim">Total Task: ₦<%= (payment.totalEarned ||
+                            0).toLocaleString('en-NG') %>
+                        </p>
+                        <p class="expired-total-claim">Shop Amount: ₦<%= (payment.amount || 0).toLocaleString('en-NG')
+                          %>
+                        </p>
+                        <p class="expired-total-claim">Total Amount to Claim: ₦<%=
+                            payment.totalClaimAmount.toLocaleString('en-NG') %>
+                        </p>
+                        <% } %>
+                  </div>
+                  <form action="/claim/<%= payment._id %>" method="POST" onsubmit="return checkBankDetails(event)">
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  function checkBankDetails(e) {
+    var bankExists = "<%= bank ? 'true' : 'false' %>" === "true";
+    if (!bankExists) {
+      Toastify({
+        text: "Submit your bank details",
+        duration: 4000,
+        gravity: "top",
+        position: "right",
+        close: false,
+        backgroundColor: "red"
+      }).showToast();
+      e.preventDefault();
+      return false;
+    }
+    return true;
+  }
+</script>
+                    <input type="hidden" name="claimAmount" value="<%= payment.totalClaimAmount %>">
+                    <button type="submit" class="claim-btn final-claim-btn">
+                      <% if (payment.store==="FREE" ) { %>
+                        <% if (user.welcomeBonusClaimed) { %>
+                          Claim Free Shop Earnings Only
+                          <% } else { %>
+                            Withdraw User Bonus
+                            <% } %>
+                              <% } else { %>
+                                Withdraw to Bank
+                                <% } %>
+                    </button>
+                  </form>
+                </div>
+                <% }); %>
+            </div>
+            <% } %>
+
+
+
+
+
+             <!-- for claiming when user have nake 1000 and above form daily task  -->
+<div class="card">
+  <h2>Withdrawal Request</h2>
+  <form id="taskWithdrawalForm">
+    <label for="withdraw-type">Withdraw From:</label>
+    <select id="withdraw-type" name="withdraw-type" required>
+      <option value="">Select Option</option>
+      <option value="FREE">Free Store Task Earnings</option>
+      <option value="S1">Store 1 Task Earnings</option>
+      <option value="S2">Store 2 Task Earnings</option>
+      <option value="S3">Store 3 Task Earnings</option>
+      <option value="S4">Store 4 Task Earnings</option>
+      <option value="S5">Store 5 Task Earnings</option>
+      <option value="S6">Store 6 Task Earnings</option>
+      <option value="S7">Store 7 Task Earnings</option>
+      <option value="S8">Store 8 Task Earnings</option>
+    </select>
+
+    <label for="amount">Enter Amount:</label>
+    <input type="number" id="amount" name="amount" placeholder="Enter claimable amount" min="1000" required>
+
+
+    <!-- show claimable daily earnings from shop here -->
+    <p>Claimable: ₦ <span id="availableEarnings">...</span></p>
+
+    <button type="submit" id="withdrawBtn">Submit Withdrawal</button>
+  </form>
+
+
+  <script>
+  const shopEarnings = <%- JSON.stringify(shopEarnings || {}) %>;
+  console.log("Shop earnings object from backend:", shopEarnings);
+
+  const withdrawType = document.getElementById('withdraw-type');
+  const availableEarnings = document.getElementById('availableEarnings');
+
+  withdrawType.addEventListener('change', function () {
+    const selected = withdrawType.value;
+    console.log("Selected option:", selected);
+    if (shopEarnings.hasOwnProperty(selected)) {
+      console.log("Found earnings:", shopEarnings[selected]);
+      availableEarnings.textContent = Number(shopEarnings[selected]).toLocaleString('en-NG');
+    } else {
+      console.log("No match for selected value!");
+      availableEarnings.textContent = '...';
+    }
+  });
+</script>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  document.getElementById('taskWithdrawalForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('withdrawBtn');
+    btn.disabled = true;
+    btn.textContent = 'Processing...';
+
+    const amount = document.getElementById('amount').value;
+    const shop = document.getElementById('withdraw-type').value;
+
+    if (!shop || !shopEarnings.hasOwnProperty(shop)) {
+      Toastify({ text: 'Please select a valid shop.', backgroundColor: '#e74c3c', duration: 4000 }).showToast();
+      btn.disabled = false;
+      btn.textContent = 'Submit Withdrawal';
+      return;
+    }
+
+    if (Number(amount) > Number(shopEarnings[shop])) {
+      Toastify({ text: 'Amount exceeds claimable for this shop.', backgroundColor: '#e74c3c', duration: 4000 }).showToast();
+      btn.disabled = false;
+      btn.textContent = 'Submit Withdrawal';
+      return;
+    }
+
+    try {
+      const res = await fetch('/payout/task-withdrawal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount, shop })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        Toastify({ text: data.message, backgroundColor: '#27ae60', duration: 4000 }).showToast();
+        document.getElementById('taskWithdrawalForm').reset();
+        availableEarnings.textContent = '...';
+      } else {
+        Toastify({ text: data.error || 'Error occurred', backgroundColor: '#e74c3c', duration: 4000 }).showToast();
+      }
+    } catch (err) {
+      Toastify({ text: 'Network error. Please try again.', backgroundColor: '#e74c3c', duration: 4000 }).showToast();
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Submit Withdrawal';
+  });
+</script>
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+     <!-- Fucion to show and hide ammount  -->
+            <script>
+              document.addEventListener("DOMContentLoaded", function () {
+                const eyeIcon = document.querySelector(".eye-icon i");
+                const balanceAmount = document.querySelector(".balance-amount");
+    
+                let isHidden = false;
+                let actualBalance = balanceAmount.textContent; // store real balance
+    
+                eyeIcon.addEventListener("click", () => {
+                  if (isHidden) {
+                    balanceAmount.textContent = actualBalance;
+                    eyeIcon.classList.remove("ri-eye-off-line");
+                    eyeIcon.classList.add("ri-eye-line");
+                  } else {
+                    balanceAmount.textContent = "*****";
+                    eyeIcon.classList.remove("ri-eye-line");
+                    eyeIcon.classList.add("ri-eye-off-line");
+                  }
+                  isHidden = !isHidden;
+                });
+              });
+            </script>
+
+
+</body>
+
+</html>

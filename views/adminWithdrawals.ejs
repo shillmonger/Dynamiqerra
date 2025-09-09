@@ -8,7 +8,7 @@
   <link rel="icon" href="/images/favicon.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
-  <title>Admin - Withdrawals</title>
+  <title>Admin withdrawals</title>
   <link rel="stylesheet" href="/css/admin.css">
 </head>
 
@@ -48,17 +48,29 @@
               <p><strong>Type:</strong>
                 <%= w.type %>
               </p>
-              <p><strong>Amount:</strong> ₦<%= w.amount.toLocaleString() %>
-              </p>
+              <!-- <p><strong>Amount:</strong> ₦<%= w.amount.toLocaleString() %>
+              </p> -->
+              <p><strong>Amount:</strong> ₦<%= (w.amount - (w.amount * 0.03)).toLocaleString() %></p>
+
               <p><strong>Bank Name:</strong>
                 <%= w.bankDetails?.bankName || '-' %>
               </p>
               <p><strong>Account Name:</strong>
                 <%= w.bankDetails?.accountName || '-' %>
               </p>
-              <p><strong>Account Number:</strong>
+              <!-- <p><strong>Account Number:</strong>
                 <%= w.bankDetails?.accountNumber || '-' %>
-              </p>
+              </p> -->
+              <p>
+  <strong>Account Number:</strong>
+  <% if (w.bankDetails?.accountNumber) { %>
+    <span id="account-<%= w._id %>"><%= w.bankDetails.accountNumber %></span>
+    <button class="copy-btn" data-target="account-<%= w._id %>">Copy</button>
+  <% } else { %>
+    -
+  <% } %>
+</p>
+
               <p><strong>Requested At:</strong>
                 <%= w.createdAt.toLocaleString() %>
               </p>
@@ -67,9 +79,6 @@
                   <form action="/admin/withdrawals/<%= w._id %>/approve" method="POST" style="display:inline;">
                     <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
                   </form>
-                  <!-- <form action="/admin/withdrawals/<%= w._id %>/reject" method="POST" style="display:inline;">
-                    <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
-                  </form> -->
                 <% } %>
               </div>
             </div>
@@ -84,6 +93,37 @@
     </div>
 
   </div>
+
+
+
+
+
+
+
+
+
+    <!-- copy btn for account num  -->
+  <script>
+  document.querySelectorAll(".copy-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      const targetId = button.getAttribute("data-target");
+      const text = document.getElementById(targetId).innerText;
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          const originalText = button.innerText;
+          button.innerText = "Copied";
+          setTimeout(() => {
+            button.innerText = originalText;
+          }, 1500); // 1.5 seconds
+        })
+        .catch(err => {
+          console.error("Failed to copy!", err);
+        });
+    });
+  });
+</script>
+
 </body>
 
 </html>

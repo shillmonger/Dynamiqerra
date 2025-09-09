@@ -14,14 +14,22 @@ router.get("/team", isAuthenticated, async (req, res) => {
     const user = await User.findById(req.session.user._id);
     if (!user) return res.redirect("/login");
 
+
+
+    // Still get activePayment for EJS (other logic/buttons may use it)
     const activePayment = await Payment.findOne({
       user: user._id,
       status: "approved",
       validUntil: { $gt: new Date() }
     });
 
-    // ✅ current user's plan size
-    const userPlanSize = activePayment ? activePayment.planSize : 0;
+    // Find if user has ever bought a paid shop (not FREE)
+    const paidShop = await Payment.findOne({
+      user: user._id,
+      status: "approved",
+      store: { $ne: "FREE" }
+    });
+    const referralUnlocked = !!paidShop;
 
     const totalReferralsCount = user.totalReferrals || 0;
     const verifiedReferralsCount = user.verifiedReferrals || 0;   // lifetime referrals
@@ -87,6 +95,7 @@ router.get("/team", isAuthenticated, async (req, res) => {
     res.render("team", {
       user,
       activePayment,
+      referralUnlocked,
       totalReferralsCount,
       verifiedReferralsCount,     // lifetime
       monthlyReferralsCount,      // resets monthly
