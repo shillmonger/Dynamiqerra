@@ -68,9 +68,9 @@ router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
   // ✅ set expiry + shop info
   if (days > 0) {
     // production 
-    // payment.validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    payment.validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
     // For testing: uncomment the line below and comment the line above
-    payment.validUntil = new Date(Date.now() + 2 * 60 * 1000);
+    // payment.validUntil = new Date(Date.now() + 2 * 60 * 1000);
 
     payment.durationDays = days;
     payment.dailyEarning = dailyEarning;   // ✅ FIXED typo
