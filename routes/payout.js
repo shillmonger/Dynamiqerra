@@ -54,12 +54,17 @@ router.post("/payout/task-withdrawal", isAuthenticated, async (req, res) => {
     payment.totalEarned = claimable - parsedAmount;
     await payment.save();
 
-    // Create claim linked to this shop
+    // Create claim linked to this shop, including snapshot of bank details
     const claim = new Claim({
       user: user._id,
       payment: payment._id, // linked to the shop
       amount: parsedAmount,
-      status: "pending"
+      status: "pending",
+      bankDetails: {
+        bankName: bank.bankName,
+        accountName: bank.accountName,
+        accountNumber: bank.accountNumber
+      }
     });
     await claim.save();
 

@@ -230,66 +230,80 @@
     setInterval(showNextSlide, 3000);
   </script>
 
-  <script src="/js/dashboard.js"></script>
-  
+
+
+
+
+  <script src="/js/dashboard.js"></script>  
   <!-- Toastify for notifications -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   
   <script>
     async function claimShop(paymentId, event) {
-      try {
-        const response = await fetch(`/claim-shop/${paymentId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          Toastify({
-            text: `${result.message}`,
-            duration: 3000,
-            gravity: "top",
-            position: "center",
-            backgroundColor: "#27ae60",
-          }).showToast();
-          
-          // Update the specific button that was clicked
-          const clickedButton = event.target;
-          clickedButton.textContent = "Claimed Today";
-          clickedButton.disabled = true;
-          clickedButton.classList.add("claimed");
-          
-          // Update balance display if available
-          if (result.newBalance) {
-            const balanceElement = document.querySelector('.balance-amount');
-            if (balanceElement) {
-              balanceElement.textContent = `₦${result.newBalance.toLocaleString()}`;
-            }
-          }
-        } else {
-          Toastify({
-            text: `${result.message}`,
-            duration: 3000,
-            gravity: "top",
-            position: "center",
-            backgroundColor: "#e74c3c",
-          }).showToast();
-        }
-      } catch (error) {
-        console.error('Claim error:', error);
-        Toastify({
-          text: "Something went wrong",
-          duration: 3000,
-          gravity: "top",
-          position: "center",
-          backgroundColor: "#e74c3c",
-        }).showToast();
+  const clickedButton = event.target;
+
+  // Prevent double-clicks immediately
+  clickedButton.disabled = true;
+  clickedButton.textContent = "Claiming...";
+  
+  try {
+    const response = await fetch(`/claim-shop/${paymentId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       }
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      Toastify({
+        text: `${result.message}`,
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "#27ae60",
+      }).showToast();
+
+      clickedButton.textContent = "Claimed Today";
+      clickedButton.classList.add("claimed");
+
+      // Update balance display if available
+      if (result.newBalance) {
+        const balanceElement = document.querySelector('.balance-amount');
+        if (balanceElement) {
+          balanceElement.textContent = `₦${result.newBalance.toLocaleString()}`;
+        }
+      }
+    } else {
+      // Re-enable if claim failed
+      clickedButton.disabled = false;
+      clickedButton.textContent = "Claim Now";
+
+      Toastify({
+        text: `${result.message}`,
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "#e74c3c",
+      }).showToast();
     }
+  } catch (error) {
+    console.error('Claim error:', error);
+
+    clickedButton.disabled = false;
+    clickedButton.textContent = "Claim Now";
+
+    Toastify({
+      text: "Something went wrong",
+      duration: 3000,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#e74c3c",
+    }).showToast();
+  }
+}
   </script>
 </body>
 
