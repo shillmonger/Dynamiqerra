@@ -31,7 +31,6 @@ router.get("/admin/claims", isAdmin, async (req, res) => {
   }
 });
 
-
 // Approve payment
 router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
   const payment = await Payment.findById(req.params.id).populate("user");
@@ -67,72 +66,81 @@ router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
 
   // ✅ set expiry + shop info
   if (days > 0) {
-    // production 
     payment.validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
-    // For testing: uncomment the line below and comment the line above
-    // payment.validUntil = new Date(Date.now() + 1 * 60 * 1000);
-
     payment.durationDays = days;
-    payment.dailyEarning = dailyEarning;   // ✅ FIXED typo
-    payment.lastPayout = new Date();       // start tracking payouts
-    payment.totalEarned = 0;  // ✅ Start at 0, will accumulate from daily claims
+    payment.dailyEarning = dailyEarning;
+    payment.lastPayout = new Date();
+    payment.totalEarned = 0;
   }
 
   await payment.save();
 
-  // ✅ Credit user with shop purchase amount when admin approves
-  // payment.user.balance += payment.amount;
-  
-  // ✅ For free shops, just set the shop details (don't deduct anything yet)
+  // ✅ Free shop special handling
   if (payment.store === "FREE") {
-    // Set duration and daily earning for free shop
     payment.durationDays = 3;
     payment.dailyEarning = 300;
-    payment.validUntil = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days
+    payment.validUntil = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
     payment.totalEarned = 0;
     payment.lastPayout = new Date();
-    
     console.log(`Free shop approved: Set up for 3 days with ₦300 daily earnings`);
   }
-  
+
   await payment.user.save();
 
   // ✅ Referral logic runs only on approval
   if (payment.user.referredBy) {
     const referrer = await User.findById(payment.user.referredBy);
     if (referrer) {
-      // Get referrer's active shop
+      // Get referrer's most recent active approved shop
       const referrerShop = await Payment.findOne({
         user: referrer._id,
         status: "approved",
         validUntil: { $gt: new Date() }
-      });
+      }).sort({ createdAt: -1 });
 
-      // Always count verified referral
       referrer.verifiedReferrals = (referrer.verifiedReferrals || 0) + 1;
-      
-    // ✅ Always increment monthly referrals
-    referrer.monthlyReferrals = (referrer.monthlyReferrals || 0) + 1;
+      referrer.monthlyReferrals = (referrer.monthlyReferrals || 0) + 1;
 
-     // Bonus only if referrer shop >= referral shop
-if (referrerShop && parseInt(referrerShop.amount) >= parseInt(payment.amount)) {
-  referrer.referralAmount = (referrer.referralAmount || 0) + 1000;
-  referrer.bonusEligibleReferrals = (referrer.bonusEligibleReferrals || 0) + 1; // ✅ add this
-} else {
-  console.log(
-    `No bonus: Referrer ₦${referrerShop?.amount || 0}, Referral ₦${payment.amount}`
-  );
-}
+      let directBonusPaid = false;
 
+      // ✅ Direct Referral Bonus (10%)
+      if (referrerShop && parseInt(referrerShop.amount) >= parseInt(payment.amount)) {
+        const directBonus = Math.floor(parseInt(payment.amount) * 0.10);
+        referrer.referralAmount = (referrer.referralAmount || 0) + directBonus;
+        referrer.bonusEligibleReferrals = (referrer.bonusEligibleReferrals || 0) + 1;
+        directBonusPaid = true;
+        console.log(`Direct bonus: ₦${directBonus} awarded to referrer ${referrer._id}`);
+      } else {
+        console.log(`No direct bonus: Referrer ₦${referrerShop?.amount || 0}, Referral ₦${payment.amount}`);
+      }
 
       await referrer.save();
+
+      // ✅ Indirect Referral Bonus (5%) — only if direct bonus was paid
+      if (directBonusPaid && referrer.referredBy) {
+        const grandReferrer = await User.findById(referrer.referredBy);
+        if (grandReferrer) {
+          const grandReferrerShop = await Payment.findOne({
+            user: grandReferrer._id,
+            status: "approved",
+            validUntil: { $gt: new Date() }
+          }).sort({ createdAt: -1 });
+
+          if (grandReferrerShop && parseInt(grandReferrerShop.amount) >= parseInt(payment.amount)) {
+            const indirectBonus = Math.floor(parseInt(payment.amount) * 0.05);
+            grandReferrer.referralAmount = (grandReferrer.referralAmount || 0) + indirectBonus;
+            console.log(`Indirect bonus: ₦${indirectBonus} awarded to grand-referrer ${grandReferrer._id}`);
+            await grandReferrer.save();
+          } else {
+            console.log(`No indirect bonus: Grand-referrer ₦${grandReferrerShop?.amount || 0}, Referral ₦${payment.amount}`);
+          }
+        }
+      }
     }
   }
 
   res.redirect("/admin/payments");
 });
-
-
 
 // Reject payment
 router.post("/admin/payments/:id/reject", isAdmin, async (req, res) => {
@@ -150,27 +158,23 @@ router.post("/admin/claims/:id/approve", isAdmin, async (req, res) => {
   try {
     const Claim = require("../models/Claim");
     const claim = await Claim.findById(req.params.id).populate("user payment");
-    
+
     if (!claim) return res.redirect("/admin/claims");
-    
+
     claim.status = "approved";
     claim.approvedAt = new Date();
     await claim.save();
-    
-    // For ALL expired shops (free and regular), DEDUCT the amount from user balance
-    // This prevents double-counting since user already has the money from daily claims
+
     claim.user.balance -= claim.amount;
-    
+
     if (claim.payment && claim.payment.store === "FREE") {
-      // Mark welcome bonus as claimed permanently for free shops
       claim.user.welcomeBonusClaimed = true;
       console.log(`Free shop claim approved: DEDUCTED ₦${claim.amount} from user balance and marked welcome bonus as claimed for user ${claim.user._id}`);
     } else {
       console.log(`Regular shop claim approved: DEDUCTED ₦${claim.amount} from user balance for user ${claim.user._id}`);
     }
-    
+
     await claim.user.save();
-    
     res.redirect("/admin/claims");
   } catch (error) {
     console.error("Claim approval error:", error);
@@ -183,13 +187,13 @@ router.post("/admin/claims/:id/reject", isAdmin, async (req, res) => {
   try {
     const Claim = require("../models/Claim");
     const claim = await Claim.findById(req.params.id);
-    
+
     if (!claim) return res.redirect("/admin/claims");
-    
+
     claim.status = "rejected";
     claim.rejectedAt = new Date();
     await claim.save();
-    
+
     res.redirect("/admin/claims");
   } catch (error) {
     console.error("Claim rejection error:", error);

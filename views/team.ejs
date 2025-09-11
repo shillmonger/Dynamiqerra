@@ -93,8 +93,8 @@
               <span class="invitation-url">************************</span>
               <span class="invitation-number">*****</span>
             <% } else { %>
-              <span class="invitation-url">https://dynamiqerra.com/</span>
-              <!-- <span class="invitation-url">http://localhost:3000/</span> -->
+              <!-- <span class="invitation-url">https://dynamiqerra.com/</span> -->
+              <span class="invitation-url">http://localhost:3000/</span>
               <span class="invitation-number">
                 <%= user.referral %>
               </span>
@@ -153,19 +153,17 @@
         <div class="card col-6">
           <h3>Your Weekly Eligibility</h3>
           <div class="stat">
-            <%= user.bonusEligibleReferrals %>
+            ₦<%= referralAmount.toLocaleString() %>
           </div>
           <div class="sub">
             Eligible Tier:
-            <strong>
-              <%= weekly.tier %>
-            </strong> →
-            <strong>₦<%= weekly.bonus.toLocaleString() %></strong>
+            <strong id="weekly-tier-label"></strong> →
+            <strong id="weekly-bonus-label"></strong>
           </div>
 
           <div class="btn-hold">
             <button class="btn btn-success withdraw-btn" data-type="weekly">Withdraw</button>
-            <span class="note">Withdrawals are available Monday to Saturday. Referrals Amount are deducted.</span>
+            <span class="note">Withdrawals are available Monday to Saturday. Eligibility is based on Referral Amount tiers.</span>
           </div>
         </div>
 
@@ -303,8 +301,8 @@
           }).showToast();
           return;
         }
-        // const link = `http://localhost:3000/${code}`;
-        const link = `https://dynamiqerra.com/${code}`;
+        const link = `http://localhost:3000/${code}`;
+        // const link = `https://dynamiqerra.com/${code}`;
         navigator.clipboard.writeText(link);
         Toastify({
           text: "Referral link copied",
@@ -319,6 +317,30 @@
       const teamDataEl = document.getElementById('team-data');
       const verifiedReferrals = Number(teamDataEl.dataset.verifiedReferrals || 0);
       const bankSubmitted = teamDataEl.dataset.bankSubmitted === 'true';
+
+      // Weekly tiers
+      const referralAmount = Number("<%= referralAmount %>");
+      const weeklyTiers = [
+        { min: 5000, label: '5 – 9', bonus: 5000 },
+        { min: 10000, label: '10 – 19', bonus: 10000 },
+        { min: 20000, label: '20 – 49', bonus: 20000 },
+        { min: 100000, label: '50 – 99', bonus: 100000 },
+        { min: 250000, label: '100+', bonus: 250000 }
+      ];
+
+      function getWeeklyTier(amount) {
+        for (let i = weeklyTiers.length - 1; i >= 0; i--) {
+          if (amount >= weeklyTiers[i].min) {
+            return weeklyTiers[i];
+          }
+        }
+        return null;
+      }
+
+      // Show eligible tier in UI
+      const weeklyTier = getWeeklyTier(referralAmount);
+      document.getElementById('weekly-tier-label').textContent = weeklyTier ? weeklyTier.label : 'None';
+      document.getElementById('weekly-bonus-label').textContent = weeklyTier ? `₦${weeklyTier.bonus.toLocaleString()}` : '₦0';
 
       document.querySelectorAll(".withdraw-btn").forEach(btn => {
         btn.addEventListener("click", async function () {
@@ -338,11 +360,12 @@
             return;
           }
 
-          // ✅ 2. Weekly withdrawal rules
+          // ✅ 2. Weekly withdrawal rules (based on referralAmount)
           if (type === "weekly") {
-            if (verifiedReferrals < 5) {
+            const tier = getWeeklyTier(referralAmount);
+            if (!tier) {
               Toastify({
-                text: "Not enough verified referrals",
+                text: "Referral Amount not enough for any tier",
                 duration: 3000,
                 gravity: "top",
                 position: "center",
@@ -429,6 +452,21 @@
       });
     </script>
 
+
+
+<!-- // Disable withdraw buttons on first click to prevent double submit -->
+<script>
+  document.querySelectorAll(".withdraw-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+      // only disable if not already disabled
+      if (!this.disabled) {
+        this.disabled = true;
+        this.dataset.originalText = this.innerText;
+        this.innerText = "Processing...";
+      }
+    });
+  });
+</script>
 
 
 

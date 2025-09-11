@@ -403,8 +403,37 @@
  }
 
 
+ /* HISTORY BUTTONS  */
+ .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+      border-radius: 5px;
+    }
+    .tab-btn.active {
+      background: #0056b3;
+    }
+    .history-section {
+      display: none;
+    }
+    .history-section.active {
+      display: block;
+    }
 
-
+    .history-section h2{
+color: white;
+font-size: 15px;
+margin-top: 30px;
+margin-bottom: 10px;
+text-align: center;
+    }
 
 
 
@@ -665,6 +694,30 @@
 
 
 
+ /* HISTORY BUTTONS  */
+ .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 10px;
+    }
+    .tab-btn.active {
+      background: #0056b3;
+    }
+    .history-section {
+      display: none;
+    }
+    .history-section.active {
+      display: block;
+    }
 
 
 

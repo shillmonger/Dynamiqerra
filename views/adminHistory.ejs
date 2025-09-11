@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+  <title>Admin History</title>
+  <link rel="stylesheet" href="/css/admin.css">>
+</head>
+<body>
+  <%- include('partials/admin-nav') %>
+
+  <div class="payments" id="admin-home">
+    <h1>ADMIN HISTORY</h1>
+
+    <div class="platform-buttons">
+      <a href="/admin/payments" class="platform-btn">Pending Payments</a>
+      <a href="/admin/claims" class="platform-btn">Shop Payouts</a>
+      <a href="/admin/withdrawals" class="platform-btn">Referral Payouts</a>
+      <a href="/admin/history" class="platform-btn active">All History</a>
+    </div>
+
+    <!-- Tab buttons -->
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-target="payments">Payments</button>
+      <button class="tab-btn" data-target="withdrawals">Ref Payouts</button>
+      <button class="tab-btn" data-target="claims">Shop Payouts</button>
+    </div>
+
+    <!-- Payments Section -->
+    <div class="history-section active" id="payments">
+      <h2>Payments</h2>
+      <div class="payment-contain">
+        <% if (payments && payments.length > 0) { %>
+          <% payments.forEach(p => { %>
+            <div class="payment">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="payment-id">Payments <br> #<%= p._id %></span>
+                <span class="payment-status"><%= p.status.charAt(0).toUpperCase() + p.status.slice(1) %></span>
+              </div>
+              <hr style="margin: 10px 0;">
+              <p><strong>User:</strong> <%= p.user?.phone || '-' %></p>
+              <p><strong>Store:</strong> <%= p.store %></p>
+              <p><strong>Method:</strong> <%= p.method %></p>
+              <p><strong>Amount:</strong> ₦<%= p.amount.toLocaleString() %></p>
+              <p><strong>TXID:</strong> <%= p.txid %></p>
+              <p><strong>Requested At:</strong> <%= p.createdAt.toLocaleString() %></p>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p class="fallback-message">No payments found.</p>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Withdrawals Section -->
+    <div class="history-section" id="withdrawals">
+      <h2>Referal Payouts</h2>
+      <div class="payment-contain">
+        <% if (withdrawals && withdrawals.length > 0) { %>
+          <% withdrawals.forEach(w => { %>
+            <div class="payment">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="payment-id">Referal Payouts <br> #<%= w._id %></span>
+                <span class="payment-status"><%= w.status.charAt(0).toUpperCase() + w.status.slice(1) %></span>
+              </div>
+              <hr style="margin: 10px 0;">
+              <p><strong>User:</strong> <%= w.user?.phone || '-' %></p>
+              <p><strong>Type:</strong> <%= w.type %></p>
+              <p><strong>Amount:</strong> ₦<%= w.amount.toLocaleString() %></p>
+              <p><strong>Bank Name:</strong> <%= w.bankDetails?.bankName || '-' %></p>
+              <p><strong>Account Name:</strong> <%= w.bankDetails?.accountName || '-' %></p>
+              <p><strong>Account Number:</strong> <%= w.bankDetails?.accountNumber || '-' %></p>
+              <p><strong>Requested At:</strong> <%= w.createdAt.toLocaleString() %></p>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p class="fallback-message">No withdrawals found.</p>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Claims Section -->
+    <div class="history-section" id="claims">
+      <h2>Shop Payouts</h2>
+      <div class="payment-contain">
+        <% if (claims && claims.length > 0) { %>
+          <% claims.forEach(c => { %>
+            <div class="payment">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="payment-id">Shop Payouts <br> #<%= c._id %></span>
+                <span class="payment-status"><%= c.status.charAt(0).toUpperCase() + c.status.slice(1) %></span>
+              </div>
+              <hr style="margin: 10px 0;">
+              <p><strong>User:</strong> <%= c.user?.phone || '-' %></p>
+              <p><strong>Amount:</strong> ₦<%= c.amount.toLocaleString() %></p>
+              <p><strong>Payment Ref:</strong> <%= c.payment?._id || '-' %></p>
+              <p><strong>Bank Name:</strong> <%= c.bankDetails?.bankName || '-' %></p>
+              <p><strong>Account Name:</strong> <%= c.bankDetails?.accountName || '-' %></p>
+              <p><strong>Account Number:</strong> <%= c.bankDetails?.accountNumber || '-' %></p>
+              <p><strong>Requested At:</strong> <%= c.createdAt.toLocaleString() %></p>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p class="fallback-message">No claims found.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.history-section');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all
+        buttons.forEach(b => b.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+
+        // Add to clicked
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

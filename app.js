@@ -51,6 +51,8 @@ app.use("/", require("./routes/withdrawals"));
 app.use("/", require("./routes/adminWithdrawals"));
 app.use("/claim", require("./routes/claim"));
 app.use("/admin/claims", require("./routes/adminClaims"));
+app.use("/", require("./routes/adminHistory"));
+
 
 
 
