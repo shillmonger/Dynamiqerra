@@ -136,7 +136,8 @@ router.get("/payout", isAuthenticated, async (req, res) => {
       expiredPayments: processedExpiredPayments,
       bank,
       shopEarnings,
-      accountBalance: user.balance || 0
+      accountBalance: user.balance || 0,
+      referralAmount: user.referralAmount || 0   // default to 0 if undefined
     });
   } catch (err) {
     console.error(err);

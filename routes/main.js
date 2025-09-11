@@ -296,7 +296,7 @@ router.post("/activate-free-shop", isAuthenticated, async (req, res) => {
       txid: "FREE_" + Date.now(),
       status: "approved",
       validUntil: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
-      //  validUntil: new Date(Date.now() + 3 * 60 * 1000), // 1 minute (for testing)
+      //  validUntil: new Date(Date.now() + 1 * 60 * 1000), // 1 minute (for testing)
       dailyEarning: 300,
       durationDays: 3,
       totalEarned: 0,

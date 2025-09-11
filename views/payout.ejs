@@ -63,7 +63,8 @@
                 </div>
               </div>
               <div class="balance-amount">
-                ₦<%= accountBalance.toLocaleString('en-NG') %>
+                <!-- ₦<%= accountBalance.toLocaleString('en-NG') %> -->
+                ₦<%= (accountBalance + referralAmount).toLocaleString('en-NG') %>
               </div>
               </div>
               </div>
@@ -214,7 +215,7 @@
     }
 
     if (Number(amount) > Number(shopEarnings[shop])) {
-      Toastify({ text: 'Amount exceeds claimable for this shop.', backgroundColor: '#e74c3c', duration: 4000 }).showToast();
+      Toastify({ text: 'Amount exceeds.', backgroundColor: '#e74c3c', duration: 4000 }).showToast();
       btn.disabled = false;
       btn.textContent = 'Submit Withdrawal';
       return;

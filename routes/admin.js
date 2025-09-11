@@ -70,7 +70,7 @@ router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
     // production 
     payment.validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
     // For testing: uncomment the line below and comment the line above
-    // payment.validUntil = new Date(Date.now() + 3 * 60 * 1000);
+    // payment.validUntil = new Date(Date.now() + 1 * 60 * 1000);
 
     payment.durationDays = days;
     payment.dailyEarning = dailyEarning;   // ✅ FIXED typo
