@@ -93,8 +93,8 @@
               <span class="invitation-url">************************</span>
               <span class="invitation-number">*****</span>
             <% } else { %>
-              <!-- <span class="invitation-url">https://dynamiqerra.com/</span> -->
-              <span class="invitation-url">http://localhost:3000/</span>
+              <span class="invitation-url">https://dynamiqerra.com/</span>
+              <!-- <span class="invitation-url">http://localhost:3000/</span> -->
               <span class="invitation-number">
                 <%= user.referral %>
               </span>
@@ -301,8 +301,8 @@
           }).showToast();
           return;
         }
-        const link = `http://localhost:3000/${code}`;
-        // const link = `https://dynamiqerra.com/${code}`;
+        // const link = `http://localhost:3000/${code}`;
+        const link = `https://dynamiqerra.com/${code}`;/?
         navigator.clipboard.writeText(link);
         Toastify({
           text: "Referral link copied",
