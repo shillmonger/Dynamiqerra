@@ -98,8 +98,9 @@ router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
         validUntil: { $gt: new Date() }
       }).sort({ createdAt: -1 });
 
-      referrer.verifiedReferrals = (referrer.verifiedReferrals || 0) + 1;
-      referrer.monthlyReferrals = (referrer.monthlyReferrals || 0) + 1;
+  referrer.verifiedReferrals = (referrer.verifiedReferrals || 0) + 1;
+  referrer.monthlyReferrals = (referrer.monthlyReferrals || 0) + 1;
+  referrer.weeklyReferralsCount = (referrer.weeklyReferralsCount || 0) + 1;
 
       let directBonusPaid = false;
 

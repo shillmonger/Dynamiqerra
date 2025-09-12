@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   // referral counts
   totalReferrals: { type: Number, default: 0 },
   verifiedReferrals: { type: Number, default: 0 },
+  weeklyReferralsCount: { type: Number, default: 0 },
   monthlyReferrals: { type: Number, default: 0 },
 
   isAdmin: { type: Boolean, default: false },

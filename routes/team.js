@@ -31,10 +31,11 @@ router.get("/team", isAuthenticated, async (req, res) => {
     });
     const referralUnlocked = !!paidShop;
 
-    const totalReferralsCount = user.totalReferrals || 0;
-    const verifiedReferralsCount = user.verifiedReferrals || 0;   // lifetime referrals
-    const monthlyReferralsCount = user.monthlyReferrals || 0;     // resets after monthly withdrawal
-    const referralAmount = user.referralAmount || 0;
+  const totalReferralsCount = user.totalReferrals || 0;
+  const verifiedReferralsCount = user.verifiedReferrals || 0;   // lifetime referrals
+  const monthlyReferralsCount = user.monthlyReferrals || 0;     // resets after monthly withdrawal
+  const referralAmount = user.referralAmount || 0;
+  const weeklyReferralsCount = user.weeklyReferralsCount || 0;
 
     // ✅ Check if bank details exist
     const bank = await Bank.findOne({ userId: user._id });
@@ -43,24 +44,27 @@ router.get("/team", isAuthenticated, async (req, res) => {
     // ✅ Filter referrals that actually give bonus (for weekly)
     const bonusEligibleReferralsCount = user.bonusEligibleReferrals || 0;
 
-    // ✅ WEEKLY BONUS based on referralAmount
+    // ✅ WEEKLY BONUS based on weeklyReferralsCount
     let weeklyTier = 0;
     let weeklyBonus = 0;
-    if (referralAmount >= 5000 && referralAmount <= 9999) {
+    if (weeklyReferralsCount >= 10 && weeklyReferralsCount <= 20) {
       weeklyTier = 1;
       weeklyBonus = 5000;
-    } else if (referralAmount >= 10000 && referralAmount <= 19999) {
+    } else if (weeklyReferralsCount >= 21 && weeklyReferralsCount <= 50) {
       weeklyTier = 2;
-      weeklyBonus = 10000;
-    } else if (referralAmount >= 20000 && referralAmount <= 49999) {
-      weeklyTier = 3;
       weeklyBonus = 20000;
-    } else if (referralAmount >= 50000 && referralAmount <= 99999) {
-      weeklyTier = 4;
+    } else if (weeklyReferralsCount >= 51 && weeklyReferralsCount <= 100) {
+      weeklyTier = 3;
       weeklyBonus = 100000;
-    } else if (referralAmount >= 100000) {
+    } else if (weeklyReferralsCount >= 101 && weeklyReferralsCount <= 300) {
+      weeklyTier = 4;
+      weeklyBonus = 200000;
+    } else if (weeklyReferralsCount >= 301) {
       weeklyTier = 5;
       weeklyBonus = 250000;
+    } else if (weeklyReferralsCount >= 11 && weeklyReferralsCount <= 20) {
+      weeklyTier = 1;
+      weeklyBonus = 10000;
     }
 
     // ✅ MONTHLY BONUS based on monthlyReferralsCount
@@ -100,6 +104,7 @@ router.get("/team", isAuthenticated, async (req, res) => {
       verifiedReferralsCount,     // lifetime
       monthlyReferralsCount,      // resets monthly
       referralAmount,
+      weeklyReferralsCount,
       bonusEligibleReferralsCount,
       weekly: { tier: weeklyTier, bonus: weeklyBonus },
       monthly: { tier: monthlyTier, salary: monthlySalary },

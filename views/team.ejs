@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <title>team</title>
   <meta name="theme-color" content="#0d0d0d">
-    <link rel="icon" href="/images/favicon.png" type="image/png">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -19,267 +19,304 @@
 <body>
 
   <!-- ALL ABOUT LARGE SCREENS -->
-    <%- include ('partials/big-screen') %>
+  <%- include ('partials/big-screen') %>
 
 
 
-<div class="hold">
-  <!-- NAVBAR  -->
-  <%- include ('partials/nav') %>
+    <div class="hold">
+      <!-- NAVBAR  -->
+      <%- include ('partials/nav') %>
 
-    <!-- Header -->
-    <div class="header">
-      <div class="brand-text">
-        <h1>Team Report</h1>
-      </div>
-      <div class="settings-icon" id="settingsBtn">
-        <i class="ri-notification-2-line"></i>
-      </div>
-    </div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <div class="noti-icon" id="closeBtn">
-        <i class="ri-close-line"></i>
-      </div>
-
-      <div class="notification-details">
-        <!-- HISTORY -->
-        <div class="section-title" style="margin-top: 18px;">
-          <h2>Claim History</h2>
-          <span class="badge">Audit trail • Money intact 🔒</span>
+        <!-- Header -->
+        <div class="header">
+          <div class="brand-text">
+            <h1>Team Report</h1>
+          </div>
+          <div class="settings-icon" id="settingsBtn">
+            <i class="ri-notification-2-line"></i>
+          </div>
         </div>
 
-        <div class="history-container">
-          <% if (withdrawals.length===0) { %>
-            <p class="empty">No claims yet.</p>
-            <% } else { %>
-              <ul class="history-list">
-                <% withdrawals.forEach(w=> { %>
-                  <li class="history-item <%= w.type %> <%= w.status %>">
-                    <div>
-                      <strong>
-                        <%= w.type.charAt(0).toUpperCase() + w.type.slice(1) %> withdrawal
-                      </strong><br>
-                      ₦<%= w.amount.toLocaleString() %>
-                    </div>
-                    <span class="status <%= w.status %>">
-                      <%= w.status.charAt(0).toUpperCase() + w.status.slice(1) %>
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+          <div class="noti-icon" id="closeBtn">
+            <i class="ri-close-line"></i>
+          </div>
+
+          <div class="notification-details">
+            <!-- HISTORY -->
+            <div class="section-title" style="margin-top: 18px;">
+              <h2>Claim History</h2>
+              <span class="badge">Audit trail • Money intact 🔒</span>
+            </div>
+
+            <div class="history-container">
+              <% if (withdrawals.length===0) { %>
+                <p class="empty">No claims yet.</p>
+                <% } else { %>
+                  <ul class="history-list">
+                    <% withdrawals.forEach(w=> { %>
+                      <li class="history-item <%= w.type %> <%= w.status %>">
+                        <div>
+                          <strong>
+                            <%= w.type.charAt(0).toUpperCase() + w.type.slice(1) %> withdrawal
+                          </strong><br>
+                          ₦<%= w.amount.toLocaleString() %>
+                        </div>
+                        <span class="status <%= w.status %>">
+                          <%= w.status.charAt(0).toUpperCase() + w.status.slice(1) %>
+                        </span>
+                      </li>
+                      <% }) %>
+                  </ul>
+                  <% } %>
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="container">
+
+          <!-- FERERAL SECTION  -->
+          <div class="invitation-section">
+            <div class="invitation-header">Invitation Code</div>
+
+            <div class="referal-hold">
+              <div class="invitation-code">
+                <% if (!referralUnlocked) { %>
+                  <span class="invitation-url">************************</span>
+                  <span class="invitation-number">*****</span>
+                  <% } else { %>
+                    <span class="invitation-url">https://dynamiqerra.com/</span>
+                    <!-- <span class="invitation-url">http://localhost:3000/</span> -->
+                    <span class="invitation-number">
+                      <%= user.referral %>
                     </span>
-                  </li>
-                  <% }) %>
-              </ul>
-              <% } %>
-        </div>
+                    <% } %>
+              </div>
 
-      </div>
+              <button class="copy-btn" data-referral="<%= user.referral %>" data-active="<%= !!referralUnlocked %>"
+                onclick="copyReferral(this.dataset.referral, this.dataset.active === 'true')">
+                Copy
+              </button>
+            </div>
+          </div>
+
+
+          <!-- Referal stats  -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number">
+                <%= totalReferralsCount %>
+              </div>
+              <div class="stat-label">Total Referrals</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number">
+                <%= verifiedReferralsCount %>
+              </div>
+              <div class="stat-label">Verified Referrals</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number">₦<%= referralAmount.toLocaleString() %>
+              </div>
+              <div class="stat-label">Referral Amount</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number <%= bankSubmitted ? 'submitted' : 'awaiting' %>">
+                <%= bankSubmitted ? 'Submitted' : 'Awaiting' %>
+              </div>
+              <div class="stat-label">My bank details</div>
+            </div>
+
+          </div>
+
+
+
+
+
+
+          <!--REFERAL BONUS-->
+          <div class="section-title">
+            <h2>Referral Bonus</h2>
+            <span class="badge">Withdrawable Mon–Sat</span>
+          </div>
+
+          <div class="grid">
+            <div class="card col-6">
+              <h3>Your Referral Bonus Balance</h3>
+              <div class="stat">
+                ₦<%= referralAmount.toLocaleString() %>
+              </div>
+              <div class="sub">
+                Min withdrawal <strong>₦1,000</strong>
+              </div>
+              <div class="btn-hold">
+                <button class="btn btn-bonus withdraw-btn" data-type="referral">Withdraw</button>
+                <span class="note">Withdrawals are available Monday to Saturday. Referal Balance resets after admin
+                  approval.</span>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+          <!-- WEEKLY SALARY -->
+          <div class="section-title">
+            <h2>Weekly Salary</h2>
+            <span class="badge">Withdrawable only on Saturdays</span>
+          </div>
+
+          <div class="grid">
+            <div class="card col-6">
+              <h3>Your Weekly Eligibility</h3>
+              <p class="sub">Verified referrals counted in a week (reset after admin approval or every Saturday)</p>
+              <div class="stat">
+                <%= weeklyReferralsCount %>
+              </div>
+              <div class="sub">
+                Eligible Tier:
+                <strong id="weekly-tier-label"></strong> →
+                <strong id="weekly-bonus-label"></strong>
+              </div>
+              <div class="btn-hold">
+                <button class="btn btn-success withdraw-btn" data-type="weekly">Withdraw</button>
+                <span class="note">Withdrawals are available only on Saturdays. Referrals reset weekly, even if no tier
+                  met.</span>
+              </div>
+            </div>
+
+            <div class="card col-6">
+              <h3>Weekly Tiers</h3>
+              <table aria-label="Weekly Tiers">
+                <thead>
+                  <tr>
+                    <th>Verified Referrals</th>
+                    <th>Bonus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Min – 10</td>
+                    <td>₦5,000</td>
+                  </tr>
+                  <tr>
+                    <td>11 – 20</td>
+                    <td>₦10,000</td>
+                  </tr>
+                  <tr>
+                    <td>21 – 50</td>
+                    <td>₦20,000</td>
+                  </tr>
+                  <tr>
+                    <td>50 – 100</td>
+                    <td>₦100,000</td>
+                  </tr>
+                  <tr>
+                    <td>100 – 300</td>
+                    <td>₦200,000</td>
+                  </tr>
+                  <tr>
+                    <td>300+</td>
+                    <td>₦250,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+
+
+
+
+
+          <!-- MONTHLY SALARY -->
+          <div class="section-title" style="margin-top: 18px;">
+            <h2>Monthly Salary</h2>
+            <span class="badge">Last Saturday of the month</span>
+          </div>
+
+          <div class="grid">
+            <div class="card col-6">
+              <h3>Your Monthly Eligibility</h3>
+              <p class="sub">Verified referrals counted in a month (reset after admin approval or end of month)</p>
+              <div class="stat">
+                <%= monthlyReferralsCount %>
+              </div>
+              <div class="sub">
+                Eligible Tier:
+                <strong id="monthly-tier-label"></strong> →
+                <strong id="monthly-salary-label"></strong>
+              </div>
+              <div class="btn-hold">
+                <button class="btn btn-accent withdraw-btn" data-type="monthly">Withdraw</button>
+                <span class="note">Withdrawals are available only on the last Saturday of the month. Referrals reset
+                  monthly, even if no tier met.</span>
+              </div>
+            </div>
+
+            <div class="card col-6">
+              <h3>Monthly Tiers</h3>
+              <table aria-label="Monthly Tiers">
+                <thead>
+                  <tr>
+                    <th>Verified Referrals</th>
+                    <th>Salary</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>20 – 50</td>
+                    <td>₦10,000</td>
+                  </tr>
+                  <tr>
+                    <td>50 – 100</td>
+                    <td>₦25,000</td>
+                  </tr>
+                  <tr>
+                    <td>100 – 200</td>
+                    <td>₦50,000</td>
+                  </tr>
+                  <tr>
+                    <td>200 – 500</td>
+                    <td>₦150,000</td>
+                  </tr>
+                  <tr>
+                    <td>500+</td>
+                    <td>₦300,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+
+
+          <div class="card col-12">
+            <p class="note">
+              Note: <em>Referal bonus</em> consume the referal amount once marked as paid by admin. <em>Weekly</em>
+              claims consume verified referrals for that week after admin marks as Paid. <em>Monthly</em> salary counts
+              all verified referrals in the month, even those already used weekly claims.
+            </p>
+          </div>
+        </div>
 
 
     </div>
-
-
-
-
-
-    <div class="container">
-
-      <!-- FERERAL SECTION  -->
-      <div class="invitation-section">
-        <div class="invitation-header">Invitation Code</div>
-
-        <div class="referal-hold">
-          <div class="invitation-code">
-            <% if (!referralUnlocked) { %>
-              <span class="invitation-url">************************</span>
-              <span class="invitation-number">*****</span>
-            <% } else { %>
-              <span class="invitation-url">https://dynamiqerra.com/</span>
-              <!-- <span class="invitation-url">http://localhost:3000/</span> -->
-              <span class="invitation-number">
-                <%= user.referral %>
-              </span>
-            <% } %>
-          </div>
-
-          <button class="copy-btn" data-referral="<%= user.referral %>" data-active="<%= !!referralUnlocked %>"
-  onclick="copyReferral(this.dataset.referral, this.dataset.active === 'true')">
-  Copy
-</button>
-        </div>
-      </div>
-
-
-      <!-- Referal stats  -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">
-            <%= totalReferralsCount %>
-          </div>
-          <div class="stat-label">Total Referrals</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-number">
-            <%= verifiedReferralsCount %>
-          </div>
-          <div class="stat-label">Verified Referrals</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-number">₦<%= referralAmount.toLocaleString() %>
-          </div>
-          <div class="stat-label">Referral Amount</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-number <%= bankSubmitted ? 'submitted' : 'awaiting' %>">
-            <%= bankSubmitted ? 'Submitted' : 'Awaiting' %>
-          </div>
-          <div class="stat-label">My bank details</div>
-        </div>
-
-      </div>
-
-
-
-
-      <!-- WEEKLY BONUS -->
-      <div class="section-title">
-        <h2>Weekly Bonus</h2>
-  <span class="badge">Monday to Saturday</span>
-      </div>
-
-      <div class="grid">
-        <div class="card col-6">
-          <h3>Your Weekly Eligibility</h3>
-          <div class="stat">
-            ₦<%= referralAmount.toLocaleString() %>
-          </div>
-          <div class="sub">
-            Eligible Tier:
-            <strong id="weekly-tier-label"></strong> →
-            <strong id="weekly-bonus-label"></strong>
-          </div>
-
-          <div class="btn-hold">
-            <button class="btn btn-success withdraw-btn" data-type="weekly">Withdraw</button>
-            <span class="note">Withdrawals are available Monday to Saturday. Eligibility is based on Referral Amount tiers.</span>
-          </div>
-        </div>
-
-        <div class="card col-6">
-          <h3>Weekly Tiers</h3>
-          <table aria-label="Weekly Tiers">
-            <thead>
-              <tr>
-                <th>Verified Referrals</th>
-                <th>Bonus</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>5 – 9</td>
-                <td>₦5,000</td>
-              </tr>
-              <tr>
-                <td>10 – 19</td>
-                <td>₦10,000</td>
-              </tr>
-              <tr>
-                <td>20 – 49</td>
-                <td>₦20,000</td>
-              </tr>
-              <tr>
-                <td>50 – 99</td>
-                <td>₦100,000</td>
-              </tr>
-              <tr>
-                <td>100+</td>
-                <td>₦250,000</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
-
-
-      <!-- MONTHLY SALARY -->
-      <div class="section-title" style="margin-top: 18px;">
-        <h2>Monthly Team Salary</h2>
-  <span class="badge">Monday to Saturday</span>
-      </div>
-
-      <div class="grid">
-        <div class="card col-6">
-          <h3>Your Monthly Eligibility</h3>
-          <p class="sub">Verified referrals counted this month (includes those used for weekly payouts)</p>
-          <div class="stat">
-            <%= monthlyReferralsCount %>
-          </div>
-          <div class="sub">
-            Eligible Tier:
-            <strong>
-              <%= monthly.tier %>
-            </strong> →
-            <strong>₦<%= monthly.salary.toLocaleString() %></strong>
-          </div>
-
-          <div class="btn-hold">
-            <button class="btn btn-accent withdraw-btn" data-type="monthly">Withdraw</button>
-            <span class="note">Withdrawals are available Monday to Saturday. If you miss any, referrals carry forward to unlock a bigger tier.</span>
-          </div>
-        </div>
-
-        <div class="card col-6">
-          <h3>Monthly Tiers</h3>
-          <table aria-label="Monthly Tiers">
-            <thead>
-              <tr>
-                <th>Verified Referrals</th>
-                <th>Salary</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>20 – 49</td>
-                <td>₦10,000</td>
-              </tr>
-              <tr>
-                <td>50 – 99</td>
-                <td>₦25,000</td>
-              </tr>
-              <tr>
-                <td>100 – 199</td>
-                <td>₦50,000</td>
-              </tr>
-              <tr>
-                <td>200 – 499</td>
-                <td>₦150,000</td>
-              </tr>
-              <tr>
-                <td>500+</td>
-                <td>₦300,000</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
-
-
-      <div class="card col-12" style="margin-top: 8px;">
-        <p class="note" style="margin-top: 10px;">
-          Note: Weekly claims <em>consume</em> referrals amount after admin marks as Paid. Monthly salary counts all
-          verified referrals in the month, even those already used weekly claims.
-        </p>
-      </div>
-    </div>
-
-
-</div>
 
 
     <!-- Hidden data for script -->
@@ -287,6 +324,7 @@
       data-bank-submitted="<%= bankSubmitted %>" hidden></div>
 
     <!-- SCRIPTS -->
+
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
       // Copy referral
@@ -317,30 +355,55 @@
       const teamDataEl = document.getElementById('team-data');
       const verifiedReferrals = Number(teamDataEl.dataset.verifiedReferrals || 0);
       const bankSubmitted = teamDataEl.dataset.bankSubmitted === 'true';
+      const referralAmount = Number("<%= referralAmount %>");
+      const weeklyReferralsCount = Number("<%= weeklyReferralsCount %>");
+      const monthlyReferralsCount = Number("<%= monthlyReferralsCount %>");
 
       // Weekly tiers
-      const referralAmount = Number("<%= referralAmount %>");
       const weeklyTiers = [
-        { min: 5000, label: '5 – 9', bonus: 5000 },
-        { min: 10000, label: '10 – 19', bonus: 10000 },
-        { min: 20000, label: '20 – 49', bonus: 20000 },
-        { min: 100000, label: '50 – 99', bonus: 100000 },
-        { min: 250000, label: '100+', bonus: 250000 }
+        { min: 10, label: 'Min – 10', bonus: 5000 },
+        { min: 11, label: '11 – 20', bonus: 10000 },
+        { min: 21, label: '21 – 50', bonus: 20000 },
+        { min: 50, label: '50 – 100', bonus: 100000 },
+        { min: 100, label: '100 – 300', bonus: 200000 },
+        { min: 300, label: '300+', bonus: 250000 }
       ];
 
-      function getWeeklyTier(amount) {
+      function getWeeklyTier(referrals) {
         for (let i = weeklyTiers.length - 1; i >= 0; i--) {
-          if (amount >= weeklyTiers[i].min) {
+          if (referrals >= weeklyTiers[i].min) {
             return weeklyTiers[i];
           }
         }
         return null;
       }
 
+      // Monthly tiers
+      const monthlyTiers = [
+        { min: 20, label: '20 – 50', salary: 10000 },
+        { min: 50, label: '50 – 100', salary: 25000 },
+        { min: 100, label: '100 – 200', salary: 50000 },
+        { min: 200, label: '200 – 500', salary: 150000 },
+        { min: 500, label: '500+', salary: 300000 }
+      ];
+
+      function getMonthlyTier(referrals) {
+        for (let i = monthlyTiers.length - 1; i >= 0; i--) {
+          if (referrals >= monthlyTiers[i].min) {
+            return monthlyTiers[i];
+          }
+        }
+        return null;
+      }
+
       // Show eligible tier in UI
-      const weeklyTier = getWeeklyTier(referralAmount);
+      const weeklyTier = getWeeklyTier(weeklyReferralsCount);
       document.getElementById('weekly-tier-label').textContent = weeklyTier ? weeklyTier.label : 'None';
       document.getElementById('weekly-bonus-label').textContent = weeklyTier ? `₦${weeklyTier.bonus.toLocaleString()}` : '₦0';
+
+      const monthlyTier = getMonthlyTier(monthlyReferralsCount);
+      document.getElementById('monthly-tier-label').textContent = monthlyTier ? monthlyTier.label : 'None';
+      document.getElementById('monthly-salary-label').textContent = monthlyTier ? `₦${monthlyTier.salary.toLocaleString()}` : '₦0';
 
       document.querySelectorAll(".withdraw-btn").forEach(btn => {
         btn.addEventListener("click", async function () {
@@ -351,7 +414,7 @@
           // ✅ 1. Check bank details first
           if (!bankSubmitted) {
             Toastify({
-              text: "Bank details not submited",
+              text: "Bank details not submitted",
               duration: 3000,
               gravity: "top",
               position: "center",
@@ -360,12 +423,11 @@
             return;
           }
 
-          // ✅ 2. Weekly withdrawal rules (based on referralAmount)
-          if (type === "weekly") {
-            const tier = getWeeklyTier(referralAmount);
-            if (!tier) {
+          // ✅ Referral Bonus withdrawal rules
+          if (type === "referral") {
+            if (referralAmount < 1000) {
               Toastify({
-                text: "Referral Amount not enough for any tier",
+                text: "Minimum withdrawal is ₦1,000",
                 duration: 3000,
                 gravity: "top",
                 position: "center",
@@ -386,11 +448,12 @@
             eligible = true;
           }
 
-          // ✅ 3. Monthly withdrawal rules
-          if (type === "monthly") {
-            if (verifiedReferrals < 20) {
+          // ✅ Weekly withdrawal rules
+          if (type === "weekly") {
+            const tier = getWeeklyTier(weeklyReferralsCount);
+            if (!tier) {
               Toastify({
-                text: "Not enough verified referrals",
+                text: "Not enough weekly referrals for any tier",
                 duration: 3000,
                 gravity: "top",
                 position: "center",
@@ -398,9 +461,40 @@
               }).showToast();
               return;
             }
-            if (today.getDay() === 0) {
+            // Saturday only
+            if (today.getDay() !== 6) {
               Toastify({
-                text: "Withdrawals are not allowed on Sundays.",
+                text: "Only allowed on Saturdays.",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c"
+              }).showToast();
+              return;
+            }
+            eligible = true;
+          }
+
+          // ✅ Monthly withdrawal rules
+          if (type === "monthly") {
+            const tier = getMonthlyTier(monthlyReferralsCount);
+            if (!tier) {
+              Toastify({
+                text: "Not enough monthly referrals for any tier",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#e74c3c"
+              }).showToast();
+              return;
+            }
+            // Last Saturday of the month only
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            const lastSaturday = new Date(lastDay);
+            lastSaturday.setDate(lastDay.getDate() - ((lastDay.getDay() + 1) % 7));
+            if (!(today.getDay() === 6 && today.getDate() === lastSaturday.getDate())) {
+              Toastify({
+                text: "Allowed on the last Saturday of the month.",
                 duration: 3000,
                 gravity: "top",
                 position: "center",
@@ -454,19 +548,19 @@
 
 
 
-<!-- // Disable withdraw buttons on first click to prevent double submit -->
-<script>
-  document.querySelectorAll(".withdraw-btn").forEach(btn => {
-    btn.addEventListener("click", function () {
-      // only disable if not already disabled
-      if (!this.disabled) {
-        this.disabled = true;
-        this.dataset.originalText = this.innerText;
-        this.innerText = "Processing...";
-      }
-    });
-  });
-</script>
+    <!-- // Disable withdraw buttons on first click to prevent double submit -->
+    <!-- <script>
+          document.querySelectorAll(".withdraw-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+              // only disable if not already disabled
+              if (!this.disabled) {
+                this.disabled = true;
+                this.dataset.originalText = this.innerText;
+                this.innerText = "Processing...";
+              }
+            });
+          });
+        </script> -->
 
 
 

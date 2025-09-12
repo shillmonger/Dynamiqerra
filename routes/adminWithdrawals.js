@@ -33,21 +33,21 @@ router.post("/admin/withdrawals/:id/approve", isAuthenticated, isAdmin, async (r
 
     const user = withdrawal.user;
 
-    if (withdrawal.type === "weekly") {
-      // make sure user has enough referralAmount
-      if (user.referralAmount < withdrawal.amount) {
-        return res.redirect("/admin/withdrawals"); // insufficient referral balance
+      if (withdrawal.type === "referral") {
+        // Reset referral amount after approval
+        user.referralAmount = 0;
+      } else if (withdrawal.type === "weekly") {
+        // make sure user has enough referralAmount
+        if (user.referralAmount < withdrawal.amount) {
+          return res.redirect("/admin/withdrawals"); // insufficient referral balance
+        }
+        user.referralAmount = 0;
+        user.bonusEligibleReferrals = 0;
+      } else if (withdrawal.type === "monthly") {
+        // Company pays → don't deduct from user balance
+        // reset monthly referrals after approval
+        user.monthlyReferrals = 0;
       }
-
-      // ✅ reset referral amount to 0 after approval
-      user.referralAmount = 0;
-      user.bonusEligibleReferrals = 0;
-
-    } else if (withdrawal.type === "monthly") {
-      // ✅ Company pays → don't deduct from user balance
-      // ✅ reset monthly referrals after approval
-      user.monthlyReferrals = 0;
-    }
 
     await user.save();
 

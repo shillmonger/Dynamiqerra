@@ -11,42 +11,88 @@ router.post("/team/withdraw", isAuthenticated, async (req, res) => {
     const user = await User.findById(req.session.user._id);
     if (!user) return res.status(401).json({ success: false, message: "Not logged in" });
 
-    const { type } = req.body; // 'weekly' or 'monthly'
-    let amount = 0;
 
+    const { type } = req.body; // 'referral', 'weekly', 'monthly'
+    let amount = 0;
     const today = new Date();
 
-    // ⬇ Restrict withdrawals on Sundays
-    const isSunday = today.getDay() === 0;
-    if (isSunday) {
+    // Restrict withdrawals on Sundays
+    if (today.getDay() === 0) {
       return res.json({ success: false, message: "Withdrawals are not allowed on Sundays." });
     }
 
-    // ✅ Weekly bonus check
-    if (type === "weekly") {
+    // Referral Bonus withdrawal
+    if (type === "referral") {
       const referralAmount = user.referralAmount || 0;
-      if (referralAmount >= 5000 && referralAmount <= 9999) amount = 5000;
-      else if (referralAmount >= 10000 && referralAmount <= 19999) amount = 10000;
-      else if (referralAmount >= 20000 && referralAmount <= 49999) amount = 20000;
-      else if (referralAmount >= 50000 && referralAmount <= 99999) amount = 100000;
-      else if (referralAmount >= 100000) amount = 250000;
-    } 
-    // ✅ Monthly bonus check
-    else if (type === "monthly") {
-      const monthlyReferrals = user.monthlyReferrals || 0;
-      if (monthlyReferrals >= 20 && monthlyReferrals <= 49) amount = 10000;
-      else if (monthlyReferrals >= 50 && monthlyReferrals <= 99) amount = 25000;
-      else if (monthlyReferrals >= 100 && monthlyReferrals <= 199) amount = 50000;
-      else if (monthlyReferrals >= 200 && monthlyReferrals <= 499) amount = 150000;
-      else if (monthlyReferrals >= 500) amount = 300000;
-    } 
+      if (referralAmount < 1000) {
+        return res.json({ success: false, message: "Minimum withdrawal is ₦1,000." });
+      }
+      amount = referralAmount;
+      // Only allow Mon-Sat
+      // Already checked for Sunday above
+    }
+    // Weekly Salary withdrawal
+else if (type === "weekly") {
+  // Only allow on Saturday
+  if (today.getDay() !== 6) {
+    return res.json({ success: false, message: "Allowed only on Saturdays." });
+  }
+
+  const weeklyReferralsCount = user.weeklyReferralsCount || 0;
+
+  if (weeklyReferralsCount === 10) {
+    amount = 5000;
+  } else if (weeklyReferralsCount >= 11 && weeklyReferralsCount <= 20) {
+    amount = 10000;
+  } else if (weeklyReferralsCount >= 21 && weeklyReferralsCount <= 50) {
+    amount = 20000;
+  } else if (weeklyReferralsCount >= 51 && weeklyReferralsCount <= 100) {
+    amount = 100000;
+  } else if (weeklyReferralsCount >= 101 && weeklyReferralsCount <= 300) {
+    amount = 200000;
+  } else if (weeklyReferralsCount >= 301) {
+    amount = 250000;
+  }
+
+  // If no valid tier found
+  if (amount <= 0) {
+    return res.json({ success: false, message: "Not enough weekly referrals for any tier." });
+  }
+}
+
+  // Monthly Salary withdrawal
+else if (type === "monthly") {
+  // Only allow on last Saturday of the month
+  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  const lastSaturday = new Date(lastDay);
+  lastSaturday.setDate(lastDay.getDate() - ((lastDay.getDay() + 1) % 7));
+
+  if (!(today.getDay() === 6 && today.getDate() === lastSaturday.getDate())) {
+    return res.json({ success: false, message: "Allowed only on the last Saturday of the month." });
+  }
+
+  const monthlyReferrals = user.monthlyReferrals || 0;
+
+  if (monthlyReferrals >= 20 && monthlyReferrals <= 50) {
+    amount = 10000;
+  } else if (monthlyReferrals >= 51 && monthlyReferrals <= 100) {
+    amount = 25000;
+  } else if (monthlyReferrals >= 101 && monthlyReferrals <= 200) {
+    amount = 50000;
+  } else if (monthlyReferrals >= 201 && monthlyReferrals <= 500) {
+    amount = 150000;
+  } else if (monthlyReferrals >= 501) {
+    amount = 300000;
+  }
+
+  // If no valid tier found
+  if (amount <= 0) {
+    return res.json({ success: false, message: "Not enough monthly referrals for any tier." });
+  }
+}
+
     else {
       return res.json({ success: false, message: "Invalid withdrawal type" });
-    }
-
-    // If no valid tier found
-    if (amount <= 0) {
-      return res.json({ success: false, message: "Not enough verified referrals." });
     }
 
     // ✅ Make sure bank details exist

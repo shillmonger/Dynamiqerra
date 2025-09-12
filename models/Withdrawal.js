@@ -9,7 +9,7 @@ const withdrawalSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["weekly", "monthly"],
+    enum: ["referral", "weekly", "monthly"],
     required: true,
   },
   amount: { type: Number, required: true },
