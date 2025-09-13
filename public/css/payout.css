@@ -83,7 +83,7 @@ body {
     }
 
     .balance-label, .account-number, .balance-label, .balance-amount{
-      color: var(--text-light);
+      color: var(--white);
     }
 
     .container {

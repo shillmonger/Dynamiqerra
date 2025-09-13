@@ -37,16 +37,9 @@ router.post("/admin/withdrawals/:id/approve", isAuthenticated, isAdmin, async (r
         // Reset referral amount after approval
         user.referralAmount = 0;
       } else if (withdrawal.type === "weekly") {
-        // make sure user has enough referralAmount
-        if (user.referralAmount < withdrawal.amount) {
-          return res.redirect("/admin/withdrawals"); // insufficient referral balance
-        }
-        user.referralAmount = 0;
+        // Weekly salary: reset weeklyReferralsCount and bonusEligibleReferrals
+        user.weeklyReferralsCount = 0;
         user.bonusEligibleReferrals = 0;
-      } else if (withdrawal.type === "monthly") {
-        // Company pays → don't deduct from user balance
-        // reset monthly referrals after approval
-        user.monthlyReferrals = 0;
       }
 
     await user.save();

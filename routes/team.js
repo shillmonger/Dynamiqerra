@@ -33,7 +33,7 @@ router.get("/team", isAuthenticated, async (req, res) => {
 
   const totalReferralsCount = user.totalReferrals || 0;
   const verifiedReferralsCount = user.verifiedReferrals || 0;   // lifetime referrals
-  const monthlyReferralsCount = user.monthlyReferrals || 0;     // resets after monthly withdrawal
+  // ...existing code...
   const referralAmount = user.referralAmount || 0;
   const weeklyReferralsCount = user.weeklyReferralsCount || 0;
 
@@ -67,25 +67,7 @@ router.get("/team", isAuthenticated, async (req, res) => {
       weeklyBonus = 10000;
     }
 
-    // ✅ MONTHLY BONUS based on monthlyReferralsCount
-    let monthlyTier = 0;
-    let monthlySalary = 0;
-    if (monthlyReferralsCount >= 20 && monthlyReferralsCount <= 49) {
-      monthlyTier = 1;
-      monthlySalary = 10000;
-    } else if (monthlyReferralsCount >= 50 && monthlyReferralsCount <= 99) {
-      monthlyTier = 2;
-      monthlySalary = 25000;
-    } else if (monthlyReferralsCount >= 100 && monthlyReferralsCount <= 199) {
-      monthlyTier = 3;
-      monthlySalary = 50000;
-    } else if (monthlyReferralsCount >= 200 && monthlyReferralsCount <= 499) {
-      monthlyTier = 4;
-      monthlySalary = 150000;
-    } else if (monthlyReferralsCount >= 500) {
-      monthlyTier = 5;
-      monthlySalary = 300000;
-    }
+  // ...existing code...
 
     // ✅ Get withdrawals for notifications sidebar
     const withdrawals = await Withdrawal.find({ user: user._id })
@@ -102,12 +84,12 @@ router.get("/team", isAuthenticated, async (req, res) => {
       referralUnlocked,
       totalReferralsCount,
       verifiedReferralsCount,     // lifetime
-      monthlyReferralsCount,      // resets monthly
+  // ...existing code...
       referralAmount,
       weeklyReferralsCount,
       bonusEligibleReferralsCount,
       weekly: { tier: weeklyTier, bonus: weeklyBonus },
-      monthly: { tier: monthlyTier, salary: monthlySalary },
+  // ...existing code...
       bankSubmitted,
       message,
       withdrawals   // 🚀 pass to EJS

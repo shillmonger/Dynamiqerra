@@ -119,14 +119,14 @@
     </div>
     <div class="card-content">
         <div class="stats-grid">
-            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦10,000</div></div>
-            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦350</div></div>
-            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">45</div></div>
+            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦15,000</div></div>
+            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦600</div></div>
+            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">120</div></div>
         </div>
         <div class="income-section">
-            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦350</span></div>
-            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
-            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦15,750</span></div>
+            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦600</span></div>
+            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">120 days</span></div>
+            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦72,000</span></div>
         </div>
 
         <% if (s1Payment) { %>
@@ -143,9 +143,9 @@
                         const diff = end - now;
                         if (diff <= 0) {
                             clearInterval(timer);
-                            el.innerText = "Activate ₦10,000";
+                            el.innerText = "Activate ₦15,000";
                             el.parentElement.disabled = false;
-                            el.parentElement.onclick = () => goToPayment(10000, "S1");
+                            el.parentElement.onclick = () => goToPayment(15000, "S1");
                             return;
                         }
                         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -156,7 +156,7 @@
             </script>
         <% } else { %>
             <!-- Not active: show Activate button -->
-            <button class="activate-button" onclick="goToPayment(10000, 'S1')">Activate ₦10,000</button>
+            <button class="activate-button" onclick="goToPayment(15000, 'S1')">Activate ₦15,000</button>
         <% } %>
     </div>
 </div>
@@ -174,13 +174,13 @@
     <div class="card-content">
         <div class="stats-grid">
             <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦25,000</div></div>
-            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦850</div></div>
-            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">45</div></div>
+            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦900</div></div>
+            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">120</div></div>
         </div>
         <div class="income-section">
-            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦850</span></div>
-            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
-            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦38,250</span></div>
+            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦900</span></div>
+            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">120 days</span></div>
+            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦108,000</span></div>
         </div>
 
         <% if (s2Payment) { %>
@@ -230,12 +230,12 @@
                         <div class="stats-grid">
                             <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦50,000</div></div>
                             <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦2,000</div></div>
-                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">45</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">120</div></div>
                         </div>
                         <div class="income-section">
                             <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦2,000</span></div>
-                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">45 days</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦90,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">120 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦240,000</span></div>
                         </div>
                         <% if (s3Payment) { %>
                             <button class="activate-button" disabled>
@@ -280,13 +280,13 @@
                     <div class="card-content">
                         <div class="stats-grid">
                             <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦100,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦3,000</div></div>
-                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">90</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦4,000</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">120</div></div>
                         </div>
                         <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦3,000</span></div>
-                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">90 days</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦270,000</span></div>
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦4,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">120 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦480,000</span></div>
                         </div>
                         <% if (s4Payment) { %>
                             <button class="activate-button" disabled>
@@ -330,14 +330,14 @@
                     </div>
                     <div class="card-content">
                         <div class="stats-grid">
-                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦150,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦4,000</div></div>
-                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">90</div></div>
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦200,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦8,000</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">120</div></div>
                         </div>
                         <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦4,000</span></div>
-                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">90 days</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦360,000</span></div>
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦8,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">120 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦960,000</span></div>
                         </div>
                         <% if (s5Payment) { %>
                             <button class="activate-button" disabled>
@@ -352,9 +352,9 @@
                                         const diff = end - now;
                                         if (diff <= 0) {
                                             clearInterval(timer);
-                                            el.innerText = "Activate ₦150,000";
+                                            el.innerText = "Activate ₦200,000";
                                             el.parentElement.disabled = false;
-                                            el.parentElement.onclick = () => goToPayment(150000, "S5");
+                                            el.parentElement.onclick = () => goToPayment(200000, "S5");
                                             return;
                                         }
                                         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -364,7 +364,7 @@
                                 })();
                             </script>
                         <% } else { %>
-                            <button class="activate-button" onclick="goToPayment(150000, 'S5')">Activate ₦150,000</button>
+                            <button class="activate-button" onclick="goToPayment(200000, 'S5')">Activate ₦200,000</button>
                         <% } %>
                     </div>
                 </div>
@@ -381,14 +381,14 @@
                     </div>
                     <div class="card-content">
                         <div class="stats-grid">
-                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦250,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦6,000</div></div>
-                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦500,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦20,000</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">120</div></div>
                         </div>
                         <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦6,000</span></div>
-                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦2,190,000</span></div>
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦20,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">120 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦2,400,000</span></div>
                         </div>
                         <% if (s6Payment) { %>
                             <button class="activate-button" disabled>
@@ -403,9 +403,9 @@
                                         const diff = end - now;
                                         if (diff <= 0) {
                                             clearInterval(timer);
-                                            el.innerText = "Activate ₦250,000";
+                                            el.innerText = "Activate ₦500,000";
                                             el.parentElement.disabled = false;
-                                            el.parentElement.onclick = () => goToPayment(250000, "S6");
+                                            el.parentElement.onclick = () => goToPayment(500000, "S6");
                                             return;
                                         }
                                         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -415,7 +415,7 @@
                                 })();
                             </script>
                         <% } else { %>
-                            <button class="activate-button" onclick="goToPayment(250000, 'S6')">Activate ₦250,000</button>
+                            <button class="activate-button" onclick="goToPayment(500000, 'S6')">Activate ₦500,000</button>
                         <% } %>
                     </div>
                 </div>
@@ -432,14 +432,14 @@
                     </div>
                     <div class="card-content">
                         <div class="stats-grid">
-                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦500,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦15,000</div></div>
-                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
+                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦1,000,000</div></div>
+                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦40,000</div></div>
+                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">120</div></div>
                         </div>
                         <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦15,000</span></div>
-                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦5,475,000</span></div>
+                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦40,000</span></div>
+                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">120 days</span></div>
+                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦4,800,000</span></div>
                         </div>
                         <% if (s7Payment) { %>
                             <button class="activate-button" disabled>
@@ -454,60 +454,9 @@
                                         const diff = end - now;
                                         if (diff <= 0) {
                                             clearInterval(timer);
-                                            el.innerText = "Activate ₦500,000";
-                                            el.parentElement.disabled = false;
-                                            el.parentElement.onclick = () => goToPayment(500000, "S7");
-                                            return;
-                                        }
-                                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                                        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                        el.innerText = `${days}d ${hrs}h remaining`;
-                                    }, 1000);
-                                })();
-                            </script>
-                        <% } else { %>
-                            <button class="activate-button" onclick="goToPayment(500000, 'S7')">Activate ₦500,000</button>
-                        <% } %>
-                    </div>
-                </div>
-
-
-
-                <!-- S8 -->
-                <% const s8Payment = payments.find(p => p.store === "S8" && new Date(p.validUntil) > new Date()); %>
-                <div class="product-card level-8">
-                    <div class="card-header">
-                        <div class="store-level">Investment Plan</div>
-                        <div class="level-number">S8</div>
-                        <img src="/images/shop 8.png" alt="shop" class="gem-icon">
-                    </div>
-                    <div class="card-content">
-                        <div class="stats-grid">
-                            <div class="stat"><div class="stat-label">Investment</div><div class="stat-value">₦1,000,000</div></div>
-                            <div class="stat"><div class="stat-label">Daily Income</div><div class="stat-value">₦35,000</div></div>
-                            <div class="stat"><div class="stat-label">Available days</div><div class="stat-value">365</div></div>
-                        </div>
-                        <div class="income-section">
-                            <div class="income-item"><span class="income-label">Daily income</span><span class="income-value">₦35,000</span></div>
-                            <div class="income-item"><span class="income-label">Validity period</span><span class="income-value">365 days</span></div>
-                            <div class="income-item"><span class="income-label">Total income</span><span class="income-value">₦12,775,000</span></div>
-                        </div>
-                        <% if (s8Payment) { %>
-                            <button class="activate-button" disabled>
-                                <span id="countdown-S8"></span>
-                            </button>
-                            <script>
-                                (() => {
-                                    const end = new Date("<%= s8Payment.validUntil %>").getTime();
-                                    const el = document.getElementById("countdown-S8");
-                                    const timer = setInterval(() => {
-                                        const now = Date.now();
-                                        const diff = end - now;
-                                        if (diff <= 0) {
-                                            clearInterval(timer);
                                             el.innerText = "Activate ₦1,000,000";
                                             el.parentElement.disabled = false;
-                                            el.parentElement.onclick = () => goToPayment(1000000, "S8");
+                                            el.parentElement.onclick = () => goToPayment(1000000, "S7");
                                             return;
                                         }
                                         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -517,10 +466,13 @@
                                 })();
                             </script>
                         <% } else { %>
-                            <button class="activate-button" onclick="goToPayment(1000000, 'S8')">Activate ₦1,000,000</button>
+                            <button class="activate-button" onclick="goToPayment(1000000, 'S7')">Activate ₦1,000,000</button>
                         <% } %>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
 

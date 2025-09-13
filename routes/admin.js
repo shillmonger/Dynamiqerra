@@ -45,21 +45,19 @@ router.post("/admin/payments/:id/approve", isAdmin, async (req, res) => {
 
   switch (payment.store) {
     case "S1":
-      days = 45; dailyEarning = 350; break;
+      days = 120; dailyEarning = 600; break;
     case "S2":
-      days = 45; dailyEarning = 850; break;
+      days = 120; dailyEarning = 900; break;
     case "S3":
-      days = 45; dailyEarning = 2000; break;
+      days = 120; dailyEarning = 2000; break;
     case "S4":
-      days = 90; dailyEarning = 3000; break;
+      days = 120; dailyEarning = 4000; break;
     case "S5":
-      days = 90; dailyEarning = 4000; break;
+      days = 120; dailyEarning = 8000; break;
     case "S6":
-      days = 365; dailyEarning = 6000; break;
+      days = 120; dailyEarning = 20000; break;
     case "S7":
-      days = 365; dailyEarning = 15000; break;
-    case "S8":
-      days = 365; dailyEarning = 35000; break;
+      days = 120; dailyEarning = 40000; break;
     default:
       days = 0; dailyEarning = 0;
   }

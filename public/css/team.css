@@ -371,19 +371,13 @@ font-size: 15px;
         opacity: .6;
         cursor: not-allowed;
     } */
-
-    .btn-bonus {
-        background: rgb(242, 160, 9);
-        border-color: rgb(242, 160, 9);
-    }
-
     
     .btn-success {
         background: linear-gradient(180deg, #16a34a, #0f7a38);
         border-color: #0f7a38;
     }
     
-    .btn-accent {
+    .btn-bonus {
         background: linear-gradient(180deg, #2d63ff, #1a3ecb);
         border-color: #2a4bd6;
     }
