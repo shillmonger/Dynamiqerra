@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+    --primary-color: #0d0d0d;
+    --primary-color-light: #111;
+    --primary-color-extra-light: #1b1b1b;
+    --secondary-color: #e5c765;
+    --secondary-color-dark: #c5a057;
+    --text-light: #cecece;
+    --white: #ffffff;
+    --max-width: 1300px;
+}
+
+/* Mobile-only styles */
+@media (max-width: 800px) {
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--primary-color);
+        width: 100%;
+        overflow-x: hidden;
+        margin-bottom: 0;
+    }
+
+
+
+    /* ALL ABOUT MAIN CONTECT  */
+
+    .container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 15px;
+        margin-top: 1rem;
+    }
+
+
+    /* transaction  */
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+            margin: 0 auto;
+            gap: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            padding: 16px 15px;
+            background: var(--primary-color-extra-light);
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e8e8e8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .transaction-icon{
+            content: "₦";
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .transaction-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .transaction-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 2px;
+        }
+
+        .transaction-status {
+            font-size: 13px;
+            color: green;
+        }
+
+        .transaction-amount {
+            text-align: right;
+        }
+
+        .amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 2px;
+        }
+
+        .transaction-time {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .naira-symbol {
+            font-family: Arial, sans-serif;
+        }
+}

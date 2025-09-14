@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Payment = require("../models/Payment");
 const Bank = require("../models/Bank");
 const Claim = require("../models/Claim");
+const Withdrawal = require("../models/Withdrawal");
 const router = express.Router();
 
 // Middleware to check session
@@ -120,6 +121,30 @@ router.get("/funding-details", (req, res) => {
 router.get("/withdrawal-details", (req, res) => {
   res.render("withdrawal-details");
 });
+
+
+// approved Page
+router.get("/approved", async (req, res) => {
+  try {
+    // fetch all approved withdrawals
+    const approvedWithdrawals = await Withdrawal.find({ status: "approved" })
+      .populate("user") // if you want user details
+      .sort({ createdAt: -1 }); // latest first
+
+    // fetch all approved claims (if you also want them)
+    const approvedClaims = await Claim.find({ status: "approved" })
+      .populate("user")
+      .populate("payment")
+      .sort({ createdAt: -1 });
+
+    res.render("approved", { approvedWithdrawals, approvedClaims });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+
 
 // Dashboard
 router.get("/dashboard", isAuthenticated, async (req, res) => {
@@ -255,7 +280,7 @@ router.get("/:referralCode", (req, res, next) => {
   const referralCode = req.params.referralCode;
 
   const skipRoutes = [
-    "shop","team","payment","login","register","payout",
+    "shop","team","payment","login","register","payout","approved",
     "logout","funding-details","dashboard","profile","bank", "withdrawal-details"
   ];
   if (skipRoutes.includes(referralCode)) {

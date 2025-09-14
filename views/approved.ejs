@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Details</title>
+    <meta name="theme-color" content="#0d0d0d">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/funding-details.css">
+    <link rel="stylesheet" href="/css/approved.css">
+</head>
+
+<body>
+
+    <!-- ALL ABOUT LARGE SCREENS -->
+    <%- include ('partials/big-screen') %>
+
+        <div class="hold">
+
+            <main class="main-content">
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="brand-text">
+                        <h1>Withdrawals</h1>
+                        <a href="/profile">
+                            <div class="back-icon">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+
+
+                <!-- MAIN CONTENT -->
+                <div class="container">
+                    <div class="transaction-list">
+
+                        <!-- withdawal  -->
+                        <% approvedWithdrawals.forEach(w => { %>
+  <div class="transaction-item">
+    <div class="transaction-icon">
+      <i class="ri-bank-line"></i>
+    </div>
+    <div class="transaction-details">
+      <div class="transaction-title"><%= w.bankDetails.bankName %></div>
+      <div class="transaction-status">Approved</div>
+    </div>
+    <div class="transaction-amount">
+      <div class="amount"><span class="naira-symbol">₦</span> <%= w.amount.toLocaleString() %></div>
+      <div class="transaction-time"><%= w.createdAt.toLocaleString() %></div>
+    </div>
+  </div>
+<% }) %>
+
+
+
+<!-- claim  -->
+<% approvedClaims.forEach(c => { %>
+  <div class="transaction-item">
+    <div class="transaction-icon">
+      <i class="ri-bank-line"></i>
+    </div>
+    <div class="transaction-details">
+      <div class="transaction-title"><%= c.bankDetails.bankName %></div>
+      <div class="transaction-status">Approved</div>
+    </div>
+    <div class="transaction-amount">
+      <div class="amount"><span class="naira-symbol">₦</span> <%= c.amount.toLocaleString() %></div>
+      <div class="transaction-time"><%= c.createdAt.toLocaleString() %></div>
+    </div>
+  </div>
+<% }) %>
+
+
+                    </div>
+
+
+                </div>
+
+            </main>
+        </div>
+
+</body>
+
+</html>
