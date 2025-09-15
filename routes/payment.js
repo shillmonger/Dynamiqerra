@@ -90,8 +90,8 @@ router.post(
 
       res.redirect("/payment?status=success");
     } catch (error) {
-      console.error(error);
-      res.redirect("/payment?status=error");
+      console.error("Upload error:", error);
+res.status(500).send(error.message);
     }
   }
 );

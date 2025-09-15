@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>payment</title>
-<meta name="theme-color" content="#0d0d0d">
-    <link rel="icon" href="/images/favicon.png" type="image/png">
+  <meta name="theme-color" content="#0d0d0d">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
   <link rel="icon" href="/images/favicon.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
@@ -19,231 +19,232 @@
 
 
   <!-- ALL ABOUT LARGE SCREENS -->
-    <%- include ('partials/big-screen') %>
+  <%- include ('partials/big-screen') %>
 
 
 
 
     <div class="hold">
-  <main class="main-content">
+      <main class="main-content">
 
-    <!-- Header -->
-    <div class="header">
-      <div class="brand-text">
-        <h1>Funding Center</h1>
-        <a href="/shop">
-          <div class="back-icon">
-            <i class="ri-arrow-left-s-line"></i>
+        <!-- Header -->
+        <div class="header">
+          <div class="brand-text">
+            <h1>Funding Center</h1>
+            <a href="/shop">
+              <div class="back-icon">
+                <i class="ri-arrow-left-s-line"></i>
+              </div>
+            </a>
           </div>
-        </a>
-      </div>
-    </div>
+        </div>
 
-    <!-- ALL ABOUT THE MAIN CONTENT REGARDIN WALLET -->
-    <div class="wallet-container">
-      <div class="wallet-funding">
+        <!-- ALL ABOUT THE MAIN CONTENT REGARDIN WALLET -->
+        <div class="wallet-container">
+          <div class="wallet-funding">
 
-        <!-- ALL ABOUT PALMPAY FUNDING  -->
-        <div class="palmpay-plan">
+            <!-- ALL ABOUT PALMPAY FUNDING  -->
+            <div class="palmpay-plan">
 
-          <p class="wallet-text">
-            Copy the Account Number below and send your desired amount to our Opay Account to get your wallet funded.
-          </p>
+              <p class="wallet-text">
+                Copy the Account Number below and send your desired amount to our Opay Account to get your wallet
+                funded.
+              </p>
 
-          <!-- BANK DETAILS -->
-          <ul class="bank-detils">
-            <li><strong>Bank Name:</strong> Opay MFB</li>
-            <li><strong>Account Name:</strong> Mary Feyi</li>
-            <li>
-              <strong>Account Number:</strong>
-              <span id="account-number">7059416630</span>
-              <button class="copy-btn" onclick="copyAccount(this)">Copy</button>
-            </li>
-          </ul>
+              <!-- BANK DETAILS -->
+              <ul class="bank-detils">
+                <li><strong>Bank Name:</strong> Opay MFB</li>
+                <li><strong>Account Name:</strong> Mary Feyi</li>
+                <li>
+                  <strong>Account Number:</strong>
+                  <span id="account-number">7059416630</span>
+                  <button class="copy-btn" onclick="copyAccount(this)">Copy</button>
+                </li>
+              </ul>
 
-          <!-- CONFIRM TRANSACTION FORM  -->
-          <h2 class="wallet">Fill your Transaction Details</h2>
-          <p class="wallet-text">
-            Please make sure to enter the exact amount you sent, provide the correct transaction Session ID,
-            and optionally upload a screenshot of the payment for faster verification.
-          </p>
+              <!-- CONFIRM TRANSACTION FORM  -->
+              <h2 class="wallet">Fill your Transaction Details</h2>
+              <p class="wallet-text">
+                Please make sure to enter the exact amount you sent, provide the correct transaction Session ID,
+                and optionally upload a screenshot of the payment for faster verification.
+              </p>
 
-          <form id="paymentForm" action="/submit" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="method" value="PalmPay" />
-    <input type="hidden" name="currency" value="NGN" />
-    <input type="hidden" name="store" value="<%= store %>">
-
-
-    <label>Amount Sent</label>
-    <input type="number" id="amount" name="amount" value="<%= amount %>" required />
-
-    <label>Transaction Session ID</label>
-    <input type="text" name="txid" placeholder="XXXXXXXXXXXXXXXXXXX" required />
-
-    <label>Upload Screenshot (Optional)</label>
-    <input type="file" name="screenshot" accept="image/*" />
-
-    <div class="chain">
-      <button type="submit">Submit Payment Details</button>
-      <button type="button" onclick="showImage()">Find Transaction Session ID</button>
-    </div>
-</form>
+              <form id="paymentForm" action="/submit" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="method" value="PalmPay" />
+                <input type="hidden" name="currency" value="NGN" />
+                <input type="hidden" name="store" value="<%= store %>">
 
 
-          <div id="overlay" class="image-overlay" onclick="hideImage()">
-            <div class="image-popup" onclick="event.stopPropagation()">
-              <img src="/images/review4.jpg" alt="Transaction ID Example">
+                <label>Amount Sent</label>
+                <input type="number" id="amount" name="amount" value="<%= amount %>" required />
+
+                <label>Transaction Session ID</label>
+                <input type="text" name="txid" placeholder="XXXXXXXXXXXXXXXXXXX" required />
+
+                <label>Upload Screenshot (Optional)</label>
+                <input type="file" name="screenshot" accept="image/*" />
+
+                <div class="chain">
+                  <button type="submit">Submit Payment Details</button>
+                  <button type="button" onclick="showImage()">Find Transaction Session ID</button>
+                </div>
+              </form>
+
+
+              <div id="overlay" class="image-overlay" onclick="hideImage()">
+                <div class="image-popup" onclick="event.stopPropagation()">
+                  <img src="/images/review4.jpg" alt="Transaction ID Example">
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- ALL ABOUT PAYMENT HISTORY  -->
-      <div class="payment-history">
-        <h2 class="wallet">My Transaction Payment History</h2>
-        <p class="wallet-text">
-          Here you can view the status of all your wallet funding transactions, including whether they are
-          pending, approved, or rejected.
-        </p>
+          <!-- ALL ABOUT PAYMENT HISTORY  -->
+          <div class="payment-history">
+            <h2 class="wallet">My Transaction Payment History</h2>
+            <p class="wallet-text">
+              Here you can view the status of all your wallet funding transactions, including whether they are
+              pending, approved, or rejected.
+            </p>
 
-        <!-- Filter Buttons -->
-        <form method="GET" action="/payment" id="filter-form" class="history-btn">
-          <button type="submit" name="status" value="" class="all">All</button>
-          <button type="submit" name="status" value="pending" class="pending"
-            onclick="setBorderClass('pending')">Pending</button>
-          <button type="submit" name="status" value="approved" class="approved"
-            onclick="setBorderClass('approved')">Approved</button>
-          <button type="submit" name="status" value="rejected" class="rejected"
-            onclick="setBorderClass('rejected')">Rejected</button>
-        </form>
+            <!-- Filter Buttons -->
+            <form method="GET" action="/payment" id="filter-form" class="history-btn">
+              <button type="submit" name="status" value="" class="all">All</button>
+              <button type="submit" name="status" value="pending" class="pending"
+                onclick="setBorderClass('pending')">Pending</button>
+              <button type="submit" name="status" value="approved" class="approved"
+                onclick="setBorderClass('approved')">Approved</button>
+              <button type="submit" name="status" value="rejected" class="rejected"
+                onclick="setBorderClass('rejected')">Rejected</button>
+            </form>
 
-        <!-- Payment History Display -->
-        <div class="payment-contain">
-          <% if (payments.length===0) { %>
-            <p>No payments found.</p>
-            <% } else { %>
-              <% payments.forEach(payment=> { %>
-                <div class="payment-entry">
-                  <p><strong>Amount:</strong>
-                    <%= payment.currency==='USD' ? '$' + Number(payment.amount).toLocaleString() : '₦' +
-                      Number(payment.amount).toLocaleString('en-NG') %>
-                  </p>
-                  <p><strong>Currency:</strong>
-                    <%= payment.currency %>
-                  </p>
-                  <p><strong>Status:</strong>
-                    <%= payment.status %>
-                  </p>
-                  <p><strong>Payment Method:</strong>
-                    <%= payment.method %>
-                  </p>
-                  <p><strong>Session ID:</strong>
-                    <%= payment.txid %>
-                  </p>
-                  <p><strong>Screenshot:</strong>
-                    <% if (payment.screenshot) { %>
-                      <a href="<%= payment.screenshot %>" target="_blank">view screenshot</a>
+            <!-- Payment History Display -->
+            <div class="payment-contain">
+              <% if (payments.length===0) { %>
+                <p>No payments found.</p>
+                <% } else { %>
+                  <% payments.forEach(payment=> { %>
+                    <div class="payment-entry">
+                      <p><strong>Amount:</strong>
+                        <%= payment.currency==='USD' ? '$' + Number(payment.amount).toLocaleString() : '₦' +
+                          Number(payment.amount).toLocaleString('en-NG') %>
+                      </p>
+                      <p><strong>Currency:</strong>
+                        <%= payment.currency %>
+                      </p>
+                      <p><strong>Status:</strong>
+                        <%= payment.status %>
+                      </p>
+                      <p><strong>Payment Method:</strong>
+                        <%= payment.method %>
+                      </p>
+                      <p><strong>Session ID:</strong>
+                        <%= payment.txid %>
+                      </p>
+                      <p><strong>Screenshot:</strong>
+                        <% if (payment.screenshot) { %>
+                          <a href="<%= payment.screenshot %>" target="_blank">view screenshot</a>
+                          <% } %>
+                      </p>
+                    </div>
+                    <% }); %>
                       <% } %>
-                  </p>
-                </div>
-                <% }); %>
-                  <% } %>
+            </div>
+          </div>
+
         </div>
-      </div>
+      </main>
 
     </div>
-  </main>
-
-</div>
 
 
-  
-  <!-- COPY BUTTON  -->
-  <script>
-    function copyAccount(button) {
-      const accountNumber = button.previousElementSibling.innerText;
-      navigator.clipboard.writeText(accountNumber).then(() => {
-        const originalText = button.innerText;
-        button.innerText = "Copied";
-        button.disabled = true;
-        setTimeout(() => {
-          button.innerText = originalText;
-          button.disabled = false;
-        }, 5000);
+
+    <!-- COPY BUTTON  -->
+    <script>
+      function copyAccount(button) {
+        const accountNumber = button.previousElementSibling.innerText;
+        navigator.clipboard.writeText(accountNumber).then(() => {
+          const originalText = button.innerText;
+          button.innerText = "Copied";
+          button.disabled = true;
+          setTimeout(() => {
+            button.innerText = originalText;
+            button.disabled = false;
+          }, 5000);
+        });
+      }
+    </script>
+
+    <!-- FUNCTION TO ADD ACTIVE TO HISTORY BUTTONS border  -->
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status') || 'all';
+      document.body.classList.remove('all', 'pending', 'approved', 'rejected');
+      document.body.classList.add(status);
+    </script>
+
+    <!-- FUNCTION TO SHOW IMAGE  -->
+    <script>
+      function showImage() {
+        document.getElementById("overlay").style.display = "flex";
+      }
+      function hideImage() {
+        document.getElementById("overlay").style.display = "none";
+      }
+    </script>
+
+
+
+
+    <!-- FORM AUTH / TOAST -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+      const form = document.getElementById("paymentForm");
+      const amountInput = document.getElementById("amount");
+
+      // frontend validation
+      form.addEventListener("submit", function (e) {
+        const amount = parseInt(amountInput.value);
+
+        if (isNaN(amount) || amount < 10000) {
+          e.preventDefault(); // stop submit
+          amountInput.style.border = "2px solid red";
+          Toastify({
+            text: "Amount must be at least ₦10,000",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "red",
+          }).showToast();
+        } else {
+          amountInput.style.border = "2px solid green";
+          // let the form submit normally to backend
+        }
       });
-    }
-  </script>
 
-  <!-- FUNCTION TO ADD ACTIVE TO HISTORY BUTTONS border  -->
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get('status') || 'all';
-    document.body.classList.remove('all', 'pending', 'approved', 'rejected');
-    document.body.classList.add(status);
-  </script>
-
-  <!-- FUNCTION TO SHOW IMAGE  -->
-  <script>
-    function showImage() {
-      document.getElementById("overlay").style.display = "flex";
-    }
-    function hideImage() {
-      document.getElementById("overlay").style.display = "none";
-    }
-  </script>
-
-
-
-
-  <!-- FORM AUTH / TOAST -->
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script>
-    const form = document.getElementById("paymentForm");
-    const amountInput = document.getElementById("amount");
-
-    // frontend validation
-    form.addEventListener("submit", function (e) {
-      const amount = parseInt(amountInput.value);
-
-      if (isNaN(amount) || amount < 10000) {
-        e.preventDefault(); // stop submit
-        amountInput.style.border = "2px solid red";
+      // check backend response via query param
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("status") === "success") {
         Toastify({
-          text: "Amount must be at least ₦10,000",
+          text: "Payment submitted successfully!",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "green",
+        }).showToast();
+      } else if (params.get("status") === "error") {
+        Toastify({
+          text: "There was an error processing your payment.",
           duration: 3000,
           gravity: "top",
           position: "right",
           backgroundColor: "red",
         }).showToast();
-      } else {
-        amountInput.style.border = "2px solid green";
-        // let the form submit normally to backend
       }
-    });
-
-    // check backend response via query param
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("status") === "success") {
-      Toastify({
-        text: "Payment submitted successfully!",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "green",
-      }).showToast();
-    } else if (params.get("status") === "error") {
-      Toastify({
-        text: "There was an error processing your payment.",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "red",
-      }).showToast();
-    }
-  </script>
+    </script>
 
 
-  <script src="/js/payment.js"></script>
+    <script src="/js/payment.js"></script>
 </body>
 
 </html>
