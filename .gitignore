@@ -18,8 +18,12 @@ pids
 dist/
 build/
 
-# Uploads
-public/uploads/
+# Ignore everything inside uploads
+/public/uploads/*
+
+# But don’t ignore .gitkeep
+!/public/uploads/.gitkeep
+
 
 # OS files
 .DS_Store
