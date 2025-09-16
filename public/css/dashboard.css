@@ -291,7 +291,7 @@ body {
     /* Video Player */
     .video-container {
         background: var(--primary-color-light);
-        height: 250px;
+        height: 500px;
         margin: 20px 10px;
         border-radius: 12px;
         position: relative;
